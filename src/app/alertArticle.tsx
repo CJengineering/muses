@@ -45,7 +45,7 @@ const AlertArticle: React.FC = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:3000/articles/${id}`);
+        const response = await fetch(`https://new-alerts-e4f6j5kdsq-ew.a.run.app/articles/${id}`);
         const data: APIResponse = await response.json();
         setArticle(data.article);
         setRelatedKeywords(data.related_keywords);
