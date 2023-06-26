@@ -42,9 +42,9 @@ export function App() {
           <SideNavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/google-alerts" element={<TestTabs />} />
-            <Route path="/google-search" element={<GoogleSearch />} />
-            <Route path="/bing-news" element={<BingNews />} />
+            <Route path="/google-alerts" element={<TestTabs url = "articles" />} />
+            <Route path="/google-search" element={<TestTabs url = "gosearts" />}/>
+            <Route path="/bing-news" element={<TestTabs url = "bing_articles" />}/>
             <Route path="/articles/:id" element={<AlertArticle />} />
 
           </Routes>

@@ -14,7 +14,7 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   console.log('from provider', authenticated);
   useEffect(() => {
     // Check if there is an access token in the local storage

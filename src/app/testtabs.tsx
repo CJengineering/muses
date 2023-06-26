@@ -1,10 +1,12 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Tab, Tabs, Typography } from '@mui/material';
 import StickyHeadTable from './stickyheadtable';
-interface statusProps {
-  status: string | null;
+
+interface itemProps{
+  url: string;
 }
-export const TestTabs = () => {
+
+export const TestTabs:React.FC<itemProps> = ({url}) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (
@@ -24,9 +26,9 @@ export const TestTabs = () => {
         <Tab label="Archived" />
       </Tabs>
       <Typography>
-        {value === 0 && <StickyHeadTable status="pending" />}
-        {value === 1 && <StickyHeadTable status="published" />}
-        {value === 2 && <StickyHeadTable status="archived" />}
+        {value === 0 && <StickyHeadTable status= "pending" url ={url} />}
+        {value === 1 && <StickyHeadTable status="published"  url ={url} />}
+        {value === 2 && <StickyHeadTable status="archived" url ={url}  />}
       </Typography>
     </div>
   );

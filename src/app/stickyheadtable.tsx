@@ -88,7 +88,8 @@ const columns: readonly Column[] = [
 ];
 
 interface statusProps {
-  status: string;
+  status: string | undefined;
+  url: string;
 }
 interface Data {
   id: number;
@@ -107,7 +108,7 @@ interface Data {
   category_label: string | null;
 }
 
-const StickyHeadTable: React.FC<statusProps> = ({ status }) => {
+const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Data[]>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -138,7 +139,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status }) => {
   const fetchRows = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:3000/articles?status=${status}`
+        `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url}?status=${status}`
       );
       const data: Data[] = await response.json();
 
@@ -233,6 +234,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status }) => {
                 rows={renderedRows}
                 page={page}
                 setRows={setRows}
+                url_item = {url}
               />
             </TableBody>
           </Table>

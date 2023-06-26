@@ -30,14 +30,15 @@ interface Data {
 }
 interface RowProps {
   page: number;
+  url_item : string;
   rows: Data[];
   rowsPerPage: number;
   setRows: React.Dispatch<React.SetStateAction<Data[]>>;
 }
 
-const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows }) => {
+const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item }) => {
   const handlePost = async (id: number, category_label: string) => {
-    const url = `http://127.0.0.1:3000/articles/${id}`;
+    const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url_item}/${id}`;
     const body = JSON.stringify({ category_label });
 
     try {
