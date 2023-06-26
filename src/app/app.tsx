@@ -17,7 +17,7 @@ import { AuthContext, AuthProvider } from './AuthContext';
 import { useContext } from 'react';
 import StickyHeadTable from './stickyheadtable';
 import { TestTabs } from './testtabs';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import AlertArticle from './alertArticle';
 
 import SideNavBar from './sidenavbar';
@@ -29,29 +29,36 @@ export function App() {
   const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
-
   return (
     <>
-  
-       <Routes>
-            <Route path="/signin" element={<SignIn />} />
-            </Routes>
-      {authenticated ? 
-          (<>
+      <Routes>
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
+      {authenticated ? (
+        <>
           <SideNavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/google-alerts" element={<TestTabs url = "articles" />} />
-            <Route path="/google-search" element={<TestTabs url = "gosearts" />}/>
-            <Route path="/bing-news" element={<TestTabs url = "bing_articles" />}/>
+            <Route
+              path="/google-alerts"
+              element={<TestTabs url="articles" />}
+            />
+            <Route
+              path="/google-search"
+              element={<TestTabs url="gosearts" />}
+            />
+            <Route
+              path="/bing-news"
+              element={<TestTabs url="bing_articles" />}
+            />
             <Route path="/articles/:id" element={<AlertArticle />} />
-
           </Routes>
-          </>
-          )
-        : navigate('/signin')  }
-      
+        </>
+      ) : (
+        <Routes>
+          <Route path="*" element={<Navigate to="/signin" replace />} />
+        </Routes>
+      )}
     </>
   );
 }

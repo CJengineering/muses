@@ -144,6 +144,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
       const data: Data[] = await response.json();
 
       setRows(data);
+      setLoading(false)
     } catch (error) {
       console.error(error);
     }
@@ -170,13 +171,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
     row.title.toLowerCase().includes(search.toLowerCase())
   );
   const [loading, setLoading] = React.useState(true);
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
 
-    return () => clearTimeout(timer);
-  }, []);
 
   if (loading) {
     return (
