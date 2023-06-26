@@ -1,0 +1,24 @@
+.padding-section-medium {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: hsla(0, 55.17%, 42.53%, 1.00);
+}
+
+@media screen and (max-width: 991px) {
+  .padding-section-medium {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .padding-section-medium {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.form-block {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}

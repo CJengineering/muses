@@ -2,9 +2,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
-
+import reactRefresh from '@vitejs/plugin-react-refresh';
 export default defineConfig({
   cacheDir: './node_modules/.vite/muses-front',
+
 
   server: {
     port: 4200,
@@ -18,6 +19,7 @@ export default defineConfig({
 
   plugins: [
     react(),
+    reactRefresh(),
     viteTsConfigPaths({
       root: './',
     }),
