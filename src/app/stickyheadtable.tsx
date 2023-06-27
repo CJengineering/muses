@@ -170,7 +170,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const renderedRows = rows.filter((row) =>
     row.title.toLowerCase().includes(search.toLowerCase())
   );
-  
+
   const [loading, setLoading] = React.useState(true);
 
 
@@ -193,6 +193,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
 
   return (
     <>
+   
       <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
         <TextField
           id="search-bar"
@@ -200,9 +201,9 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
           variant="standard"
           value={search}
           onChange={handleSearchChange}
-          style={{ marginBottom: '1rem' }}
+          style={{ marginBottom: '1rem', marginLeft: "2rem" }}
         />
-        <TableContainer sx={{}}>
+        <TableContainer sx={{padding:"2rem"}}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

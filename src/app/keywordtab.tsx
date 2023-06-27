@@ -41,7 +41,7 @@ export default function KeyWordTable() {
 
   const fetchRows = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/key_words');
+      const response = await fetch('https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words');
       const data: Data[] = await response.json();
       setRows(data);
       setLoading(false);

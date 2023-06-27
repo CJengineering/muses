@@ -50,7 +50,7 @@ export default function SignIn() {
       // Make a POST request to the sign-in URL with form values
 
       const response = await fetch(
-        'http://127.0.0.1:3000/users/tokens/sign_in',
+        'https://new-alerts-e4f6j5kdsq-ew.a.run.app/users/tokens/sign_in',
         {
           method: 'POST',
           headers: {

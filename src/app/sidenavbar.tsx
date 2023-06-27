@@ -3,6 +3,7 @@ import {
   Drawer,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
@@ -12,7 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { Link as RouterLink } from 'react-router-dom';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 interface NavItem {
   text: string;
@@ -49,6 +50,12 @@ const navItems: NavItem[] = [
 ];
 
 const SideNavBar: React.FC = () => {
+  const [selectedItem, setSelectedItem] = React.useState('');
+
+  const handleItemClick = (text: string) => {
+    setSelectedItem(text === selectedItem ? '' : text);
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -63,6 +70,7 @@ const SideNavBar: React.FC = () => {
         },
       }}
     >
+         <div className='padding_vertical_small'></div>
       <List>
         <div className="logo-container">
           <img
@@ -73,15 +81,32 @@ const SideNavBar: React.FC = () => {
           />
         </div>
         {navItems.map((item) => (
-          <ListItem
-            button
+          <ListItemButton
+          selected={item.text === selectedItem}
+          onClick={() => handleItemClick(item.text)}
+          sx={{
+            '&.Mui-selected': {
+              backgroundColor: 'white',
+              color: 'black',
+              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: 'black',
+              },
+            },
+            '&:hover': {
+              backgroundColor: 'lightgray',
+              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: 'black',
+              },
+            },
+    
+          }}
             key={item.text}
             component={RouterLink}
             to={item.link}
           >
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
     </Drawer>

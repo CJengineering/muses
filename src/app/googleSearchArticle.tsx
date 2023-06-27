@@ -47,7 +47,7 @@ const AlertArticle: React.FC = () => {
     const fetchArticle = async () => {
       try {
         const response = await fetch(
-          `https://new-alerts-e4f6j5kdsq-ew.a.run.app/articles/${id}`
+          `https://new-alerts-e4f6j5kdsq-ew.a.run.app/gosearts/${id}`
         );
         const data: APIResponse = await response.json();
         setArticle(data.article);

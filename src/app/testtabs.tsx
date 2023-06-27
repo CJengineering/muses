@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Tab, Tabs, Typography } from '@mui/material';
+import { Box, Paper, Tab, Tabs, Typography } from '@mui/material';
 import StickyHeadTable from './stickyheadtable';
 import { useMatch, useParams } from 'react-router-dom';
 
@@ -41,17 +41,24 @@ export const TestTabs = () => {
   
 
   return (
-    <div>
+    <div style={{backgroundColor: "lightgray"}}>
+      <div className='padding_vertical_small'></div>
+      <Box sx={{ width: '80%', overflow: 'hidden', marginLeft: '0' }}>
+
       <Tabs value={value} onChange={handleChange} centered>
         <Tab label="Pending" />
         <Tab label="Published" />
         <Tab label="Archived" />
       </Tabs>
+
+      <div className='padding_vertical_small'></div>
       <Typography>
         {value === 0 && <StickyHeadTable key = {url} status= "pending" url ={url} />}
         {value === 1 && <StickyHeadTable key = {url}  status="published"  url ={url} />}
         {value === 2 && <StickyHeadTable key = {url}  status="archived" url ={url}  />}
       </Typography>
+      </Box>
+      <div className='padding_vertical_medium'></div>
     </div>
   );
 };
