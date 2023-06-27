@@ -17,46 +17,42 @@ import { AuthContext, AuthProvider } from './AuthContext';
 import { useContext } from 'react';
 import StickyHeadTable from './stickyheadtable';
 import { TestTabs } from './testtabs';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  Navigate,
+  useParams,
+} from 'react-router-dom';
 import AlertArticle from './alertArticle';
 
 import SideNavBar from './sidenavbar';
 import GoogleSearch from './googlesearch';
 import BingNews from './bingnews';
 import Home from './home';
+import KeyWordTable from './keywordtab';
+import Keyword from './keyword';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   return (
     <>
-      <Routes>
-        <Route path="/signin" element={<SignIn />} />
-      </Routes>
-      {authenticated ? (
+ {authenticated ? (
         <>
           <SideNavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/google-alerts"
-              element={<TestTabs url="articles" />}
-            />
-            <Route
-              path="/google-search"
-              element={<TestTabs url="gosearts" />}
-            />
-            <Route
-              path="/bing-news"
-              element={<TestTabs url="bing_articles" />}
-            />
+            <Route path="/news/:urlKey" element={<TestTabs />} />
+            <Route path="/keywords" element={<KeyWordTable />} />
             <Route path="/articles/:id" element={<AlertArticle />} />
+            <Route path="/keyword/:id" element={<Keyword />} />
           </Routes>
         </>
       ) : (
         <Routes>
-          <Route path="*" element={<Navigate to="/signin" replace />} />
+          <Route path="/" element={<Navigate to="/signin" replace />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       )}
     </>

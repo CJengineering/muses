@@ -170,6 +170,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const renderedRows = rows.filter((row) =>
     row.title.toLowerCase().includes(search.toLowerCase())
   );
+  
   const [loading, setLoading] = React.useState(true);
 
 

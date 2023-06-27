@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props: any) {
   return (
@@ -37,6 +38,7 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 export default function SignIn() {
   const { setAuthenticated, authenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -71,6 +73,7 @@ export default function SignIn() {
         localStorage.setItem('refresh_token', refresh_token);
         await setAuthenticated(true);
         console.log(authenticated);
+        navigate('/')
         // Redirect to dashboard or perform other actions
         console.log('Sign-in successful');
       } else {

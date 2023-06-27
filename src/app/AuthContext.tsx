@@ -14,20 +14,34 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(true);
-  console.log('from provider', authenticated);
-  useEffect(() => {
-    // Check if there is an access token in the local storage
-    const token = localStorage.getItem('token');
+  const [authenticated, setAuthenticated] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false); // New state variable
 
-    if (token) {
-      // Access token found, set authenticated to true
-      setAuthenticated(true);
-    }
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          setAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('An error occurred during authentication check:', error);
+      } finally {
+        setAuthChecked(true); // Mark authentication check as completed
+      }
+    };
+
+    checkAuthentication();
   }, []);
+
+  if (!authChecked) {
+    return null; // Render a loading state while the authentication check is in progress
+  }
+
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
 };
+

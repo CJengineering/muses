@@ -18,3 +18,9 @@
   align-items: center;
   justify-content: space-around;
 }
+.logo-container{
+  display: flex;
+  justify-content: left;
+  padding-top: 20px;
+  padding-left: 20px;
+}

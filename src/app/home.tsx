@@ -6,6 +6,9 @@ export default function Home() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <h1>Home hello </h1>
+
+      <p>Still under construction !</p>
+      <p>For now only Alerts are working next update in few hours ...</p>
     </div>
   );
 }
