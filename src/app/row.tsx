@@ -11,6 +11,9 @@ import {
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
 import AlertArticle from './alertArticle';
+interface ApiEndpoints {
+  [key: string]: string;
+}
 
 interface Data {
   id: number;
@@ -36,11 +39,17 @@ interface RowProps {
   setRows: React.Dispatch<React.SetStateAction<Data[]>>;
 }
 
+
 const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item }) => {
+  const apiEndpoints: ApiEndpoints = {
+    "articles":"google-alerts" ,
+    "gosearts":"google-search" ,
+    "bing_articles":"bing-news",
+  };
+  const  linkitem = apiEndpoints[url_item]
   const handlePost = async (id: number, category_label: string) => {
     const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url_item}/${id}`;
     const body = JSON.stringify({ category_label });
-
     try {
       const response = await fetch(url, {
         method: 'PATCH',
@@ -55,9 +64,7 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
         setRows(updatedRows);
       }
 
-      const data = await response.json();
-      // Handle response data if needed
-      console.log(data);
+
     } catch (error) {
       // Handle error if needed
       console.error(error);
@@ -86,7 +93,7 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
           >
             <TableCell style={{ minWidth: 300, width: 300, color: 'gray' }}>
               <Link
-                href={`/articles/${row.id}`}
+                href={`/${linkitem}/${row.id}`}
                 style={{ fontWeight: 'bold', color: 'gray' }}
               >
                 {row.title}
@@ -98,7 +105,7 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
               </Link>
             </TableCell>
             <TableCell style={{ width: 200 }} align="left">
-              {row.key_word.key_word}
+              {row.key_word.key_word} {row.id}
             </TableCell>
             <TableCell style={{ maxWidth: 200 }} align="center">
               {row.score ? row.score : 0}
@@ -107,7 +114,7 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
               {row.score_second ? row.score_second : 0}
             </TableCell>
             <TableCell style={{ maxWidth: 200 }} align="center">
-              {formatPublishedDate(row.published)}
+              {formatPublishedDate(row.created_at)}
             </TableCell>
             <TableCell align="center">
               <Box sx={{ '& > :not(style)': { m: 1 } }}>

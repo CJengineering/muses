@@ -116,7 +116,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const drawerWidth = 240;
   type OrderDirection = 'desc' | 'asc';
   const [order, setOrder] = React.useState<OrderDirection>('asc');
-
+ console.log("this is the url :", url)
   const [search, setSearch] = React.useState('');
 
   React.useEffect(() => {
@@ -125,8 +125,8 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
 
   React.useEffect(() => {
     const sortedRows = [...rows].sort((a, b) => {
-      const dateA = new Date(a.published);
-      const dateB = new Date(b.published);
+      const dateA = new Date(a.created_at);
+      const dateB = new Date(b.created_at);
 
       return order === 'asc'
         ? dateA.getTime() - dateB.getTime()
@@ -194,7 +194,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   return (
     <>
    
-      <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
+      <Box sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%', backgroundColor: "white"}}>
         <TextField
           id="search-bar"
           label="Search title"
@@ -245,7 +245,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Paper>
+      </Box>
     </>
   );
 };

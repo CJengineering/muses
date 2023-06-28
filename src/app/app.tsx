@@ -32,6 +32,8 @@ import BingNews from './bingnews';
 import Home from './home';
 import KeyWordTable from './keywordtab';
 import Keyword from './keyword';
+import GoogleSearchArticle from './googleSearchArticle';
+import BingArticle from './bingNewsArticle';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
@@ -45,8 +47,10 @@ export function App() {
             <Route path="/" element={<Home />} />
             <Route path="/news/:urlKey" element={<TestTabs />} />
             <Route path="/keywords" element={<KeyWordTable />} />
-            <Route path="/articles/:id" element={<AlertArticle />} />
+            <Route path="/google-alerts/:id" element={<AlertArticle />} />
             <Route path="/keyword/:id" element={<Keyword />} />
+            <Route path="/google-search/:id" element={<GoogleSearchArticle />} />
+            <Route path="/bing-news/:id" element={<BingArticle />} />
           </Routes>
         </>
       ) : (

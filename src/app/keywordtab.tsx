@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface AllArticles {
   id: number;
@@ -41,7 +42,9 @@ export default function KeyWordTable() {
 
   const fetchRows = async () => {
     try {
-      const response = await fetch('https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words');
+      const response = await fetch(
+        'https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words'
+      );
       const data: Data[] = await response.json();
       setRows(data);
       setLoading(false);
@@ -73,14 +76,36 @@ export default function KeyWordTable() {
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredRows.slice(indexOfFirstRow, indexOfLastRow);
-
+  if (loading) {
+    return (
+      <>
+        <Paper
+          sx={{
+            width: '80%',
+            backgroundColor: 'gray',
+            overflow: 'hidden',
+            marginLeft: '10%',
+          }}
+        >
+          <div className="container_loading">
+            <div className="loading_text">
+              <p></p>
+            </div>
+            <div className="loading_indicator">
+              <CircularProgress />
+            </div>
+          </div>
+        </Paper>
+      </>
+    );
+  }
   return (
     <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
+      <div className="padding_vertical_medium"></div>
       <TextField
         label="Search Keyword"
         value={searchInput}
         onChange={handleSearchChange}
-    
         margin="normal"
         variant="outlined"
       />

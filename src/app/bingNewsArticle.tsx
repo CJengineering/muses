@@ -33,7 +33,7 @@ interface APIResponse {
   text: string;
 }
 
-const AlertArticle: React.FC = () => {
+const BingArticle: React.FC = () => {
   const params = useParams();
   const { id } = params;
   const [article, setArticle] = useState<Article | null>(null);
@@ -130,4 +130,4 @@ const AlertArticle: React.FC = () => {
   );
 };
 
-export default AlertArticle;
+export default BingArticle;
