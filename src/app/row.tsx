@@ -19,6 +19,7 @@ interface Data {
   id: number;
   title: string;
   link: string;
+  url_link: string | undefined;
   published: string;
   posted: boolean;
   key_word: {
@@ -100,7 +101,7 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
               </Link>
             </TableCell>
             <TableCell style={{ width: 50 }}>
-              <Link href={row.link} target="_blank" rel="noopener noreferrer">
+              <Link href={row.link ? row.link : row.url_link} target="_blank" rel="noopener noreferrer">
                 <Button variant="contained">View</Button>
               </Link>
             </TableCell>

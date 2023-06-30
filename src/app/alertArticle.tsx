@@ -35,6 +35,7 @@ interface APIResponse {
 
 const AlertArticle: React.FC = () => {
   const params = useParams();
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const { id } = params;
   const [article, setArticle] = useState<Article | null>(null);
   const [relatedKeywords, setRelatedKeywords] =
@@ -57,6 +58,8 @@ const AlertArticle: React.FC = () => {
         setLoading(false);
       } catch (error) {
         console.error(error);
+        setErrorMessage(true);
+        setLoading(false)
       }
     };
 
@@ -88,6 +91,26 @@ const AlertArticle: React.FC = () => {
       </>
     );
   }
+  if (errorMessage) {
+    return (
+      <>
+        <Paper
+          sx={{
+            width: '80%',
+            backgroundColor: 'gray',
+            overflow: 'hidden',
+            marginLeft: '10%',
+          }}
+        >
+          <div className="container_loading">
+            <div className="loading_text">
+              <p>You reached your free limit in Open AI</p>
+            </div>
+          </div>
+        </Paper>
+      </>
+    );
+  }
 
   return (
     <div>
@@ -102,15 +125,16 @@ const AlertArticle: React.FC = () => {
         <div className="padding_vertical_big"></div>
         <Container sx={{ backgroundColor: 'white' }}>
           {relatedKeywords && (
-            <div style={{ padding: '5rem'}}>
+            <div style={{ padding: '5rem' }}>
               <Typography variant="h5">Related Keywords:</Typography>
               <div className="padding_vertical_small"></div>
               {Object.entries(relatedKeywords).map(([keyword, value]) => {
                 if (value > 0) {
                   return (
                     <Typography key={keyword}>
-                      <strong>Keyword: </strong>{keyword}  <br /> 
-                      <strong>number of key words:</strong>   {value}
+                      <strong>Keyword: </strong>
+                      {keyword} <br />
+                      <strong>number of key words:</strong> {value}
                     </Typography>
                   );
                 }

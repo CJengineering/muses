@@ -95,6 +95,7 @@ interface Data {
   id: number;
   title: string;
   link: string;
+  url_link :string | undefined;
   published: string;
   posted: boolean;
   key_word: {
