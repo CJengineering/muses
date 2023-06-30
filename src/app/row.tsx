@@ -103,7 +103,7 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
               </Link>
             </TableCell>
             <TableCell style={{ width: 200 }} align="left">
-              {row.key_word.key_word} {row.id}
+              {row.key_word.key_word} 
             </TableCell>
             <TableCell style={{ maxWidth: 200 }} align="center">
               {row.score ? row.score : 0}
