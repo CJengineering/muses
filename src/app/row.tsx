@@ -92,13 +92,10 @@ const Row: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows, url_item })
             key={row.id}
             className="row"
           >
-            <TableCell style={{ minWidth: 300, width: 300, color: 'gray' }}>
-              <Link
-                href={`/${linkitem}/${row.id}`}
-                style={{ fontWeight: 'bold', color: 'gray' }}
-              >
+            <TableCell style={{ minWidth: 300, width: 300, color: 'gray', fontWeight:'bold' }}>
+            
                 {row.title}
-              </Link>
+           
             </TableCell>
             <TableCell style={{ width: 50 }}>
               <Link href={row.link ? row.link : row.url_link} target="_blank" rel="noopener noreferrer">
