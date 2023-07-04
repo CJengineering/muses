@@ -9,6 +9,12 @@ import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
 import CircularProgress from '@mui/material/CircularProgress';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import CreateKeywordForm from './createKeywordForm';
+import UpdateKeywordForm from './updtaeKeywordForm';
 
 interface AllArticles {
   id: number;
@@ -39,6 +45,27 @@ export default function KeyWordTable() {
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
   const fetchRows = async () => {
     try {
@@ -99,9 +126,21 @@ export default function KeyWordTable() {
       </>
     );
   }
+
   return (
     <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
       <div className="padding_vertical_medium"></div>
+      <Button onClick={handleOpen}>Create new keyword</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <CreateKeywordForm></CreateKeywordForm>
+        </Box>
+      </Modal>
       <TextField
         label="Search Keyword"
         value={searchInput}
@@ -117,6 +156,7 @@ export default function KeyWordTable() {
               <TableCell align="right">Google Alerts</TableCell>
               <TableCell align="right">Google Search</TableCell>
               <TableCell align="right">Bing News</TableCell>
+              <TableCell align="right">Actions </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -140,6 +180,14 @@ export default function KeyWordTable() {
                 <TableCell align="right">{row.articles.length}</TableCell>
                 <TableCell align="right">{row.gosearts.length}</TableCell>
                 <TableCell align="right">{row.bing_articles.length}</TableCell>
+                <TableCell align="right">
+                  <UpdateKeywordForm
+                    factiva={row.factiva}
+                    rss={row.rss_url}
+                    keywordName={row.key_word}
+                    keywordId={row.id}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

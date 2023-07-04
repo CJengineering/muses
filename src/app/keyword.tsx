@@ -27,7 +27,9 @@ const Keyword: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words/${id}`);
+        const response = await fetch(
+          `https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words/${id}`
+        );
         const keywordData: Data = await response.json();
         setData(keywordData);
         setLoading(false);
@@ -52,10 +54,7 @@ const Keyword: React.FC = () => {
         >
           <div className="container_loading">
             <div className="loading_text">
-              <p>
-                May take a few seconds waiting for Chat GPT to analyze the
-                article
-              </p>
+              <p>Loading ...</p>
             </div>
             <div className="loading_indicator">
               <CircularProgress />
