@@ -14,7 +14,7 @@ export const AuthContext = createContext<AuthContextProps>({
 });
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   const [authChecked, setAuthChecked] = useState(false); // New state variable
 
   useEffect(() => {
