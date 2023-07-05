@@ -1,24 +1,33 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { useAppDispatch, useAppSelector} from '../app/hooks'
-import {TableState, initialState, pendingTableSelected } from 'src/features/table/tableSlice'
 
-const rootReducer = combineReducers({tableSlice: ()=>initialState})
-const store = configureStore({reducer: rootReducer})
+import {TableState, initialState, pendingTableSelected , archivedTableSelected} from 'src/features/table/tableSlice'
+import tableReducer from "src/features/table/tableSlice";
+
+//const rootReducer = combineReducers({tableSlice: ()=>initialState})
+const rootReducer = combineReducers({
+    tableSlice: tableReducer
+  });
+  
+import {store} from "../app/store";
+const storeBruno = configureStore({reducer: rootReducer})
+
 const createPresentation = (state: TableState)=>{return {status : state.status}}
 it ("should select table pending tab", ()=>{
-    const dispatch = store.dispatch
+    const dispatch = storeBruno.dispatch
     // const presentation = presentationSelector()
-    dispatch(pendingTableSelected())
+    //dispatch(pendingTableSelected())
     
-    const presentation = createPresentation(store.getState().tableSlice)
+    const presentation = createPresentation(storeBruno.getState().tableSlice)
     expect(presentation).toEqual({status: "pending"})
 })
 it ("should select table archived tab", ()=>{
-    const dispatch = store.dispatch
+    const dispatch = storeBruno.dispatch
     // const presentation = presentationSelector()
     dispatch(archivedTableSelected())
     
-    const presentation = createPresentation(store.getState().tableSlice)
+    const presentation = createPresentation(storeBruno.getState().tableSlice)
     expect(presentation).toEqual({status: "archived"})
 })
+
+
 

@@ -15,11 +15,14 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthContext } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const defaultTheme = createTheme();
 export default function SignIn() {
   const { setAuthenticated, authenticated } = useContext(AuthContext);
+  const [loading, setLoading] = React.useState<boolean>(false)
   const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,11 +52,13 @@ export default function SignIn() {
         // Sign-in successful
         const data = await response.json();
         const { token, refresh_token } = data;
+        setLoading(true)
         console.log(token);
         // Store the access token and refresh token in localStorage or secure storage
         localStorage.setItem('token', token);
         localStorage.setItem('refresh_token', refresh_token);
         await setAuthenticated(true);
+        setLoading(false)
         console.log(authenticated);
         navigate('/')
         // Redirect to dashboard or perform other actions
@@ -71,6 +76,27 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      { loading ?  (
+        <Paper
+          sx={{
+            width: '80%',
+            backgroundColor: 'gray',
+            overflow: 'hidden',
+            marginLeft: '10%',
+          }}
+        >
+          <div className="container_loading">
+            <div className="loading_text">
+              <p>
+               KNOCK .... KNOCKKK .. 
+              </p>
+            </div>
+            <div className="loading_indicator">
+              <CircularProgress />
+            </div>
+          </div>
+        </Paper>
+    ): <div></div>}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
