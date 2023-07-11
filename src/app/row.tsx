@@ -122,17 +122,17 @@ const Row: React.FC<RowProps> = ({
               >
                 {row.title}
               </TableCell>
-              <TableCell style={{ width: 50, display: "flex" }}>
+              <TableCell style={{ width: 80 }}>
                 <Link
                   href={row.link ? row.link : row.url_link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button variant="contained">View</Button>
+                  <Button variant="outlined">View</Button>
                 </Link>
                 <Button
                   onClick={() => handleToggle(row.id)}
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                 >
                  info

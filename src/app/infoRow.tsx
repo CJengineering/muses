@@ -51,7 +51,7 @@ const InfoRow: React.FC<PropsInfoRow> = ({id, url}) => {
     const fetchArticle = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:3000/${url}/${id}`
+          `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url}/${id}`
         );
         const data: APIResponse = await response.json();
         setArticle(data.article);
@@ -71,14 +71,7 @@ const InfoRow: React.FC<PropsInfoRow> = ({id, url}) => {
   if (loading) {
     return (
       <>
-        <Paper
-          sx={{
-            width: '80%',
-            backgroundColor: 'gray',
-            overflow: 'hidden',
-            marginLeft: '10%',
-          }}
-        >
+
           <div className="container_loading">
             <div className="loading_text">
               <p>
@@ -89,27 +82,20 @@ const InfoRow: React.FC<PropsInfoRow> = ({id, url}) => {
               <CircularProgress />
             </div>
           </div>
-        </Paper>
+     
       </>
     );
   }
   if (errorMessage) {
     return (
       <>
-        <Paper
-          sx={{
-            width: '80%',
-            backgroundColor: 'gray',
-            overflow: 'hidden',
-            marginLeft: '10%',
-          }}
-        >
+     
           <div className="container_loading">
             <div className="loading_text">
               <p>I forgot to implement something to make it work :/</p>
             </div>
           </div>
-        </Paper>
+      
       </>
     );
   }
