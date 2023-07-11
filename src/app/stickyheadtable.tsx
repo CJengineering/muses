@@ -88,7 +88,7 @@ const columns: readonly Column[] = [
 ];
 
 interface statusProps {
-  status: string | undefined;
+  status: string ;
   url: string;
 }
 interface Data {

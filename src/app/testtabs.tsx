@@ -2,8 +2,12 @@ import React, { useState, ChangeEvent } from 'react';
 import { Box, Paper, Tab, Tabs, Typography } from '@mui/material';
 import StickyHeadTable from './stickyheadtable';
 import { useMatch, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { selectedTableValue } from 'src/features/table/tableSlice';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { createPresentation } from 'src/presentation/createPresentation';
 
-interface itemProps{
+interface itemProps {
   url: string;
 }
 interface ApiEndpoints {
@@ -15,50 +19,42 @@ interface ParamTypes {
 }
 
 const apiEndpoints: ApiEndpoints = {
-  "google-alerts": "articles",
-  "google-search": "gosearts",
-  "bing-news": "bing_articles",
+  'google-alerts': 'articles',
+  'google-search': 'gosearts',
+  'bing-news': 'bing_articles',
 };
 export const TestTabs = () => {
-  const [value, setValue] = useState(0);
+  const dispatch = useAppDispatch();
   const params = useParams();
-  React.useEffect(() => {
-    console.log(params)
 
-  }, []); 
-  let urlKey = params.urlKey as string; 
+  let urlKey = params.urlKey as string;
 
   let url = apiEndpoints[urlKey];
 
-
-  const handleChange = (
-    event: ChangeEvent<{}>,
-    newValue: React.SetStateAction<number>
-  ) => {
-    setValue(newValue);
+  const handleChange = (event: ChangeEvent<{}>, selectedValue: string) => {
+    console.log("This is the event ",event, "this is the underscore",selectedValue);
+   
+    dispatch(selectedTableValue(selectedValue))
   };
-
-  
+  const presentation = useAppSelector(createPresentation);
+  console.log("presentation mode:", presentation)
 
   return (
-    <div style={{backgroundColor: "lightgray"}}>
-      <div className='padding_vertical_small'></div>
+    <div style={{ backgroundColor: 'lightgray' }}>
+      <div className="padding_vertical_small"></div>
       <Box sx={{ width: '80%', overflow: 'hidden', marginLeft: '0' }}>
+        <Tabs value={presentation.status} onChange={handleChange} centered>
+          <Tab label="Pending" value= "pending" />
+          <Tab label="Published"value= "published" />
+          <Tab label="Archived" value= "archived"/>
+        </Tabs>
 
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="Pending" />
-        <Tab label="Published" />
-        <Tab label="Archived" />
-      </Tabs>
-
-      <div className='padding_vertical_small'></div>
-      <Typography>
-        {value === 0 && <StickyHeadTable key = {url} status= "pending" url ={url} />}
-        {value === 1 && <StickyHeadTable key = {url}  status="published"  url ={url} />}
-        {value === 2 && <StickyHeadTable key = {url}  status="archived" url ={url}  />}
-      </Typography>
+        <div className="padding_vertical_small"></div>
+        <Typography>
+          <StickyHeadTable key={url} status={presentation.status} url={url} />
+        </Typography>
       </Box>
-      <div className='padding_vertical_medium'></div>
+      <div className="padding_vertical_medium"></div>
     </div>
   );
 };

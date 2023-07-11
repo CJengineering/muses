@@ -60,3 +60,11 @@ body{
 }
 
   
+.rows-info_container{
+  width:  1080px;
+  height: 10rem;
+  background-color: blue;
+  position: absolute;
+
+  display: block;
+}

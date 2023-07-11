@@ -1,28 +1,24 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface TableState {
-    value: number;
-    status: string | void;
+  status: string;
 }
 
 export const initialState: TableState = {
-    value: 0,
-    status: 'pending'
-}
+  status: 'pending',
+};
 
 const tableSlice = createSlice({
-    name: 'table',
-    initialState,
-    reducers: {
-        pendingTableSelected(state){
-             state.value =0,
-             state.status = 'pending'
-        },
-        archivedTableSelected(state){
-            state.value =1,
-            state.status ='archived'
-        }
-    }
+  name: 'table',
+  initialState,
+  reducers: {
+  
+    selectedTableValue(state, action : PayloadAction<string>) {
+        state.status = action.payload;
+      },
+  
+  },
 });
-export const { pendingTableSelected, archivedTableSelected } = tableSlice.actions;
+export const { selectedTableValue } =
+  tableSlice.actions;
 export default tableSlice.reducer;
