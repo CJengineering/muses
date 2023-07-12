@@ -18,20 +18,14 @@ interface Data {
   category_label: string | null;
 }
 
-
 export const initialState: Data[] = [];
 
 const articlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    fetchArticles(state, action: PayloadAction<string>) {
-      
-    },
+    fetchArticles(state, action: PayloadAction<string>) {},
   },
 });
-export const { fetchArticles} = articlesSlice.actions;
+export const { fetchArticles } = articlesSlice.actions;
 export default articlesSlice.reducer;
-
-
-

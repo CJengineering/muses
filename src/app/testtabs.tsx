@@ -3,7 +3,7 @@ import { Box, Paper, Tab, Tabs, Typography } from '@mui/material';
 import StickyHeadTable from './stickyheadtable';
 import { useMatch, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { selectedTableValue } from 'src/features/table/tableSlice';
+import { TableStatus, selectedTableValue } from 'src/features/table/tableSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createPresentation } from 'src/presentation/createPresentation';
 
@@ -31,7 +31,7 @@ export const TestTabs = () => {
 
   let url = apiEndpoints[urlKey];
 
-  const handleChange = (event: ChangeEvent<{}>, selectedValue: string) => {
+  const handleChange = (event: ChangeEvent<{}>, selectedValue: TableStatus) => {
     console.log("This is the event ",event, "this is the underscore",selectedValue);
    
     dispatch(selectedTableValue(selectedValue))
