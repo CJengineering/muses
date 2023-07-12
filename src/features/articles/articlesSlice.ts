@@ -1,31 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Article } from 'src/presentation/article';
 
-interface Data {
-  id: number;
-  title: string;
-  link: string;
-  url_link: string | undefined;
-  published: string;
-  posted: boolean;
-  key_word: {
-    key_word: string;
-  };
-  created_at: string;
-  updated_at: string;
-  key_word_id: number;
-  score: number | null;
-  score_second: number | null;
-  category_label: string | null;
-}
-
-export const initialState: Data[] = [];
+export const initialState: Article[] = [];
 
 const articlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    fetchArticles(state, action: PayloadAction<string>) {},
+    articlesFetched(state, action: PayloadAction<Article[]>) {
+      state = action.payload;
+    },
   },
 });
-export const { fetchArticles } = articlesSlice.actions;
+export const { articlesFetched } = articlesSlice.actions;
 export default articlesSlice.reducer;
