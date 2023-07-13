@@ -6,7 +6,9 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import { TableStatus, selectedTableValue } from 'src/features/table/tableSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createPresentation } from 'src/presentation/createPresentation';
-
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import RocketIcon from '@mui/icons-material/Rocket';
+import ArchiveIcon from '@mui/icons-material/Archive';
 interface itemProps {
   url: string;
 }
@@ -32,27 +34,60 @@ export const TestTabs = () => {
   let url = apiEndpoints[urlKey];
 
   const handleChange = (event: ChangeEvent<{}>, selectedValue: TableStatus) => {
-    console.log("This is the event ",event, "this is the underscore",selectedValue);
-   
-    dispatch(selectedTableValue(selectedValue))
+    console.log(
+      'This is the event ',
+      event,
+      'this is the underscore',
+      selectedValue
+    );
+
+    dispatch(selectedTableValue(selectedValue));
   };
   const presentation = useAppSelector(createPresentation);
-  console.log("presentation mode:", presentation)
+  console.log('presentation mode:', presentation);
 
   return (
-    <div style={{ backgroundColor: 'lightgray' }}>
+    <div style={{ backgroundColor: '#E9EAF4' }}>
       <div className="padding_vertical_small"></div>
-      <Box sx={{ width: '80%', overflow: 'hidden', marginLeft: '0' }}>
-        <Tabs value={presentation.status} onChange={handleChange} centered>
-          <Tab label="Pending" value= "pending" />
-          <Tab label="Published"value= "published" />
-          <Tab label="Archived" value= "archived"/>
+      <Box sx={{ width: '80%', overflow: 'hidden', marginLeft: '20%', }}>
+          <div style={{width:'50%',display:"flex", justifyContent:"left"}}>
+        <Tabs  style={{  width:'50%'}}value={presentation.status} onChange={handleChange} centered>
+            
+          <Tab
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <PendingActionsIcon />
+                <span>Pending</span>
+              </Box>
+            }
+            value="pending"
+            />
+
+          <Tab
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <RocketIcon/>
+                <span>Published</span>
+              </Box>
+            }
+            value="published"
+            />
+          <Tab
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <ArchiveIcon/>
+                <span>Archived</span>
+              </Box>
+            }
+            value="archived"
+            />
         </Tabs>
 
+            </div>
         <div className="padding_vertical_small"></div>
-        <Typography>
+   
           <StickyHeadTable key={url} status={presentation.status} url={url} />
-        </Typography>
+    
       </Box>
       <div className="padding_vertical_medium"></div>
     </div>

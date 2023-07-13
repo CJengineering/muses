@@ -14,8 +14,9 @@ import {
   Divider,
   IconButton,
 } from '@mui/material';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
+import RocketIcon from '@mui/icons-material/Rocket';
+
+import ArchiveIcon from '@mui/icons-material/Archive';
 import AlertArticle from './alertArticle';
 import ToggleDiv from './toggleDiv';
 import InfoRow from './infoRow';
@@ -97,10 +98,8 @@ const Row: React.FC<RowProps> = ({
   const handleToggle = (rowId: number) => {
     if (expandedRow === rowId) {
       setExpandedRow(null);
-   
     } else {
       setExpandedRow(rowId);
-   
     }
   };
   return (
@@ -122,11 +121,16 @@ const Row: React.FC<RowProps> = ({
                   width: 300,
                   color: 'gray',
                   fontWeight: 'bold',
-                  backgroundColor: expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : ''
+                  backgroundColor:
+                    expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
                 }}
               >
                 <IconButton onClick={() => handleToggle(row.id)}>
-                {expandedRow === row.id ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                  {expandedRow === row.id ? (
+                    <KeyboardArrowUp />
+                  ) : (
+                    <KeyboardArrowDown />
+                  )}
                 </IconButton>
                 {row.title}
               </TableCell>
@@ -155,22 +159,15 @@ const Row: React.FC<RowProps> = ({
               <TableCell align="center">
                 <Box sx={{ '& > :not(style)': { m: 1 } }}>
                   <div className="action-cell">
-                    <Fab
-                      color="primary"
-                      className="action-button"
-                      aria-label="add"
+                    <RocketIcon
+                      style={{ cursor: 'pointer' }}
                       onClick={() => handlePost(row.id, 'published')}
-                    >
-                      <RocketLaunchIcon />
-                    </Fab>
-                    <Fab
-                      color="secondary"
-                      className="action-button"
-                      aria-label="edit"
+                    />
+
+                    <ArchiveIcon
+                      style={{ cursor: 'pointer' }}
                       onClick={() => handlePost(row.id, 'archived')}
-                    >
-                      <FolderDeleteIcon />
-                    </Fab>
+                    />
                   </div>
                 </Box>
               </TableCell>

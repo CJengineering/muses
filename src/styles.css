@@ -69,3 +69,8 @@ body{
 
   display: block;
 }
+
+.MainContainer {
+  display: flex;
+  
+}

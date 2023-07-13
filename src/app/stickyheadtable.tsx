@@ -217,7 +217,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
         sx={{
           width: '80%',
           overflow: 'hidden',
-          marginLeft: '18%',
+        
           backgroundColor: 'white',
         }}
       >

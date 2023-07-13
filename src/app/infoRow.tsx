@@ -104,9 +104,9 @@ const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
     <TableContainer component={Paper} style={{backgroundColor:"lightgray"}}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell>Keyword</TableCell>
-            <TableCell align="right">Occurrences</TableCell>
+          <TableRow style={{backgroundColor:'#001240'}}>
+            <TableCell style={{color:'white', fontSize:'bold'}}>Keyword</TableCell>
+            <TableCell style={{color:'white', fontSize:'bold'}}align="right">Occurrences</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >

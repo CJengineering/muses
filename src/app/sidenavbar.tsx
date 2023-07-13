@@ -12,7 +12,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { Link as RouterLink } from 'react-router-dom';
-
+import KeyIcon from '@mui/icons-material/Key';
 const drawerWidth = 300;
 
 interface NavItem {
@@ -44,7 +44,7 @@ const navItems: NavItem[] = [
   },
   {
     text: 'Keywords',
-    icon: <NewReleasesIcon style={{ color: '#C1C1C1' }} />,
+    icon: <KeyIcon style={{ color: '#C1C1C1' }} />,
     link: '/keywords',
   },
 ];
