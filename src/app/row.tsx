@@ -114,6 +114,8 @@ const Row: React.FC<RowProps> = ({
               tabIndex={-1}
               key={row.id}
               className="row"
+              style={{ backgroundColor:
+                expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',}}
             >
               <TableCell
                 style={{
@@ -121,8 +123,7 @@ const Row: React.FC<RowProps> = ({
                   width: 300,
                   color: 'gray',
                   fontWeight: 'bold',
-                  backgroundColor:
-                    expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
+                 
                 }}
               >
                 <IconButton onClick={() => handleToggle(row.id)}>
