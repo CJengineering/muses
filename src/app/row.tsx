@@ -12,12 +12,14 @@ import {
   Select,
   MenuItem,
   Divider,
+  IconButton,
 } from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import FolderDeleteIcon from '@mui/icons-material/FolderDelete';
 import AlertArticle from './alertArticle';
 import ToggleDiv from './toggleDiv';
 import InfoRow from './infoRow';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 interface ApiEndpoints {
   [key: string]: string;
 }
@@ -60,7 +62,7 @@ const Row: React.FC<RowProps> = ({
     bing_articles: 'bing-news',
   };
   const linkitem = apiEndpoints[url_item];
-
+  const [upDown, setUpDown] = useState(false);
   const handlePost = async (id: number, category_label: string) => {
     const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url_item}/${id}`;
     const body = JSON.stringify({ category_label });
@@ -94,9 +96,11 @@ const Row: React.FC<RowProps> = ({
 
   const handleToggle = (rowId: number) => {
     if (expandedRow === rowId) {
-      setExpandedRow(null); // Collapse the div if it's already expanded
+      setExpandedRow(null);
+   
     } else {
-      setExpandedRow(rowId); // Expand the div for the clicked row
+      setExpandedRow(rowId);
+   
     }
   };
   return (
@@ -118,8 +122,12 @@ const Row: React.FC<RowProps> = ({
                   width: 300,
                   color: 'gray',
                   fontWeight: 'bold',
+                  backgroundColor: expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : ''
                 }}
               >
+                <IconButton onClick={() => handleToggle(row.id)}>
+                {expandedRow === row.id ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                </IconButton>
                 {row.title}
               </TableCell>
               <TableCell style={{ width: 80 }}>
@@ -128,15 +136,8 @@ const Row: React.FC<RowProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button variant="outlined">View</Button>
+                  <Button variant="outlined">read </Button>
                 </Link>
-                <Button
-                  onClick={() => handleToggle(row.id)}
-                  variant="contained"
-                  color="primary"
-                >
-                 info
-                </Button>
               </TableCell>
 
               <TableCell style={{ width: 200 }} align="left">
@@ -179,7 +180,7 @@ const Row: React.FC<RowProps> = ({
                 <TableCell colSpan={4}>
                   <Divider />
                   <div>
-                   <InfoRow id ={row.id} url= {url_item}/>
+                    <InfoRow id={row.id} url={url_item} />
                   </div>
                   <Divider />
                 </TableCell>

@@ -1,4 +1,12 @@
-import { Container } from '@mui/material';
+import {
+  Container,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -30,14 +38,12 @@ interface APIResponse {
   article: Article;
   related_keywords: RelatedKeywords;
   array_keywords: number;
-
 }
 interface PropsInfoRow {
-    id: number;
-    url: string
+  id: number;
+  url: string;
 }
-const InfoRow: React.FC<PropsInfoRow> = ({id, url}) => {
-
+const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const [article, setArticle] = useState<Article | null>(null);
@@ -57,12 +63,12 @@ const InfoRow: React.FC<PropsInfoRow> = ({id, url}) => {
         setArticle(data.article);
         setRelatedKeywords(data.related_keywords);
         setArrayKeywords(data.array_keywords);
-      
+
         setLoading(false);
       } catch (error) {
         console.error(error);
         setErrorMessage(true);
-        setLoading(false)
+        setLoading(false);
       }
     };
 
@@ -71,64 +77,54 @@ const InfoRow: React.FC<PropsInfoRow> = ({id, url}) => {
   if (loading) {
     return (
       <>
-
-          <div className="container_loading">
-            <div className="loading_text">
-              <p>
-               Imagine a nice joke
-              </p>
-            </div>
-            <div className="loading_indicator">
-              <CircularProgress />
-            </div>
+        <div className="container_loading">
+          <div className="loading_text">
+            <p>Analyzing the article ...</p>
           </div>
-     
+          <div className="loading_indicator">
+            <CircularProgress />
+          </div>
+        </div>
       </>
     );
   }
   if (errorMessage) {
     return (
       <>
-     
-          <div className="container_loading">
-            <div className="loading_text">
-              <p>I forgot to implement something to make it work :/</p>
-            </div>
+        <div className="container_loading">
+          <div className="loading_text">
+            <p>I forgot to implement something to make it work :/</p>
           </div>
-      
+        </div>
       </>
     );
   }
 
   return (
-    <div>
-    
-      
-        <Container sx={{ backgroundColor: 'lightblue' }}>
-          {relatedKeywords && (
-            <div style={{ padding: '1rem' }}>
-        
-              {Object.entries(relatedKeywords).map(([keyword, value]) => {
-                if (value > 0) {
-                  return (
-                    <Typography key={keyword}>
-                      <strong>Keyword: </strong>
-                      {keyword} <br />
-                      <strong>number of key words:</strong> {value}
-                    </Typography>
-                  );
-                }
-                return null;
-              })}
-     
-             
-            
-            </div>
-          )}
-        </Container>
-       
-   
-    </div>
+    <TableContainer component={Paper} style={{backgroundColor:"lightgray"}}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Keyword</TableCell>
+            <TableCell align="right">Occurrences</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody >
+          {relatedKeywords &&
+            Object.entries(relatedKeywords).map(([keyword, value]) => {
+              if (value > 0) {
+                return (
+                  <TableRow key={keyword}>
+                    <TableCell>{keyword}</TableCell>
+                    <TableCell align="right">{value}</TableCell>
+                  </TableRow>
+                );
+              }
+              return null;
+            })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
