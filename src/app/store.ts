@@ -11,7 +11,7 @@ export type AppState = ReturnType<typeof rootReducer>;
 
 export const buildInitStore = (): AppState => ({
   table: { status: 'pending' },
-  articles: [],
+  articles: { ids: [], articles: {} },
 });
 
 export const createStore = (dependencies: unknown, hydrate?: AppState) =>

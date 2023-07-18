@@ -44,28 +44,24 @@ export class InMemoryArticleGateway implements ArticleGateway {
 it('should fetch articles from our api', async () => {
   const articleGateway = new InMemoryArticleGateway();
   const store = createStore({ articleGateway });
-  const dispatch = store.dispatch;
-  await dispatch(fetchArticles('published'));
+  await store.dispatch<any>(fetchArticles('published'));
   const presentation = createPresentationArticles(store.getState());
-  expect(presentation).toEqual({
-    articles: [
-      {
-        id: '123',
-        title: 'Vladimir is winning the war',
-        link: 'russiatoday.fr',
-        url_link: undefined,
-        published: new Date('2021-01-01'),
-        posted: true,
-        key_word: {
-          key_word: 'Vladimir',
-        },
-        created_at: new Date('2021-01-01'),
-        updated_at: new Date('2021-01-01'),
-        key_word_id: 100,
-        score: 32,
-        score_second: undefined,
-        category_label: 'Politics',
-      },
-    ],
+  expect(presentation.ids).toEqual([123]);
+  expect(presentation.articles['123']).toEqual({
+    id: 123,
+    title: 'Vladimir is winning the war',
+    link: 'russiatoday.fr',
+    url_link: undefined,
+    published: new Date('2021-01-01'),
+    posted: true,
+    key_word: {
+      key_word: 'Vladimir',
+    },
+    created_at: new Date('2021-01-01'),
+    updated_at: new Date('2021-01-01'),
+    key_word_id: 100,
+    score: 32,
+    score_second: undefined,
+    category_label: 'Politics',
   });
 });
