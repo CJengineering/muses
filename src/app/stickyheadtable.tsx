@@ -215,10 +215,11 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
     <>
       <Box
         sx={{
-          width: '80%',
+          
           overflow: 'hidden',
-        
-          backgroundColor: 'white',
+          marginLeft: '0%',
+          padding: '2rem',
+          backgroundColor:'white'
         }}
       >
         <TextField
@@ -227,10 +228,10 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
           variant="standard"
           value={search}
           onChange={handleSearchChange}
-          style={{ marginBottom: '1rem', marginLeft: '2rem' }}
+          style={{ marginBottom: '1rem' }}
         />
 
-        <TableContainer sx={{ padding: '2rem' }}>
+        <TableContainer sx={{  }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

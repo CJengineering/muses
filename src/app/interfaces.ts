@@ -19,4 +19,6 @@ export interface AllArticles extends Iterable<AllArticles> {
     gosearts: AllArticles[];
     bing_articles: AllArticles[];
   }
-  
+  export interface ApiTest {
+    message: string;
+}

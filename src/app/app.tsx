@@ -34,24 +34,31 @@ import KeyWordTable from './keywordtab';
 import Keyword from './keyword';
 import GoogleSearchArticle from './googleSearchArticle';
 import BingArticle from './bingNewsArticle';
+import { useGetSimpleTestQuery } from 'src/features/api/apiSlice';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
 
   return (
     <>
- {authenticated ? (
+      {authenticated ? (
         <>
-          <SideNavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/news/:urlKey" element={<TestTabs />} />
-            <Route path="/keywords" element={<KeyWordTable />} />
-            <Route path="/google-alerts/:id" element={<AlertArticle />} />
-            <Route path="/keyword/:id" element={<Keyword />} />
-            <Route path="/google-search/:id" element={<GoogleSearchArticle />} />
-            <Route path="/bing-news/:id" element={<BingArticle />} />
-          </Routes>
+          <div style={{ display: 'flex', width: '100%'}}>
+            <SideNavBar />
+
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/news/:urlKey" element={<TestTabs />} />
+              <Route path="/keywords" element={<KeyWordTable />} />
+              <Route path="/google-alerts/:id" element={<AlertArticle />} />
+              <Route path="/keyword/:id" element={<Keyword />} />
+              <Route
+                path="/google-search/:id"
+                element={<GoogleSearchArticle />}
+              />
+              <Route path="/bing-news/:id" element={<BingArticle />} />
+            </Routes>
+          </div>
         </>
       ) : (
         <Routes>

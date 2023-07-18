@@ -47,15 +47,15 @@ export const TestTabs = () => {
   console.log('presentation mode:', presentation);
 
   return (
-    <div style={{ backgroundColor: '#E9EAF4' }}>
-      <div className="padding_vertical_small"></div>
-      <Box sx={{ width: '80%', overflow: 'hidden', marginLeft: '20%', }}>
-          <div style={{width:'50%',display:"flex", justifyContent:"left"}}>
-        <Tabs  style={{  width:'50%'}}value={presentation.status} onChange={handleChange} centered>
+  
+     
+      <Box sx={{width:'100%', overflow:'hidden', backgroundColor:"#F6F6F6"}}>
+       
+        <Tabs  style={{ padding: '2rem' }}value={presentation.status} onChange={handleChange} >
             
           <Tab
             label={
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
                 <PendingActionsIcon />
                 <span>Pending</span>
               </Box>
@@ -65,7 +65,7 @@ export const TestTabs = () => {
 
           <Tab
             label={
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
                 <RocketIcon/>
                 <span>Published</span>
               </Box>
@@ -74,7 +74,7 @@ export const TestTabs = () => {
             />
           <Tab
             label={
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
                 <ArchiveIcon/>
                 <span>Archived</span>
               </Box>
@@ -83,13 +83,13 @@ export const TestTabs = () => {
             />
         </Tabs>
 
-            </div>
+       
         <div className="padding_vertical_small"></div>
    
           <StickyHeadTable key={url} status={presentation.status} url={url} />
     
       </Box>
-      <div className="padding_vertical_medium"></div>
-    </div>
+  
+
   );
 };

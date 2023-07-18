@@ -7,3 +7,7 @@ export const createPresentation = (state: RootState) => {
   export const createPresentationArticles = (state: RootState) => {
     return { data: state.articles };
   };
+
+  export const createPresentationApi = (state: RootState) => {
+    return { message: state.api };
+  };
