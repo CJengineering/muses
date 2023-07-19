@@ -1,5 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { TextField, Button, Switch, FormControlLabel } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Switch,
+  FormControlLabel,
+  Typography,
+} from '@mui/material';
 
 function CreateKeywordForm() {
   const [keyword, setKeyword] = useState<string>('');
@@ -34,8 +40,8 @@ function CreateKeywordForm() {
         const data = await response.json();
         // Set success message
         setSuccessMessage('Your Keyword is validated');
-        setKeyword("");
-        setRssFeed("");
+        setKeyword('');
+        setRssFeed('');
         setIsFactiva(false);
       } else {
         throw new Error('Failed to submit keyword');
@@ -61,7 +67,9 @@ function CreateKeywordForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Create a new Keyword</h3>
+      <div className="padding_vertical_small"></div>
+      <Typography variant="h4">Create a new keyword</Typography>
+      <div className="padding_vertical_small"></div>
       <TextField
         label="Keyword"
         variant="outlined"
