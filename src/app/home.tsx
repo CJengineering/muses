@@ -37,7 +37,7 @@ export default function Home() {
         </div>
         <div className="padding_vertical_medium"></div>
         <Button variant="contained" onClick={handleOpen}>
-          create keyword
+          Add Keyword
         </Button>
         <Modal open={isModalOpen} onClose={handleClose}>
           <Box
