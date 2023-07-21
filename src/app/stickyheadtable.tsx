@@ -88,7 +88,7 @@ const columns: readonly Column[] = [
 ];
 
 interface statusProps {
-  status: string ;
+  status: string;
   url: string;
 }
 interface Data {
@@ -112,14 +112,17 @@ interface Data {
 const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Data[]>([]);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(100);
   const [relatedScoreSortDirection, setRelatedScoreSortDirection] =
     React.useState<OrderDirection>('asc');
   const drawerWidth = 240;
+  const [mainScoreSortDirection, setMainScoreSortDirection] =
+    React.useState<OrderDirection>('asc');
   type OrderDirection = 'desc' | 'asc';
   const [order, setOrder] = React.useState<OrderDirection>('asc');
   console.log('this is the url :', url);
   const [search, setSearch] = React.useState('');
+  const [keyWordSearch, setKeyWordSearch] = React.useState('');
 
   const sortRowsByRelatedScore = () => {
     const sortedRows = [...rows].sort((a, b) => {
@@ -135,6 +138,20 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
     });
     setRows(sortedRows);
   };
+  const sortRowsByMainScore = () => {
+    const sortedRows = [...rows].sort((a, b) => {
+      if (a.score === null && b.score === null) {
+        return 0;
+      } else if (a.score === null) {
+        return 1;
+      } else if (b.score === null) {
+        return -1;
+      } else {
+        return b.score - a.score;
+      }
+    });
+    setRows(sortedRows);
+  };
   React.useEffect(() => {
     fetchRows();
   }, [status]);
@@ -142,6 +159,8 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   React.useEffect(() => {
     if (relatedScoreSortDirection === 'desc') {
       sortRowsByRelatedScore();
+    } else if (mainScoreSortDirection === 'desc') {
+      sortRowsByMainScore();
     } else {
       const sortedRows = [...rows].sort((a, b) => {
         const dateA = new Date(a.created_at);
@@ -154,7 +173,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
 
       setRows(sortedRows);
     }
-  }, [order, relatedScoreSortDirection]);
+  }, [order, relatedScoreSortDirection, mainScoreSortDirection]);
 
   const fetchRows = async () => {
     try {
@@ -188,9 +207,21 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
-  const renderedRows = rows.filter((row) =>
-    row.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleKeyWordSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setKeyWordSearch(event.target.value);
+  };
+  const renderedRows = rows.filter((row) => {
+    const titleMatch =
+      search !== '' && row.title.toLowerCase().includes(search.toLowerCase());
+    const keywordMatch = row.key_word.key_word
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    // Use the logical OR (||) operator to combine the filtering conditions
+    return titleMatch || keywordMatch;
+  });
 
   const [loading, setLoading] = React.useState(true);
 
@@ -215,23 +246,22 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
     <>
       <Box
         sx={{
-          
           overflow: 'hidden',
           marginLeft: '0%',
           padding: '2rem',
-          backgroundColor:'white'
+          backgroundColor: 'white',
         }}
       >
         <TextField
           id="search-bar"
-          label="Search title"
+          label="Search keyword or title "
           variant="standard"
           value={search}
           onChange={handleSearchChange}
           style={{ marginBottom: '1rem' }}
         />
 
-        <TableContainer sx={{  }}>
+        <TableContainer sx={{}}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -244,13 +274,24 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
                     {column.label}
                     {column.id === 'related_score' && (
                       <TableSortLabel
-                        active={relatedScoreSortDirection === 'desc'}
+                        active
                         direction={relatedScoreSortDirection}
                         onClick={() =>
                           setRelatedScoreSortDirection(
                             relatedScoreSortDirection === 'desc'
                               ? 'asc'
                               : 'desc'
+                          )
+                        }
+                      />
+                    )}
+                    {column.id === 'main_score' && (
+                      <TableSortLabel
+                        active
+                        direction={mainScoreSortDirection}
+                        onClick={() =>
+                          setMainScoreSortDirection(
+                            mainScoreSortDirection === 'desc' ? 'asc' : 'desc'
                           )
                         }
                       />
@@ -278,7 +319,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[25, 10, 100]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

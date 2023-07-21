@@ -1,18 +1,28 @@
-import { configureStore } from '@reduxjs/toolkit';
-import tableReducer from 'src/features/table/tableSlice';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import articlesReducer from 'src/features/articles/articlesSlice';
-import { setupListeners } from '@reduxjs/toolkit/query'
-import { testApi } from 'src/features/api/apiSlice';
+import tableReducer from 'src/features/table/tableSlice';
 
-export const store = configureStore({
-  reducer: {
-    table: tableReducer,
-    articles: articlesReducer,
-    api: testApi.reducer
-  },
-  middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware().concat(testApi.middleware)
+export const rootReducer = combineReducers({
+  table: tableReducer,
+  articles: articlesReducer,
 });
-setupListeners(store.dispatch)
+
+export type AppState = ReturnType<typeof rootReducer>;
+
+export const buildInitStore = (): AppState => ({
+  table: { status: 'pending' },
+  articles: { ids: [], articles: {} },
+});
+
+export const createStore = (dependencies: unknown, hydrate?: AppState) =>
+  configureStore({
+    reducer: rootReducer,
+    middleware: (getGefaultMiddleware) =>
+      getGefaultMiddleware({ thunk: { extraArgument: dependencies } }),
+    preloadedState: hydrate ?? buildInitStore(),
+  });
+
+export const store = createStore({});
+
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

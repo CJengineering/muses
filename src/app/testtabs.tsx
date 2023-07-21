@@ -47,49 +47,45 @@ export const TestTabs = () => {
   console.log('presentation mode:', presentation);
 
   return (
-  
-     
-      <Box sx={{width:'100%', overflow:'hidden', backgroundColor:"#F6F6F6"}}>
-       
-        <Tabs  style={{ padding: '2rem' }}value={presentation.status} onChange={handleChange} >
-            
-          <Tab
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
-                <PendingActionsIcon />
-                <span>Pending</span>
-              </Box>
-            }
-            value="pending"
-            />
+    <Box sx={{ width: '100%', overflow: 'hidden', backgroundColor: '#F6F6F6' }}>
+      <Tabs
+        style={{ padding: '2rem' }}
+        value={presentation.status}
+        onChange={handleChange}
+      >
+        <Tab
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+              <PendingActionsIcon />
+              <span>Pending</span>
+            </Box>
+          }
+          value="pending"
+        />
 
-          <Tab
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
-                <RocketIcon/>
-                <span>Published</span>
-              </Box>
-            }
-            value="published"
-            />
-          <Tab
-            label={
-              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
-                <ArchiveIcon/>
-                <span>Archived</span>
-              </Box>
-            }
-            value="archived"
-            />
-        </Tabs>
+        <Tab
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+              <RocketIcon />
+              <span>Published</span>
+            </Box>
+          }
+          value="published"
+        />
+        <Tab
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+              <ArchiveIcon />
+              <span>Archived</span>
+            </Box>
+          }
+          value="archived"
+        />
+      </Tabs>
 
-       
-        <div className="padding_vertical_small"></div>
-   
-          <StickyHeadTable key={url} status={presentation.status} url={url} />
-    
-      </Box>
-  
+      <div className="padding_vertical_small"></div>
 
+      <StickyHeadTable key={url} status={presentation.status} url={url} />
+    </Box>
   );
 };
