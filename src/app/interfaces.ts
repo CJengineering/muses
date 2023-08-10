@@ -1,5 +1,13 @@
 import { TableStatus } from "src/features/table/tableSlice";
 
+export interface ArticleGateway {
+    fetchArticles(status: TableStatus): Promise<Article[]>;
+  }
+  
+
+export interface DashBoardGateway {
+    fetchDashboard(): Promise<DashboardData[]>;
+  }
 export interface AllArticles extends Iterable<AllArticles> {
     id: number;
     key_word_id: number;
@@ -10,6 +18,11 @@ export interface AllArticles extends Iterable<AllArticles> {
     created_at: string;
     updated_at: string;
   }
+export interface DashboardData {
+    name: string;
+    count: number;
+
+}
  export interface Data {
     title: any;
     id: number;

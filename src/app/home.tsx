@@ -3,10 +3,12 @@ import { useAuthentication } from './useAuthetication';
 import { Box, Button, Modal, Typography } from '@mui/material';
 import CreateKeywordForm from './createKeywordForm';
 import Dashboard from './dashboard/dashboard';
+import InternArticleForm from './InternArticleForm';
 
 export default function Home() {
   useAuthentication();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpenArticle, setIsModalOpenArticle] = React.useState(false);
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -14,6 +16,13 @@ export default function Home() {
 
   const handleClose = () => {
     setIsModalOpen(false);
+  };
+  const handleOpenArticle = () => {
+    setIsModalOpenArticle(true);
+  };
+
+  const handleCloseArticle = () => {
+    setIsModalOpenArticle(false);
   };
 
   return (
@@ -41,6 +50,28 @@ export default function Home() {
           <Button variant="contained" onClick={handleOpen}>
             Add Keyword
           </Button>
+          <div className="padding_vertical_small"></div>
+          <Button variant="contained" onClick={handleOpenArticle} sx={{backgroundColor: 'green'}}>
+            Add Article
+          </Button>
+
+          <Modal open={isModalOpenArticle} onClose={handleCloseArticle}>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '55%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+              }}
+            >
+              <InternArticleForm/>
+              <Button onClick={handleCloseArticle}>Close</Button>
+            </Box>
+          </Modal>
           <Modal open={isModalOpen} onClose={handleClose}>
             <Box
               sx={{
@@ -59,7 +90,7 @@ export default function Home() {
             </Box>
           </Modal>
         </div>
-       <Dashboard/>
+        <Dashboard />
       </div>
     </>
   );

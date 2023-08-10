@@ -15,7 +15,7 @@ import {
   IconButton,
 } from '@mui/material';
 import RocketIcon from '@mui/icons-material/Rocket';
-
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import AlertArticle from './alertArticle';
 import ToggleDiv from './toggleDiv';
@@ -64,6 +64,7 @@ const Row: React.FC<RowProps> = ({
   };
   const linkitem = apiEndpoints[url_item];
   const [upDown, setUpDown] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const handlePost = async (id: number, category_label: string) => {
     const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url_item}/${id}`;
     const body = JSON.stringify({ category_label });
@@ -83,6 +84,25 @@ const Row: React.FC<RowProps> = ({
     } catch (error) {
       // Handle error if needed
       console.error(error);
+    }
+  };
+  const handleAnalyser = async (id: number) => {
+    setIsProcessing(true);
+    const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/analyzer?id=${id}&type=${url_item}`;
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsProcessing(false);
     }
   };
   const formatPublishedDate = (dateString: string) => {
@@ -114,8 +134,10 @@ const Row: React.FC<RowProps> = ({
               tabIndex={-1}
               key={row.id}
               className="row"
-              style={{ backgroundColor:
-                expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',}}
+              style={{
+                backgroundColor:
+                  expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
+              }}
             >
               <TableCell
                 style={{
@@ -123,7 +145,6 @@ const Row: React.FC<RowProps> = ({
                   width: 300,
                   color: 'gray',
                   fontWeight: 'bold',
-                 
                 }}
               >
                 <IconButton onClick={() => handleToggle(row.id)}>
@@ -164,7 +185,11 @@ const Row: React.FC<RowProps> = ({
                       style={{ cursor: 'pointer' }}
                       onClick={() => handlePost(row.id, 'published')}
                     />
-
+                    <SmartToyIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleAnalyser(row.id)}
+                    />
+                    {isProcessing && <CircularProgress size={24} />}
                     <ArchiveIcon
                       style={{ cursor: 'pointer' }}
                       onClick={() => handlePost(row.id, 'archived')}

@@ -24,6 +24,7 @@ const apiEndpoints: ApiEndpoints = {
   'google-alerts': 'articles',
   'google-search': 'gosearts',
   'bing-news': 'bing_articles',
+  'internal-articles':'articleinterns'
 };
 export const TestTabs = () => {
   const dispatch = useAppDispatch();

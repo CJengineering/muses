@@ -1,4 +1,7 @@
 import {
+  Card,
+  CardActionArea,
+  CardContent,
   Container,
   Table,
   TableBody,
@@ -38,6 +41,7 @@ interface APIResponse {
   article: Article;
   related_keywords: RelatedKeywords;
   array_keywords: number;
+  summary: string;
 }
 interface PropsInfoRow {
   id: number;
@@ -45,7 +49,7 @@ interface PropsInfoRow {
 }
 const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
-
+  const [summary, setSummary] = useState<string>('');
   const [article, setArticle] = useState<Article | null>(null);
   const [relatedKeywords, setRelatedKeywords] =
     useState<RelatedKeywords | null>(null);
@@ -56,13 +60,12 @@ const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(
-          `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url}/${id}`
-        );
+        const response = await fetch(`https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url}/${id}`);
         const data: APIResponse = await response.json();
         setArticle(data.article);
         setRelatedKeywords(data.related_keywords);
         setArrayKeywords(data.array_keywords);
+        setSummary(data.summary);
 
         setLoading(false);
       } catch (error) {
@@ -93,7 +96,7 @@ const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
       <>
         <div className="container_loading">
           <div className="loading_text">
-            <p>I forgot to implement something to make it work :/</p>
+            <p>Details not available ... Please try later </p>
           </div>
         </div>
       </>
@@ -101,15 +104,37 @@ const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
   }
 
   return (
-    <TableContainer component={Paper} style={{backgroundColor:"lightgray"}}>
+    <TableContainer component={Paper} style={{ backgroundColor: 'lightgray' }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow style={{backgroundColor:'#001240'}}>
-            <TableCell style={{color:'white', fontSize:'bold'}}>Keyword</TableCell>
-            <TableCell style={{color:'white', fontSize:'bold'}}align="right">Occurrences</TableCell>
+          <TableRow style={{ backgroundColor: '#001240' }}>
+            <TableCell style={{ color: 'white', fontSize: 'bold' }}>
+              Keyword
+            </TableCell>
+            <TableCell
+              style={{ color: 'white', fontSize: 'bold' }}
+              align="right"
+            >
+              Occurrences
+            </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody >
+        <TableBody>
+          <TableRow>
+          <Card >
+      <CardActionArea>
+      
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+           Summary
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {summary}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+          </TableRow>
           {relatedKeywords &&
             Object.entries(relatedKeywords).map(([keyword, value]) => {
               if (value > 0) {

@@ -43,6 +43,11 @@ const navItems: NavItem[] = [
     link: '/news/bing-news',
   },
   {
+    text: 'Internal Searches',
+    icon: <NewReleasesIcon style={{ color: '#C1C1C1' }} />,
+    link: '/news/internal-articles',
+  },
+  {
     text: 'Keywords',
     icon: <KeyIcon style={{ color: '#C1C1C1' }} />,
     link: '/keywords',
@@ -70,7 +75,7 @@ const SideNavBar: React.FC = () => {
         },
       }}
     >
-         <div className='padding_vertical_small'></div>
+      <div className="padding_vertical_small"></div>
       <List>
         <div className="logo-container">
           <img
@@ -82,24 +87,23 @@ const SideNavBar: React.FC = () => {
         </div>
         {navItems.map((item) => (
           <ListItemButton
-          selected={item.text === selectedItem}
-          onClick={() => handleItemClick(item.text)}
-          sx={{
-            '&.Mui-selected': {
-              backgroundColor: 'white',
-              color: 'black',
-              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+            selected={item.text === selectedItem}
+            onClick={() => handleItemClick(item.text)}
+            sx={{
+              '&.Mui-selected': {
+                backgroundColor: 'white',
                 color: 'black',
+                '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                  color: 'black',
+                },
               },
-            },
-            '&:hover': {
-              backgroundColor: 'lightgray',
-              '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: 'black',
+              '&:hover': {
+                backgroundColor: 'lightgray',
+                '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                  color: 'black',
+                },
               },
-            },
-    
-          }}
+            }}
             key={item.text}
             component={RouterLink}
             to={item.link}

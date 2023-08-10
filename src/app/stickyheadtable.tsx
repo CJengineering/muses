@@ -181,7 +181,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
         `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url}?status=${status}`
       );
       const data: Data[] = await response.json();
-
+      console.log('tis is the data from articles ', data)
       setRows(data);
       setLoading(false);
     } catch (error) {
@@ -207,11 +207,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
-  const handleKeyWordSearchChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setKeyWordSearch(event.target.value);
-  };
+
   const renderedRows = rows.filter((row) => {
     const titleMatch =
       search !== '' && row.title.toLowerCase().includes(search.toLowerCase());

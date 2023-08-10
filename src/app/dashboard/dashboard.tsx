@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CountBox from './countBox';
 import TableArticle from './tableArticle';
 import DataChart from './dataChart';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPresentationDashboardData } from 'src/presentation/createPresentation';
+import { fetchDashboard } from 'src/features/dashboard/fetchDashboard';
 export default function Dashboard() {
-  const dashboardData = [
-    {
-      count: 1,
-      name: 'gogle alerts',
-    },
-    {
-      count: 12,
-      name: 'bing alerts',
-    },
-    {
-      count: 12,
-      name: 'search alerts',
-    },
-  ];
-
+  const presentation = useSelector(createPresentationDashboardData);
+  const dashboards = presentation.dashboard;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch<any>(fetchDashboard());
+  }, []);
+  if (dashboards.length == 0) {
+    return <div>is loading</div>;
+  }
   return (
     <>
       <div className="dashboard-container">
@@ -26,18 +23,18 @@ export default function Dashboard() {
         <div className="padding_vertical_small"></div>
         <div className="dashboard-news-container">
           <CountBox
-            count={dashboardData[0].count}
-            name={dashboardData[0].name}
+            count={dashboards[0].count}
+            name={dashboards[0].name}
             color="#F9CFF2"
           ></CountBox>
           <CountBox
-            count={dashboardData[1].count}
-            name={dashboardData[1].name}
+            count={dashboards[1].count}
+            name={dashboards[1].name}
             color="#DAE0F2"
           ></CountBox>
           <CountBox
-            count={dashboardData[2].count}
-            name={dashboardData[2].name}
+            count={dashboards[2].count}
+            name={dashboards[2].name}
             color="#EFE9E7"
           ></CountBox>
         </div>
@@ -55,7 +52,7 @@ export default function Dashboard() {
             </div>
             <div className="padding_vertical_small"></div>
             <TableArticle color="#F9CFF2" name="alerts" />
-            <DataChart/>
+            <DataChart />
           </div>
           <div className="padding_vertical_small"></div>
           <div className="dashboard-title-small">
@@ -65,7 +62,7 @@ export default function Dashboard() {
           </div>
           <div className="padding_vertical_small"></div>
           <TableArticle color="#DAE0F2" name="gosearts" />
-          <DataChart/>
+          <DataChart />
           <div className="padding_vertical_small"></div>
           <div className="dashboard-title-small">
             <span style={{ borderBottom: ' 2px solid #EFE9E7' }}>
@@ -74,7 +71,7 @@ export default function Dashboard() {
           </div>
           <div className="padding_vertical_small"></div>
           <TableArticle color="#EFE9E7" name="bing_articles" />
-          <DataChart/>
+          <DataChart />
         </div>
       </div>
     </>

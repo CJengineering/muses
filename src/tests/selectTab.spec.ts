@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import {createPresentation} from './createPresentation'
+import {createPresentation} from '../presentation/createPresentation'
 import {
   TableState,
   initialState,
