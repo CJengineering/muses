@@ -146,36 +146,28 @@ const Row: React.FC<RowProps> = ({
 
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
+ 
   const sendSlackMessage = async (keyword: string, link: string) => {
-    const message = `${keyword} \nPlease follow the link: ${link}.`;
-    const slackToken =
-      'xoxb-2779628403508-5314778873154-TBiz7VUPRuoT6TjJraOpWH7n'; 
-    const channel = 'digital-web';
-
     try {
-      const response = await fetch('https://slack.com/api/chat.postMessage', {
+      const response = await fetch('https://hermes-e4f6j5kdsq-ew.a.run.app/static/article_slack', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${slackToken}`,
         },
-        body: JSON.stringify({
-          channel,
-          text: message,
-        }),
+        body: JSON.stringify({ keyword, link }),
       });
-
-      const responseData = await response.json();
-
-      if (response.ok && responseData.ok) {
-        console.log('Slack message sent successfully:', message);
+  
+      if (response.ok) {
+        console.log('Keyword and link sent successfully:', keyword, link);
       } else {
-        console.error('Failed to send Slack message:', responseData.error);
+        console.error('Failed to send keyword and link:', response.statusText);
       }
     } catch (error) {
-      console.error('Error sending Slack message:', error);
+      console.error('Error sending keyword and link:', error);
     }
   };
+  
+
 
   return (
     <>
