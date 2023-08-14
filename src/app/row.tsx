@@ -13,6 +13,7 @@ import {
   MenuItem,
   Divider,
   IconButton,
+  Checkbox,
 } from '@mui/material';
 import RocketIcon from '@mui/icons-material/Rocket';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -48,6 +49,7 @@ interface RowProps {
   rows: Data[];
   rowsPerPage: number;
   setRows: React.Dispatch<React.SetStateAction<Data[]>>;
+  
 }
 
 const Row: React.FC<RowProps> = ({
@@ -56,6 +58,7 @@ const Row: React.FC<RowProps> = ({
   rowsPerPage,
   setRows,
   url_item,
+  
 }) => {
   const apiEndpoints: ApiEndpoints = {
     articles: 'google-alerts',
@@ -122,8 +125,34 @@ const Row: React.FC<RowProps> = ({
       setExpandedRow(rowId);
     }
   };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
+    if (event.target.checked) {
+      setSelectedRows((prevSelectedRows) => [...prevSelectedRows, id]);
+    } else {
+      setSelectedRows((prevSelectedRows) => prevSelectedRows.filter((rowId) => rowId !== id));
+    }
+  };
+
+  const handlePostSelected = async () => {
+    for (const id of selectedRows) {
+      await handlePost(id, 'archived');
+    }
+    setSelectedRows([]);
+  };
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
   return (
     <>
+      {selectedRows.length > 0 && (
+        <Box sx={{ marginTop: '1rem', textAlign: 'center' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handlePostSelected}
+          >
+            Archive selected once 
+          </Button>
+        </Box>
+      )}
       {rows
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row) => (
@@ -147,6 +176,10 @@ const Row: React.FC<RowProps> = ({
                   fontWeight: 'bold',
                 }}
               >
+                <Checkbox
+                  checked={selectedRows.includes(row.id)}
+                  onChange={(event) => handleCheckboxChange(event, row.id)}
+                />
                 <IconButton onClick={() => handleToggle(row.id)}>
                   {expandedRow === row.id ? (
                     <KeyboardArrowUp />
@@ -211,6 +244,8 @@ const Row: React.FC<RowProps> = ({
             )}
           </>
         ))}
+
+    
     </>
   );
 };

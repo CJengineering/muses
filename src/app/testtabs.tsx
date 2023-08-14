@@ -49,8 +49,11 @@ export const TestTabs = () => {
 
   return (
     <Box sx={{ width: '100%', overflow: 'hidden', backgroundColor: '#F6F6F6' }}>
+    
+    <h1 style={{textAlign: 'center'}}>{urlKey == 'google-alerts'? 'Google Alerts' : urlKey == 'google-search'? 'Google Search ': urlKey == 'bing-news' ? 'Bing News': urlKey == 'internal-articles' ? "Internal Articles " :" New one" }</h1>
+
       <Tabs
-        style={{ padding: '2rem' }}
+        style={{ paddingTop: '2rem' }}
         value={presentation.status}
         onChange={handleChange}
       >
@@ -83,8 +86,6 @@ export const TestTabs = () => {
           value="archived"
         />
       </Tabs>
-
-      <div className="padding_vertical_small"></div>
 
       <StickyHeadTable key={url} status={presentation.status} url={url} />
     </Box>

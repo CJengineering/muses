@@ -239,24 +239,26 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   }
 
   return (
-    <>
+    <div style={{position: 'relative'}}>
+       <TextField
+          id="search-bar"
+          label="Search keyword or title "
+          variant="standard"
+          value={search}
+          onChange={handleSearchChange}
+          style={{ marginBottom: '1rem', position:'absolute', top: -50, right:20}}
+        />
+
       <Box
         sx={{
+          
           overflow: 'hidden',
           marginLeft: '0%',
           padding: '2rem',
           backgroundColor: 'white',
         }}
       >
-        <TextField
-          id="search-bar"
-          label="Search keyword or title "
-          variant="standard"
-          value={search}
-          onChange={handleSearchChange}
-          style={{ marginBottom: '1rem' }}
-        />
-
+     
         <TableContainer sx={{}}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -324,7 +326,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Box>
-    </>
+    </div>
   );
 };
 export default StickyHeadTable;
