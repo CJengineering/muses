@@ -18,6 +18,7 @@ import {
 import RocketIcon from '@mui/icons-material/Rocket';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import TagIcon from '@mui/icons-material/Tag';
 import AlertArticle from './alertArticle';
 import ToggleDiv from './toggleDiv';
 import InfoRow from './infoRow';
@@ -49,7 +50,6 @@ interface RowProps {
   rows: Data[];
   rowsPerPage: number;
   setRows: React.Dispatch<React.SetStateAction<Data[]>>;
-  
 }
 
 const Row: React.FC<RowProps> = ({
@@ -58,7 +58,6 @@ const Row: React.FC<RowProps> = ({
   rowsPerPage,
   setRows,
   url_item,
-  
 }) => {
   const apiEndpoints: ApiEndpoints = {
     articles: 'google-alerts',
@@ -125,11 +124,16 @@ const Row: React.FC<RowProps> = ({
       setExpandedRow(rowId);
     }
   };
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, id: number) => {
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    id: number
+  ) => {
     if (event.target.checked) {
       setSelectedRows((prevSelectedRows) => [...prevSelectedRows, id]);
     } else {
-      setSelectedRows((prevSelectedRows) => prevSelectedRows.filter((rowId) => rowId !== id));
+      setSelectedRows((prevSelectedRows) =>
+        prevSelectedRows.filter((rowId) => rowId !== id)
+      );
     }
   };
 
@@ -139,7 +143,40 @@ const Row: React.FC<RowProps> = ({
     }
     setSelectedRows([]);
   };
+
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  const sendSlackMessage = async (keyword: string, link: string) => {
+    const message = `${keyword} \nPlease follow the link: ${link}.`;
+    const slackToken =
+      'xoxb-2779628403508-5314778873154-TBiz7VUPRuoT6TjJraOpWH7n'; 
+    const channel = 'digital-web';
+
+    try {
+      const response = await fetch('https://slack.com/api/chat.postMessage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${slackToken}`,
+        },
+        body: JSON.stringify({
+          channel,
+          text: message,
+        }),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok && responseData.ok) {
+        console.log('Slack message sent successfully:', message);
+      } else {
+        console.error('Failed to send Slack message:', responseData.error);
+      }
+    } catch (error) {
+      console.error('Error sending Slack message:', error);
+    }
+  };
+
   return (
     <>
       {selectedRows.length > 0 && (
@@ -149,7 +186,7 @@ const Row: React.FC<RowProps> = ({
             color="primary"
             onClick={handlePostSelected}
           >
-            Archive selected once 
+            Archive selected once
           </Button>
         </Box>
       )}
@@ -222,6 +259,16 @@ const Row: React.FC<RowProps> = ({
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleAnalyser(row.id)}
                     />
+                    <TagIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={() =>
+                        sendSlackMessage(
+                          row.key_word.key_word,
+                          row.link ?? row.url_link ?? ''
+                        )
+                      }
+                    />
+
                     {isProcessing && <CircularProgress size={24} />}
                     <ArchiveIcon
                       style={{ cursor: 'pointer' }}
@@ -244,8 +291,6 @@ const Row: React.FC<RowProps> = ({
             )}
           </>
         ))}
-
-    
     </>
   );
 };
