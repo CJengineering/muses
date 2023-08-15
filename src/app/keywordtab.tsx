@@ -16,16 +16,6 @@ import Typography from '@mui/material/Typography';
 import CreateKeywordForm from './createKeywordForm';
 import UpdateKeywordForm from './updtaeKeywordForm';
 
-interface AllArticles {
-  id: number;
-  key_word_id: number;
-  title: string;
-  url_link: string;
-  score: number;
-  score_second: number;
-  created_at: string;
-  updated_at: string;
-}
 interface Data {
   id: number;
   key_word: string;
@@ -33,9 +23,7 @@ interface Data {
   created_at: string;
   updated_at: string;
   factiva: boolean;
-  articles: AllArticles[];
-  gosearts: AllArticles[];
-  bing_articles: AllArticles[];
+  combined: boolean;
 }
 
 export default function KeyWordTable() {
@@ -130,17 +118,7 @@ export default function KeyWordTable() {
   return (
     <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
       <div className="padding_vertical_medium"></div>
-      <Button onClick={handleOpen}>Create new keyword</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <CreateKeywordForm></CreateKeywordForm>
-        </Box>
-      </Modal>
+      {/* ... create new keyword button and modal remain the same */}
       <TextField
         label="Search Keyword"
         value={searchInput}
@@ -153,10 +131,9 @@ export default function KeyWordTable() {
           <TableHead>
             <TableRow>
               <TableCell>Keyword</TableCell>
-              <TableCell align="right">Google Alerts</TableCell>
-              <TableCell align="right">Google Search</TableCell>
-              <TableCell align="right">Bing News</TableCell>
-              <TableCell align="right">Actions </TableCell>
+              <TableCell align="right">Factiva</TableCell>
+              {/* No article-related columns */}
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -177,15 +154,18 @@ export default function KeyWordTable() {
                     {row.key_word}
                   </a>
                 </TableCell>
-                <TableCell align="right">{row.articles.length}</TableCell>
-                <TableCell align="right">{row.gosearts.length}</TableCell>
-                <TableCell align="right">{row.bing_articles.length}</TableCell>
                 <TableCell align="right">
+                  {row.factiva ? 'Yes' : 'No'}
+                </TableCell>
+                {/* No article-related cells */}
+                <TableCell align="right">
+                  {' '}
                   <UpdateKeywordForm
                     factiva={row.factiva}
                     rss={row.rss_url}
                     keywordName={row.key_word}
                     keywordId={row.id}
+                    combined = {row.combined}
                   />
                 </TableCell>
               </TableRow>

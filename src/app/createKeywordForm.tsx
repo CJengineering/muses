@@ -11,6 +11,7 @@ function CreateKeywordForm() {
   const [keyword, setKeyword] = useState<string>('');
   const [rssFeed, setRssFeed] = useState<string>('');
   const [isFactiva, setIsFactiva] = useState<boolean>(false);
+  const [isCombined, setIsCombined] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -31,6 +32,7 @@ function CreateKeywordForm() {
               key_word: keyword,
               rss_url: rssFeed,
               factiva: isFactiva,
+              combined: isCombined,
             },
           }),
         }
@@ -43,6 +45,7 @@ function CreateKeywordForm() {
         setKeyword('');
         setRssFeed('');
         setIsFactiva(false);
+        setIsCombined(false)
       } else {
         throw new Error('Failed to submit keyword');
       }
@@ -64,7 +67,9 @@ function CreateKeywordForm() {
   const handleToggleFactiva = () => {
     setIsFactiva((prevIsFactiva) => !prevIsFactiva);
   };
-
+  const handleToggleCombined = () => {
+    setIsCombined((prevIsCombined => !prevIsCombined));
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="padding_vertical_small"></div>
@@ -89,6 +94,10 @@ function CreateKeywordForm() {
       <FormControlLabel
         control={<Switch checked={isFactiva} onChange={handleToggleFactiva} />}
         label="Factiva"
+      />
+       <FormControlLabel
+        control={<Switch checked={isCombined} onChange={handleToggleCombined} />}
+        label="Combined"
       />
       <Button type="submit" variant="contained" color="primary">
         Submit
