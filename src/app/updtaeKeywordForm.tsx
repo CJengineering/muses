@@ -87,7 +87,7 @@ function UpdateKeywordForm({
         }
       );
 
-      if (response.ok) {
+      if (response.status === 302) {
         setSuccessMessage('Keyword deleted successfully');
         handleClose();
         window.location.reload();
