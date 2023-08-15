@@ -31,9 +31,9 @@ export interface DashboardData {
     created_at: string;
     updated_at: string;
     factiva: boolean;
-    articles: AllArticles[];
-    gosearts: AllArticles[];
-    bing_articles: AllArticles[];
+    articles: Article[];
+    gosearts: Article[];
+    bing_articles: Article[];
   }
 export   interface DataArticle {
     id: number;
@@ -49,8 +49,8 @@ export   interface DataArticle {
     updated_at: string;
     key_word_id: number;
     score: number | null;
-    score_second: number | null;
-    category_label: string | null;
+    score_second: number ;
+    category_label: string ;
   }
   export interface ApiTest {
     message: string;
@@ -65,12 +65,12 @@ export interface Article {
     key_word: {
       key_word: string;
     };
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
     key_word_id: number;
-    score: number | undefined;
-    score_second: number | undefined;
-    category_label: string | undefined;
+    score: number ;
+    score_second: number ;
+    category_label: string ;
   }
 
 export interface ArticleGateway {

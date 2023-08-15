@@ -181,7 +181,7 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
         `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url}?status=${status}`
       );
       const data: Data[] = await response.json();
-      console.log('tis is the data from articles ', data)
+      console.log('tis is the data from articles ', data);
       setRows(data);
       setLoading(false);
     } catch (error) {
@@ -239,26 +239,29 @@ const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {
   }
 
   return (
-    <div style={{position: 'relative'}}>
-       <TextField
-          id="search-bar"
-          label="Search keyword or title "
-          variant="standard"
-          value={search}
-          onChange={handleSearchChange}
-          style={{ marginBottom: '1rem', position:'absolute', top: -50, right:20}}
-        />
+    <div style={{ position: 'relative' }}>
+      <TextField
+        id="search-bar"
+        label="Search keyword or title "
+        variant="standard"
+        value={search}
+        onChange={handleSearchChange}
+        style={{
+          marginBottom: '1rem',
+          position: 'absolute',
+          top: -50,
+          right: 20,
+        }}
+      />
 
       <Box
         sx={{
-          
           overflow: 'hidden',
           marginLeft: '0%',
           padding: '2rem',
           backgroundColor: 'white',
         }}
       >
-     
         <TableContainer sx={{}}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>

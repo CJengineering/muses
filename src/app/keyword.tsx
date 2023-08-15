@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState,ChangeEvent } from 'react';
 import Typography from '@mui/material/Typography';
-import { Data, AllArticles } from './interfaces'; // Import the Data and AllArticles interfaces
+import { Data, AllArticles, Article } from './interfaces'; // Import the Data and AllArticles interfaces
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import AddTaskIcon from '@mui/icons-material/AddTask';
@@ -13,6 +12,19 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import TablePagination from '@mui/material/TablePagination';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import RocketIcon from '@mui/icons-material/Rocket';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import { useMatch, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { TableStatus, selectedTableValue } from 'src/features/table/tableSlice';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { createPresentation } from 'src/presentation/createPresentation';
+import TableKeyword from './TableKeyword';
 
 interface Params {
   id: number;
@@ -21,8 +33,35 @@ interface Params {
 const Keyword: React.FC = () => {
   const params = useParams();
   const { id } = params;
-  const [data, setData] = useState<Data | null>(null);
+  const [keyword, setKeyword] = useState<string>('')
+  const [data, setData] = useState<Article[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+  const dispatch = useAppDispatch();
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+ 
+  const handleChange = (event: ChangeEvent<{}>, selectedValue: TableStatus) => {
+    console.log(
+      'This is the event ',
+      event,
+      'this is the underscore',
+      selectedValue
+    );
+
+    dispatch(selectedTableValue(selectedValue));
+  };
+  const presentation = useAppSelector(createPresentation);
+  console.log('presentation mode:', presentation);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +70,15 @@ const Keyword: React.FC = () => {
           `https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words/${id}`
         );
         const keywordData: Data = await response.json();
-        setData(keywordData);
+
+        // Combine data from different arrays
+        const combinedData: Article[] = [
+          ...(keywordData?.articles || []),
+          ...(keywordData?.gosearts || []),
+          ...(keywordData?.bing_articles || []),
+        ];
+        setKeyword(keywordData.key_word)
+        setData(combinedData); // Update data state with combined data
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -44,7 +91,7 @@ const Keyword: React.FC = () => {
   if (loading) {
     return (
       <>
-        <Paper
+        <Box
           sx={{
             width: '80%',
             backgroundColor: 'gray',
@@ -60,63 +107,55 @@ const Keyword: React.FC = () => {
               <CircularProgress />
             </div>
           </div>
-        </Paper>
+        </Box>
       </>
     );
   }
 
-  const allArticles: AllArticles[] = [
-    ...(data?.articles || []),
-    ...(data?.gosearts || []),
-    ...(data?.bing_articles || []),
-  ];
 
   return (
-    <div>
-      <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
-        <Container style={{ backgroundColor: 'lightgray' }}>
-          <div className="padding_vertical_medium"></div>
-          <Typography variant="h4" component="h1">
-            Keyword: {data?.key_word}
-          </Typography>
+    <>
+     <Box sx={{ width: '100%', overflow: 'hidden', backgroundColor: '#F6F6F6' }}>
+     <h1>{keyword}</h1>
 
-          <Typography variant="body1" component="p">
-            Factiva: {data?.factiva ? 'Yes' : 'No'}
-          </Typography>
+      <Tabs
+        style={{ paddingTop: '2rem' }}
+        value={presentation.status}
+        onChange={handleChange}
+      >
+        <Tab
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+              <PendingActionsIcon />
+              <span>Pending</span>
+            </Box>
+          }
+          value="pending"
+        />
 
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Title</TableCell>
-                  <TableCell>URL</TableCell>
-                  <TableCell>Score</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {allArticles.map((article: AllArticles) => (
-                  <TableRow key={article.id}>
-                    <TableCell>{article.title}</TableCell>
-                    <TableCell>
-                      <Link
-                        href={article.url_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        See the article
-                      </Link>
-                    </TableCell>
-                    <TableCell>{article.score}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div className="padding_vertical_big"></div>
-        </Container>
-        <div className="padding_vertical_big"></div>
-      </Paper>
-    </div>
+        <Tab
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+              <RocketIcon />
+              <span>Published</span>
+            </Box>
+          }
+          value="published"
+        />
+        <Tab
+          label={
+            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+              <ArchiveIcon />
+              <span>Archived</span>
+            </Box>
+          }
+          value="archived"
+        />
+      </Tabs>
+
+    {data !== null && <TableKeyword articles={data}  />}
+    </Box>
+    </>
   );
 };
 

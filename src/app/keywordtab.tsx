@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import CreateKeywordForm from './createKeywordForm';
 import UpdateKeywordForm from './updtaeKeywordForm';
 
+
 interface Data {
   id: number;
   key_word: string;
@@ -32,7 +33,7 @@ export default function KeyWordTable() {
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 100;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -116,9 +117,10 @@ export default function KeyWordTable() {
   }
 
   return (
-    <Paper sx={{ width: '80%', overflow: 'hidden', marginLeft: '18%' }}>
-      <div className="padding_vertical_medium"></div>
-      {/* ... create new keyword button and modal remain the same */}
+    <Box sx={{ width: '50%', overflow: 'hidden', marginLeft: '2rem' }}>
+    <h1>Keywords</h1>
+     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '1rem' }}>
+
       <TextField
         label="Search Keyword"
         value={searchInput}
@@ -126,12 +128,13 @@ export default function KeyWordTable() {
         margin="normal"
         variant="outlined"
       />
+     </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 200 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Keyword</TableCell>
-              <TableCell align="right">Factiva</TableCell>
+            
               {/* No article-related columns */}
               <TableCell align="right">Actions</TableCell>
             </TableRow>
@@ -154,9 +157,7 @@ export default function KeyWordTable() {
                     {row.key_word}
                   </a>
                 </TableCell>
-                <TableCell align="right">
-                  {row.factiva ? 'Yes' : 'No'}
-                </TableCell>
+              
                 {/* No article-related cells */}
                 <TableCell align="right">
                   {' '}
@@ -178,6 +179,6 @@ export default function KeyWordTable() {
           onChange={handlePageChange}
         />
       </TableContainer>
-    </Paper>
+    </Box>
   );
 }
