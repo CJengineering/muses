@@ -48,12 +48,12 @@ export const TestTabs = () => {
   console.log('presentation mode:', presentation);
 
   return (
-    <Box sx={{ width: '100%', overflow: 'hidden', backgroundColor: '#F6F6F6' }}>
+    <Box sx={{ width: '100%', overflow: 'hidden',  }}>
     
-    <h1 style={{textAlign: 'center'}}>{urlKey == 'google-alerts'? 'Google Alerts' : urlKey == 'google-search'? 'Google Search ': urlKey == 'bing-news' ? 'Bing News': urlKey == 'internal-articles' ? "Internal Articles " :" New one" }</h1>
+    <h1 style={{textAlign: 'left', marginLeft: '2rem'}}>{urlKey == 'google-alerts'? 'Google Alerts' : urlKey == 'google-search'? 'Google Search ': urlKey == 'bing-news' ? 'Bing News': urlKey == 'internal-articles' ? "Internal Articles " :" New one" }</h1>
 
       <Tabs
-        style={{ paddingTop: '2rem' }}
+        style={{ paddingTop: '2rem',marginLeft:'2rem' }}
         value={presentation.status}
         onChange={handleChange}
       >

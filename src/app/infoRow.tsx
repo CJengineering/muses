@@ -104,8 +104,8 @@ const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
   }
 
   return (
-    <TableContainer component={Paper} style={{ backgroundColor: 'lightgray' }}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer >
+      <Table sx={{ minWidth: '100%' }} aria-label="simple table">
         <TableHead>
           <TableRow style={{ backgroundColor: '#001240' }}>
             <TableCell style={{ color: 'white', fontSize: 'bold' }}>
@@ -122,17 +122,17 @@ const InfoRow: React.FC<PropsInfoRow> = ({ id, url }) => {
         <TableBody>
           <TableRow>
           <Card >
-      <CardActionArea>
+    
       
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
            Summary
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <div>
             {summary}
-          </Typography>
+          </div>
         </CardContent>
-      </CardActionArea>
+   
     </Card>
           </TableRow>
           {relatedKeywords &&

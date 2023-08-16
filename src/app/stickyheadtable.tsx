@@ -24,6 +24,7 @@ import AlertArticle from './alertArticle';
 
 interface Column {
   id:
+    | 'checkbox'
     | 'title'
     | 'view'
     | 'related_to'
@@ -39,6 +40,8 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
+  { id: 'checkbox', label: 'Select',  maxWidth: 20 },
+
   { id: 'title', label: 'Title', minWidth: 200, maxWidth: 200 },
 
   {
@@ -51,7 +54,7 @@ const columns: readonly Column[] = [
   },
   {
     id: 'related_to',
-    label: 'Related to ',
+    label: 'Keyword ',
     minWidth: 70,
     maxWidth: 70,
     align: 'left',
@@ -66,7 +69,7 @@ const columns: readonly Column[] = [
   },
   {
     id: 'related_score',
-    label: ' Related Score',
+    label: ' Score',
     minWidth: 50,
     align: 'center',
     format: (value: number) => value.toFixed(2),

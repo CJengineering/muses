@@ -146,17 +146,19 @@ const Row: React.FC<RowProps> = ({
 
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
- 
   const sendSlackMessage = async (keyword: string, link: string) => {
     try {
-      const response = await fetch('https://hermes-e4f6j5kdsq-ew.a.run.app/static/article_slack', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ keyword, link }),
-      });
-  
+      const response = await fetch(
+        'https://hermes-e4f6j5kdsq-ew.a.run.app/static/article_slack',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ keyword, link }),
+        }
+      );
+
       if (response.ok) {
         console.log('Keyword and link sent successfully:', keyword, link);
       } else {
@@ -166,8 +168,6 @@ const Row: React.FC<RowProps> = ({
       console.error('Error sending keyword and link:', error);
     }
   };
-  
-
 
   return (
     <>
@@ -178,7 +178,7 @@ const Row: React.FC<RowProps> = ({
             color="primary"
             onClick={handlePostSelected}
           >
-            Archive selected once
+            Archive 
           </Button>
         </Box>
       )}
@@ -197,6 +197,18 @@ const Row: React.FC<RowProps> = ({
                   expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
               }}
             >
+              <TableCell style={{
+         
+                  width: 30,
+                  color: 'gray',
+                  fontWeight: 'bold',
+                }}>
+                <Checkbox
+                  checked={selectedRows.includes(row.id)}
+                  onChange={(event) => handleCheckboxChange(event, row.id)}
+                />
+              </TableCell>
+
               <TableCell
                 style={{
                   minWidth: 300,
@@ -205,10 +217,6 @@ const Row: React.FC<RowProps> = ({
                   fontWeight: 'bold',
                 }}
               >
-                <Checkbox
-                  checked={selectedRows.includes(row.id)}
-                  onChange={(event) => handleCheckboxChange(event, row.id)}
-                />
                 <IconButton onClick={() => handleToggle(row.id)}>
                   {expandedRow === row.id ? (
                     <KeyboardArrowUp />

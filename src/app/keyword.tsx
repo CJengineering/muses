@@ -94,7 +94,7 @@ const Keyword: React.FC = () => {
         <Box
           sx={{
             width: '80%',
-            backgroundColor: 'gray',
+          
             overflow: 'hidden',
             marginLeft: '10%',
           }}
@@ -115,11 +115,11 @@ const Keyword: React.FC = () => {
 
   return (
     <>
-     <Box sx={{ width: '100%', overflow: 'hidden', backgroundColor: '#F6F6F6' }}>
-     <h1>{keyword}</h1>
+     <Box sx={{ width: '100%', overflow: 'hidden' }}>
+     <h1 style={{marginLeft:'2rem'}}>{keyword}</h1>
 
       <Tabs
-        style={{ paddingTop: '2rem' }}
+        style={{ paddingTop: '2rem', marginLeft:'2rem' }}
         value={presentation.status}
         onChange={handleChange}
       >
