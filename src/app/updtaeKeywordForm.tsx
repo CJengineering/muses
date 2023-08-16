@@ -65,7 +65,7 @@ function UpdateKeywordForm({
         }
       );
 
-      if (response.ok) {
+      if (response === 302) {
         const data = await response.json();
 
         setSuccessMessage('Keyword updated successfully');
