@@ -88,19 +88,18 @@ const Keyword: React.FC = () => {
         );
         const keywordData: Data = await response.json();
 
-
         const combinedData: Article[] = [
           ...(keywordData?.articles || []).map((article) => ({
             ...article,
-            source: 'articles' as const, 
+            source: 'articles' as const,
           })),
           ...(keywordData?.gosearts || []).map((article) => ({
             ...article,
-            source: 'gosearts' as const, 
+            source: 'gosearts' as const,
           })),
           ...(keywordData?.bing_articles || []).map((article) => ({
             ...article,
-            source: 'bing_articles' as const, 
+            source: 'bing_articles' as const,
           })),
         ];
         setKeyword(keywordData.key_word);
@@ -135,6 +134,59 @@ const Keyword: React.FC = () => {
 
     fetchData();
   }, [id]);
+  const handleDataRefetch = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words/${id}`
+      );
+      const keywordData: Data = await response.json();
+  
+      const combinedData: Article[] = [
+        ...(keywordData?.articles || []).map((article) => ({
+          ...article,
+          source: 'articles' as const,
+        })),
+        ...(keywordData?.gosearts || []).map((article) => ({
+          ...article,
+          source: 'gosearts' as const,
+        })),
+        ...(keywordData?.bing_articles || []).map((article) => ({
+          ...article,
+          source: 'bing_articles' as const,
+        })),
+      ];
+  
+      let updatedFilteredArticles: Article[] = [];
+  
+      if (presentation.status === 'published') {
+        updatedFilteredArticles = combinedData.filter(
+          (article) => article.category_label === 'published'
+        );
+      } else if (presentation.status === 'archived') {
+        updatedFilteredArticles = combinedData.filter(
+          (article) => article.category_label === 'archived'
+        );
+      } else {
+        updatedFilteredArticles = combinedData.filter(
+          (article) =>
+            !article.category_label ||
+            article.category_label === '' ||
+            article.category_label === undefined
+        );
+      }
+  
+      setLoading(false);
+      setData(combinedData);
+      setKeyword(keywordData.key_word);
+      setFilteredArticles(updatedFilteredArticles);
+  
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
+  
 
   if (loading) {
     return (
@@ -200,7 +252,7 @@ const Keyword: React.FC = () => {
           />
         </Tabs>
 
-        <TableKeyword articles={filteredArticles} />
+        <TableKeyword articles={filteredArticles} onRefetch={handleDataRefetch} />
       </Box>
     </>
   );

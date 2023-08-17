@@ -30,13 +30,19 @@ interface ApiEndpoints {
 
 interface RowProps {
   page: number;
-
   rows: Article[];
   rowsPerPage: number;
   setRows: React.Dispatch<React.SetStateAction<Article[]>>;
+  onRefetch: () => Promise<void>;
 }
 
-const KeyRow: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows }) => {
+const KeyRow: React.FC<RowProps> = ({
+  page,
+  rows,
+  rowsPerPage,
+  setRows,
+  onRefetch,
+}) => {
   const apiEndpoints: ApiEndpoints = {
     articles: 'google-alerts',
     gosearts: 'google-search',
@@ -119,12 +125,16 @@ const KeyRow: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows }) => {
     }
   };
 
-  //   const handlePostSelected = async () => {
-  //     for (const id of selectedRows) {
-  //       await handlePost(id, 'archived', );
-  //     }
-  //     setSelectedRows([]);
-  //   };
+  const handlePostSelected = async () => {
+    for (const id of selectedRows) {
+      const selectedArticle = rows.find((article) => article.id === id);
+      if (selectedArticle) {
+        await handlePost(id, 'archived', selectedArticle.source);
+      }
+    }
+    setSelectedRows([]);
+    window.location.reload();
+  };
 
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
@@ -155,11 +165,16 @@ const KeyRow: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows }) => {
     <>
       {selectedRows.length > 0 && (
         <Box sx={{ marginTop: '1rem', textAlign: 'center' }}>
-          <Button variant="contained" color="primary">
-            Archive selected once
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handlePostSelected}
+          >
+            Archive
           </Button>
         </Box>
       )}
+
       {rows
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row) => (

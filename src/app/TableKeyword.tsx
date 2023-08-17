@@ -78,9 +78,11 @@ const columns: readonly Column[] = [
 
 interface statusProps {
   articles: Article[];
+  onRefetch: () => Promise<void>;
+
 }
 
-const TableKeyword: React.FC<statusProps> = ({ articles }) => {
+const TableKeyword: React.FC<statusProps> = ({ articles, onRefetch }) => {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Article[]>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(100);
@@ -252,6 +254,7 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
                 rows={rows}
                 page={page}
                 setRows={setRows}
+                onRefetch= {onRefetch}
               />
             </TableBody>
           </Table>
