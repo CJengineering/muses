@@ -26,6 +26,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createPresentation } from 'src/presentation/createPresentation';
 import TableKeyword from './TableKeyword';
 
+
 interface Params {
   id: number;
 }
@@ -38,30 +39,39 @@ const Keyword: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
+  const presentation = useAppSelector(createPresentation);
   const dispatch = useAppDispatch();
-
+  console.log('presentation mode:', presentation);
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
- 
-  const handleChange = (event: ChangeEvent<{}>, selectedValue: TableStatus) => {
-    console.log(
-      'This is the event ',
-      event,
-      'this is the underscore',
-      selectedValue
-    );
+  const handleChange = (event: ChangeEvent<{}>, newValue: string) => {
+    let filteredArticles: Article[] = [];
+    console.log('Selected tab:', newValue);
 
-    dispatch(selectedTableValue(selectedValue));
+    if (newValue === 'published') {
+      filteredArticles = (data || []).filter(article => article.category_label === 'published');
+    } else if (newValue === 'archived') {
+      filteredArticles = (data || []).filter(article => article.category_label === 'archived');
+    } else {
+      filteredArticles = (data || []).filter(
+        article =>
+          !article.category_label || article.category_label === '' || article.category_label === undefined
+      );
+    }
+
+  console.log('Filtered articles:', filteredArticles);
+
+    dispatch(selectedTableValue(newValue as TableStatus));
+
+    setFilteredArticles(filteredArticles); // Update filtered articles based on the tab selection
   };
-  const presentation = useAppSelector(createPresentation);
-  console.log('presentation mode:', presentation);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,7 +88,16 @@ const Keyword: React.FC = () => {
           ...(keywordData?.bing_articles || []),
         ];
         setKeyword(keywordData.key_word)
-        setData(combinedData); // Update data state with combined data
+        setData(combinedData);
+        if (presentation.status === 'published') {
+          setFilteredArticles(combinedData.filter(article => article.category_label === 'published'));
+        } else if (presentation.status === 'archived') {
+          setFilteredArticles(combinedData.filter(article => article.category_label === 'archived'));
+        } else {
+          setFilteredArticles(combinedData.filter(
+            article => !article.category_label || article.category_label === '' || article.category_label === undefined
+          ));
+        }
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -153,7 +172,7 @@ const Keyword: React.FC = () => {
         />
       </Tabs>
 
-    {data !== null && <TableKeyword articles={data}  />}
+      <TableKeyword articles={filteredArticles} />
     </Box>
     </>
   );

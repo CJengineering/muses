@@ -95,10 +95,10 @@ export default function KeyWordTable() {
   if (loading) {
     return (
       <>
-        <Paper
+        <Box
           sx={{
             width: '80%',
-            backgroundColor: 'gray',
+
             overflow: 'hidden',
             marginLeft: '10%',
           }}
@@ -111,15 +111,15 @@ export default function KeyWordTable() {
               <CircularProgress />
             </div>
           </div>
-        </Paper>
+        </Box>
       </>
     );
   }
 
   return (
     <Box sx={{ width: '50%', overflow: 'hidden', marginLeft: '2rem' }}>
-    <h1>Keywords</h1>
-     <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '1rem' }}>
+     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+       <h1>Keywords</h1>
 
       <TextField
         label="Search Keyword"

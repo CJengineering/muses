@@ -17,75 +17,76 @@ import Row from './row';
 import { Article } from './interfaces';
 import KeyRow from './keyRow';
 interface Column {
-    id:
-      | 'title'
-      | 'view'
-      | 'related_to'
-      | 'main_score'
-      | 'related_score'
-      | 'date'
-      | 'actions';
-    label: string;
-    minWidth?: number;
-    maxWidth?: number;
-    align?: 'right' | 'center' | 'left';
-    format?: (value: number) => string;
-  }
-  
-  const columns: readonly Column[] = [
-    { id: 'title', label: 'Title', minWidth: 200, maxWidth: 200 },
-  
-    {
-      id: 'view',
-      label: '',
-      minWidth: 50,
-      maxWidth: 50,
-      align: 'right',
-      format: (value: number) => value.toLocaleString('en-US'),
-    },
-    
-    {
-      id: 'main_score',
-      label: 'Main Score',
-      minWidth: 70,
-      align: 'center',
-      format: (value: number) => value.toFixed(2),
-    },
-    {
-      id: 'related_score',
-      label: ' Related Score',
-      minWidth: 50,
-      align: 'center',
-      format: (value: number) => value.toFixed(2),
-    },
-    {
-      id: 'date',
-      label: 'Date',
-      minWidth: 70,
-      align: 'center',
-      format: (value: number) => value.toFixed(2),
-    },
-    {
-      id: 'actions',
-      label: 'Actions',
-      minWidth: 170,
-      align: 'center',
-      format: (value: number) => value.toFixed(2),
-    },
-  ];
-  
+  id:
+    | 'checkbox'
+    | 'title'
+    | 'view'
+    | 'related_to'
+    | 'main_score'
+    | 'related_score'
+    | 'date'
+    | 'actions';
+  label: string;
+  minWidth?: number;
+  maxWidth?: number;
+  align?: 'right' | 'center' | 'left';
+  format?: (value: number) => string;
+}
+
+const columns: readonly Column[] = [
+  { id: 'checkbox', label: 'Select', maxWidth: 20 },
+  { id: 'title', label: 'Title', minWidth: 200, maxWidth: 200 },
+
+  {
+    id: 'view',
+    label: '',
+    minWidth: 50,
+    maxWidth: 50,
+    align: 'right',
+    format: (value: number) => value.toLocaleString('en-US'),
+  },
+
+  {
+    id: 'main_score',
+    label: 'Main Score',
+    minWidth: 70,
+    align: 'center',
+    format: (value: number) => value.toFixed(2),
+  },
+  {
+    id: 'related_score',
+    label: ' Related Score',
+    minWidth: 50,
+    align: 'center',
+    format: (value: number) => value.toFixed(2),
+  },
+  {
+    id: 'date',
+    label: 'Date',
+    minWidth: 70,
+    align: 'center',
+    format: (value: number) => value.toFixed(2),
+  },
+  {
+    id: 'actions',
+    label: 'Actions',
+    minWidth: 170,
+    align: 'center',
+    format: (value: number) => value.toFixed(2),
+  },
+];
+
 interface statusProps {
   articles: Article[];
-
 }
 
 const TableKeyword: React.FC<statusProps> = ({ articles }) => {
   const [page, setPage] = React.useState(0);
-  const [rows, setRows] = React.useState<Article[]>(articles);
+  const [rows, setRows] = React.useState<Article[]>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(100);
   const [order, setOrder] = React.useState<'desc' | 'asc'>('asc');
   const [search, setSearch] = React.useState('');
-  console.log('Let see the row', rows)
+  console.log('Let see the row', rows);
   const sortRowsByRelatedScore = () => {
     const sortedRows = [...rows].sort((a, b) => {
       if (a.score_second === null && b.score_second === null) {
@@ -117,6 +118,10 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
   };
 
   React.useEffect(() => {
+    // Update rows state when articles prop changes
+    setRows(articles);
+  }, [articles]);
+  React.useEffect(() => {
     if (order === 'desc') {
       sortRowsByRelatedScore();
     } else {
@@ -131,7 +136,6 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
-
 
   const [loading, setLoading] = React.useState(false);
 
@@ -151,7 +155,7 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
   }
 
   return (
-    <div style={{ position: 'relative', width:'100%' }}>
+    <div style={{ position: 'relative', width: '100%' }}>
       <TextField
         id="search-bar"
         label="Search keyword or title "
@@ -178,25 +182,15 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-              {columns.map((column) => (
+                {columns.map((column) => (
                   <TableCell
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
                   >
                     {column.label}
-                    {column.id === 'related_score' && (
-                      <TableSortLabel
-                        active
-                        
-                      />
-                    )}
-                    {column.id === 'main_score' && (
-                      <TableSortLabel
-                        active
-                        
-                      />
-                    )}
+                    {column.id === 'related_score' && <TableSortLabel active />}
+                    {column.id === 'main_score' && <TableSortLabel active />}
                     {column.id === 'date' && (
                       <TableSortLabel
                         active

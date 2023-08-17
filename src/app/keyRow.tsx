@@ -181,7 +181,17 @@ const KeyRow: React.FC<RowProps> = ({
                 backgroundColor:
                   expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
               }}
-            >
+            >        <TableCell style={{
+         
+                width: 30,
+                color: 'gray',
+                fontWeight: 'bold',
+              }}>
+         <Checkbox
+                  checked={selectedRows.includes(row.id)}
+                  onChange={(event) => handleCheckboxChange(event, row.id)}
+                />
+            </TableCell>
               <TableCell
                 style={{
                   minWidth: 300,
@@ -190,10 +200,7 @@ const KeyRow: React.FC<RowProps> = ({
                   fontWeight: 'bold',
                 }}
               >
-                <Checkbox
-                  checked={selectedRows.includes(row.id)}
-                  onChange={(event) => handleCheckboxChange(event, row.id)}
-                />
+             
                 <IconButton onClick={() => handleToggle(row.id)}>
                   {expandedRow === row.id ? (
                     <KeyboardArrowUp />
