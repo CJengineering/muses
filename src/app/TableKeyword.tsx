@@ -84,6 +84,13 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState<Article[]>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(100);
+  const [relatedScoreSortDirection, setRelatedScoreSortDirection] =
+    React.useState<OrderDirection>('asc');
+  const drawerWidth = 240;
+  const [mainScoreSortDirection, setMainScoreSortDirection] =
+    React.useState<OrderDirection>('asc');
+  type OrderDirection = 'desc' | 'asc';
+
   const [order, setOrder] = React.useState<'desc' | 'asc'>('asc');
   const [search, setSearch] = React.useState('');
   console.log('Let see the row', rows);
@@ -122,15 +129,40 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
     setRows(articles);
   }, [articles]);
   React.useEffect(() => {
-    if (order === 'desc') {
-      sortRowsByRelatedScore();
-    } else {
-      sortRowsByMainScore();
-    }
-  }, [order]);
+    const sortRows = () => {
+      if (relatedScoreSortDirection === 'desc') {
+        sortRowsByRelatedScore();
+      } else if (mainScoreSortDirection === 'desc') {
+        sortRowsByMainScore();
+      } else {
+        const sortedRows = [...rows].sort((a, b) => {
+          const dateA = new Date(a.created_at);
+          const dateB = new Date(b.created_at);
 
-  const handleSort = () => {
-    setOrder(order === 'asc' ? 'desc' : 'asc');
+          return order === 'asc'
+            ? dateA.getTime() - dateB.getTime()
+            : dateB.getTime() - dateA.getTime();
+        });
+
+        setRows(sortedRows);
+      }
+    };
+
+    sortRows();
+  }, [order, relatedScoreSortDirection, mainScoreSortDirection]);
+
+  const handleSort = (columnId: string) => {
+    if (columnId === 'date') {
+      setOrder(order === 'asc' ? 'desc' : 'asc');
+    } else if (columnId === 'main_score') {
+      setMainScoreSortDirection(
+        mainScoreSortDirection === 'asc' ? 'desc' : 'asc'
+      );
+    } else if (columnId === 'related_score') {
+      setRelatedScoreSortDirection(
+        relatedScoreSortDirection === 'asc' ? 'desc' : 'asc'
+      );
+    }
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,13 +221,25 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
                     style={{ minWidth: column.minWidth }}
                   >
                     {column.label}
-                    {column.id === 'related_score' && <TableSortLabel active />}
-                    {column.id === 'main_score' && <TableSortLabel active />}
+                    {column.id === 'related_score' && (
+                      <TableSortLabel
+                        active={column.id === 'related_score'}
+                        direction={relatedScoreSortDirection}
+                        onClick={() => handleSort(column.id)}
+                      />
+                    )}
+                    {column.id === 'main_score' && (
+                      <TableSortLabel
+                        active={column.id === 'main_score'}
+                        direction={mainScoreSortDirection}
+                        onClick={() => handleSort(column.id)}
+                      />
+                    )}
                     {column.id === 'date' && (
                       <TableSortLabel
-                        active
+                        active={column.id === 'date'}
                         direction={order}
-                        onClick={handleSort}
+                        onClick={() => handleSort(column.id)}
                       />
                     )}
                   </TableCell>
