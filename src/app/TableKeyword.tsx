@@ -208,7 +208,6 @@ const TableKeyword: React.FC<statusProps> = ({ articles }) => {
                 rows={rows}
                 page={page}
                 setRows={setRows}
-                url_item={''} // You need to provide the URL here
               />
             </TableBody>
           </Table>

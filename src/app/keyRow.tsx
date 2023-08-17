@@ -28,31 +28,28 @@ interface ApiEndpoints {
   [key: string]: string;
 }
 
-
 interface RowProps {
   page: number;
-  url_item: string;
+
   rows: Article[];
   rowsPerPage: number;
   setRows: React.Dispatch<React.SetStateAction<Article[]>>;
 }
 
-const KeyRow: React.FC<RowProps> = ({
-  page,
-  rows,
-  rowsPerPage,
-  setRows,
-  url_item,
-}) => {
+const KeyRow: React.FC<RowProps> = ({ page, rows, rowsPerPage, setRows }) => {
   const apiEndpoints: ApiEndpoints = {
     articles: 'google-alerts',
     gosearts: 'google-search',
     bing_articles: 'bing-news',
   };
-  const linkitem = apiEndpoints[url_item];
+
   const [upDown, setUpDown] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const handlePost = async (id: number, category_label: string) => {
+  const handlePost = async (
+    id: number,
+    category_label: string,
+    url_item: string
+  ) => {
     const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/${url_item}/${id}`;
     const body = JSON.stringify({ category_label });
     try {
@@ -73,7 +70,7 @@ const KeyRow: React.FC<RowProps> = ({
       console.error(error);
     }
   };
-  const handleAnalyser = async (id: number) => {
+  const handleAnalyser = async (id: number, url_item: string) => {
     setIsProcessing(true);
     const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/analyzer?id=${id}&type=${url_item}`;
     try {
@@ -122,26 +119,28 @@ const KeyRow: React.FC<RowProps> = ({
     }
   };
 
-  const handlePostSelected = async () => {
-    for (const id of selectedRows) {
-      await handlePost(id, 'archived');
-    }
-    setSelectedRows([]);
-  };
+  //   const handlePostSelected = async () => {
+  //     for (const id of selectedRows) {
+  //       await handlePost(id, 'archived', );
+  //     }
+  //     setSelectedRows([]);
+  //   };
 
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
- 
   const sendSlackMessage = async (keyword: string, link: string) => {
     try {
-      const response = await fetch('https://hermes-e4f6j5kdsq-ew.a.run.app/static/article_slack', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ keyword, link }),
-      });
-  
+      const response = await fetch(
+        'https://hermes-e4f6j5kdsq-ew.a.run.app/static/article_slack',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ keyword, link }),
+        }
+      );
+
       if (response.ok) {
         console.log('Keyword and link sent successfully:', keyword, link);
       } else {
@@ -151,18 +150,12 @@ const KeyRow: React.FC<RowProps> = ({
       console.error('Error sending keyword and link:', error);
     }
   };
-  
-
 
   return (
     <>
       {selectedRows.length > 0 && (
         <Box sx={{ marginTop: '1rem', textAlign: 'center' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handlePostSelected}
-          >
+          <Button variant="contained" color="primary">
             Archive selected once
           </Button>
         </Box>
@@ -181,17 +174,20 @@ const KeyRow: React.FC<RowProps> = ({
                 backgroundColor:
                   expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
               }}
-            >        <TableCell style={{
-         
-                width: 30,
-                color: 'gray',
-                fontWeight: 'bold',
-              }}>
-         <Checkbox
+            >
+              {' '}
+              <TableCell
+                style={{
+                  width: 30,
+                  color: 'gray',
+                  fontWeight: 'bold',
+                }}
+              >
+                <Checkbox
                   checked={selectedRows.includes(row.id)}
                   onChange={(event) => handleCheckboxChange(event, row.id)}
                 />
-            </TableCell>
+              </TableCell>
               <TableCell
                 style={{
                   minWidth: 300,
@@ -200,7 +196,6 @@ const KeyRow: React.FC<RowProps> = ({
                   fontWeight: 'bold',
                 }}
               >
-             
                 <IconButton onClick={() => handleToggle(row.id)}>
                   {expandedRow === row.id ? (
                     <KeyboardArrowUp />
@@ -219,8 +214,6 @@ const KeyRow: React.FC<RowProps> = ({
                   <Button variant="outlined">read </Button>
                 </Link>
               </TableCell>
-
-            
               <TableCell style={{ maxWidth: 200 }} align="center">
                 {row.score ? row.score : 0}
               </TableCell>
@@ -235,11 +228,13 @@ const KeyRow: React.FC<RowProps> = ({
                   <div className="action-cell">
                     <RocketIcon
                       style={{ cursor: 'pointer' }}
-                      onClick={() => handlePost(row.id, 'published')}
+                      onClick={() =>
+                        handlePost(row.id, 'published', row.source)
+                      }
                     />
                     <SmartToyIcon
                       style={{ cursor: 'pointer' }}
-                      onClick={() => handleAnalyser(row.id)}
+                      onClick={() => handleAnalyser(row.id, row.source)}
                     />
                     <TagIcon
                       style={{ cursor: 'pointer' }}
@@ -254,7 +249,7 @@ const KeyRow: React.FC<RowProps> = ({
                     {isProcessing && <CircularProgress size={24} />}
                     <ArchiveIcon
                       style={{ cursor: 'pointer' }}
-                      onClick={() => handlePost(row.id, 'archived')}
+                      onClick={() => handlePost(row.id, 'archived', row.source)}
                     />
                   </div>
                 </Box>
@@ -265,7 +260,7 @@ const KeyRow: React.FC<RowProps> = ({
                 <TableCell colSpan={4}>
                   <Divider />
                   <div>
-                    <InfoRow id={row.id} url={url_item} />
+                    <InfoRow id={row.id} url={row.source} />
                   </div>
                   <Divider />
                 </TableCell>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState,ChangeEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
 import Typography from '@mui/material/Typography';
 import { Data, AllArticles, Article } from './interfaces'; // Import the Data and AllArticles interfaces
 import Paper from '@mui/material/Paper';
@@ -26,7 +26,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createPresentation } from 'src/presentation/createPresentation';
 import TableKeyword from './TableKeyword';
 
-
 interface Params {
   id: number;
 }
@@ -34,7 +33,7 @@ interface Params {
 const Keyword: React.FC = () => {
   const params = useParams();
   const { id } = params;
-  const [keyword, setKeyword] = useState<string>('')
+  const [keyword, setKeyword] = useState<string>('');
   const [data, setData] = useState<Article[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = React.useState(0);
@@ -46,7 +45,9 @@ const Keyword: React.FC = () => {
   const presentation = useAppSelector(createPresentation);
   const dispatch = useAppDispatch();
   console.log('presentation mode:', presentation);
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
@@ -56,17 +57,23 @@ const Keyword: React.FC = () => {
     console.log('Selected tab:', newValue);
 
     if (newValue === 'published') {
-      filteredArticles = (data || []).filter(article => article.category_label === 'published');
+      filteredArticles = (data || []).filter(
+        (article) => article.category_label === 'published'
+      );
     } else if (newValue === 'archived') {
-      filteredArticles = (data || []).filter(article => article.category_label === 'archived');
+      filteredArticles = (data || []).filter(
+        (article) => article.category_label === 'archived'
+      );
     } else {
       filteredArticles = (data || []).filter(
-        article =>
-          !article.category_label || article.category_label === '' || article.category_label === undefined
+        (article) =>
+          !article.category_label ||
+          article.category_label === '' ||
+          article.category_label === undefined
       );
     }
 
-  console.log('Filtered articles:', filteredArticles);
+    console.log('Filtered articles:', filteredArticles);
 
     dispatch(selectedTableValue(newValue as TableStatus));
 
@@ -81,22 +88,44 @@ const Keyword: React.FC = () => {
         );
         const keywordData: Data = await response.json();
 
-        // Combine data from different arrays
+
         const combinedData: Article[] = [
-          ...(keywordData?.articles || []),
-          ...(keywordData?.gosearts || []),
-          ...(keywordData?.bing_articles || []),
+          ...(keywordData?.articles || []).map((article) => ({
+            ...article,
+            source: 'articles' as const, 
+          })),
+          ...(keywordData?.gosearts || []).map((article) => ({
+            ...article,
+            source: 'gosearts' as const, 
+          })),
+          ...(keywordData?.bing_articles || []).map((article) => ({
+            ...article,
+            source: 'bing_articles' as const, 
+          })),
         ];
-        setKeyword(keywordData.key_word)
+        setKeyword(keywordData.key_word);
         setData(combinedData);
         if (presentation.status === 'published') {
-          setFilteredArticles(combinedData.filter(article => article.category_label === 'published'));
+          setFilteredArticles(
+            combinedData.filter(
+              (article) => article.category_label === 'published'
+            )
+          );
         } else if (presentation.status === 'archived') {
-          setFilteredArticles(combinedData.filter(article => article.category_label === 'archived'));
+          setFilteredArticles(
+            combinedData.filter(
+              (article) => article.category_label === 'archived'
+            )
+          );
         } else {
-          setFilteredArticles(combinedData.filter(
-            article => !article.category_label || article.category_label === '' || article.category_label === undefined
-          ));
+          setFilteredArticles(
+            combinedData.filter(
+              (article) =>
+                !article.category_label ||
+                article.category_label === '' ||
+                article.category_label === undefined
+            )
+          );
         }
         setLoading(false);
       } catch (error) {
@@ -113,7 +142,7 @@ const Keyword: React.FC = () => {
         <Box
           sx={{
             width: '80%',
-          
+
             overflow: 'hidden',
             marginLeft: '10%',
           }}
@@ -131,49 +160,48 @@ const Keyword: React.FC = () => {
     );
   }
 
-
   return (
     <>
-     <Box sx={{ width: '100%', overflow: 'hidden' }}>
-     <h1 style={{marginLeft:'2rem'}}>{keyword}</h1>
+      <Box sx={{ width: '100%', overflow: 'hidden' }}>
+        <h1 style={{ marginLeft: '2rem' }}>{keyword}</h1>
 
-      <Tabs
-        style={{ paddingTop: '2rem', marginLeft:'2rem' }}
-        value={presentation.status}
-        onChange={handleChange}
-      >
-        <Tab
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
-              <PendingActionsIcon />
-              <span>Pending</span>
-            </Box>
-          }
-          value="pending"
-        />
+        <Tabs
+          style={{ paddingTop: '2rem', marginLeft: '2rem' }}
+          value={presentation.status}
+          onChange={handleChange}
+        >
+          <Tab
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+                <PendingActionsIcon />
+                <span>Pending</span>
+              </Box>
+            }
+            value="pending"
+          />
 
-        <Tab
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
-              <RocketIcon />
-              <span>Published</span>
-            </Box>
-          }
-          value="published"
-        />
-        <Tab
-          label={
-            <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
-              <ArchiveIcon />
-              <span>Archived</span>
-            </Box>
-          }
-          value="archived"
-        />
-      </Tabs>
+          <Tab
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+                <RocketIcon />
+                <span>Published</span>
+              </Box>
+            }
+            value="published"
+          />
+          <Tab
+            label={
+              <Box sx={{ display: 'flex', alignItems: 'right', gap: 1 }}>
+                <ArchiveIcon />
+                <span>Archived</span>
+              </Box>
+            }
+            value="archived"
+          />
+        </Tabs>
 
-      <TableKeyword articles={filteredArticles} />
-    </Box>
+        <TableKeyword articles={filteredArticles} />
+      </Box>
     </>
   );
 };
