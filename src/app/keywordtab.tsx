@@ -63,6 +63,7 @@ export default function KeyWordTable() {
       );
       const data: Data[] = await response.json();
       setRows(data);
+      console.log('this is  data to see for combined attribute :', data)
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -129,7 +130,7 @@ export default function KeyWordTable() {
         variant="outlined"
       />
      </div>
-      <TableContainer component={Paper}>
+      <TableContainer >
         <Table sx={{ minWidth: 200 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -141,6 +142,7 @@ export default function KeyWordTable() {
           </TableHead>
           <TableBody>
             {currentRows.map((row) => (
+              
               <TableRow
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -156,6 +158,7 @@ export default function KeyWordTable() {
                   >
                     {row.key_word}
                   </a>
+                  {row.combined ? <p>true</p> : <p>false</p>}
                 </TableCell>
               
                 {/* No article-related cells */}

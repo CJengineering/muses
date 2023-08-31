@@ -1,34 +1,36 @@
 import { Article, ArticleGateway } from 'src/app/interfaces';
 import { TableStatus } from 'src/features/table/tableSlice';
 
-export default class ApiArticleGateway implements ArticleGateway {
-  async fetchArticles(status: TableStatus): Promise<Article[]> {
+export  class ApiArticleGateway implements ArticleGateway {
+  async fetchArticles(): Promise<Article[]> {
     let id = 1;
-    const response = await fetch(`http://127.0.0.1:3000/articles/${id}`);
+    const response = await fetch(`https://new-alerts-e4f6j5kdsq-ew.a.run.app/articles`);
     const data: any = await response.json();
     return data;
   }
 }
 
+
 export class InMemoryArticleGateway implements ArticleGateway {
-  async fetchArticles(status: TableStatus): Promise<Article[]> {
+  async fetchArticles(): Promise<Article[]> {
     return [
       {
         id: 123,
-        title: 'Vladimir is winning the war',
-        link: 'russiatoday.fr',
-        url_link: undefined,
-        published: new Date('2021-01-01'),
-        posted: true,
-        key_word: {
-          key_word: 'Vladimir',
-        },
-        created_at: new Date('2021-01-01'),
-        updated_at: new Date('2021-01-01'),
-        key_word_id: 100,
-        score: 32,
-        score_second: undefined,
-        category_label: 'Politics',
+    title: 'Vladimir is winning the war',
+    link: 'russiatoday.fr',
+    url_link: undefined,
+    published: '2021-01-01',
+    posted: true,
+    key_word: {
+      key_word: 'Vladimir',
+    },
+    created_at: '2021-01-01',
+    updated_at: '2021-01-01',
+    key_word_id: 100,
+    score: 32,
+    score_second: 0,
+    category_label: 'Politics',
+    source: "articles"
       },
     ];
   }

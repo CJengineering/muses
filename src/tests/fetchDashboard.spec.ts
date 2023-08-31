@@ -8,7 +8,6 @@ import { fetchArticles } from '../features/articles/fetchArticles';
 import { fetchDashboard } from '../features/dashboard/fetchDashboard';
 import { createStore } from 'src/app/store';
 import { TableStatus } from 'src/features/table/tableSlice';
-import { InMemoryArticleGateway } from '../features/articles/InMemoryArticleGateway';
 import { InMemoryDashBoardGateway } from '../features/dashboard/InMemoryDashBoardGateway';
 
 it('should fetch data count for dashboard', async () => {

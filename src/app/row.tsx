@@ -18,6 +18,7 @@ import {
 import RocketIcon from '@mui/icons-material/Rocket';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import TagIcon from '@mui/icons-material/Tag';
 import AlertArticle from './alertArticle';
 import ToggleDiv from './toggleDiv';
@@ -43,6 +44,7 @@ interface Data {
   score: number | null;
   score_second: number | null;
   category_label: string | null;
+  combined: boolean;
 }
 interface RowProps {
   page: number;
@@ -100,6 +102,26 @@ const Row: React.FC<RowProps> = ({
       });
 
       if (response.ok) {
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+  const handleWebflow = async (link: string) => {
+    setIsProcessing(true);
+    const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/article_creator?link=${link}`;
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.status == 204) {
+        setIsProcessing(false);
       }
     } catch (error) {
       console.error(error);
@@ -178,7 +200,7 @@ const Row: React.FC<RowProps> = ({
             color="primary"
             onClick={handlePostSelected}
           >
-            Archive 
+            Archive
           </Button>
         </Box>
       )}
@@ -197,12 +219,13 @@ const Row: React.FC<RowProps> = ({
                   expandedRow === row.id ? 'rgba(0, 123, 255, 0.1)' : '',
               }}
             >
-              <TableCell style={{
-         
+              <TableCell
+                style={{
                   width: 30,
                   color: 'gray',
                   fontWeight: 'bold',
-                }}>
+                }}
+              >
                 <Checkbox
                   checked={selectedRows.includes(row.id)}
                   onChange={(event) => handleCheckboxChange(event, row.id)}
@@ -266,6 +289,12 @@ const Row: React.FC<RowProps> = ({
                           row.key_word.key_word,
                           row.link ?? row.url_link ?? ''
                         )
+                      }
+                    />
+                    <EmojiEventsIcon
+                      style={{ cursor: 'pointer' }}
+                      onClick={() =>
+                        handleWebflow(row.link ?? row.url_link ?? '')
                       }
                     />
 

@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Article } from 'src/app/interfaces';
-
 export const initialState: {
   ids: number[];
   articles: Record<number, Article>;
-} = { ids: [], articles: {} };
+} = { ids: [], articles: {}}; // Initialize the sorting order
+
 
 const articlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
     articlesFetched: (state, action: PayloadAction<Article[]>) => {
+      console.log('articlesFetched reducer is called'); 
       for (const article of action.payload) {
         state.articles[article.id] = article;
       }
@@ -31,6 +32,7 @@ const articlesSlice = createSlice({
       state.ids = sortedIds;
     },
     sortedByMainScore: (state, action: PayloadAction<'asc' | 'desc'>) => {
+ 
       const sortedRows = [...state.ids].sort((a, b) => {
         if (
           state.articles[a].score === null &&

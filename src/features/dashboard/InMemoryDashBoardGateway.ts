@@ -13,7 +13,7 @@ export class InMemoryDashBoardGateway implements DashBoardGateway {
       },
       {
         count: 13,
-        name: 'search alebrts',
+        name: 'search alerts',
       },
     ];
   }

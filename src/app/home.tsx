@@ -9,7 +9,7 @@ export default function Home() {
   useAuthentication();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isModalOpenArticle, setIsModalOpenArticle] = React.useState(false);
-
+  const [data, setData] = React.useState([]);
   const handleOpen = () => {
     setIsModalOpen(true);
   };
@@ -24,6 +24,7 @@ export default function Home() {
   const handleCloseArticle = () => {
     setIsModalOpenArticle(false);
   };
+
 
   return (
     <>
@@ -51,7 +52,11 @@ export default function Home() {
             Add Keyword
           </Button>
           <div className="padding_vertical_small"></div>
-          <Button variant="contained" onClick={handleOpenArticle} sx={{backgroundColor: 'green'}}>
+          <Button
+            variant="contained"
+            onClick={handleOpenArticle}
+            sx={{ backgroundColor: 'green' }}
+          >
             Add Article
           </Button>
 
@@ -68,7 +73,8 @@ export default function Home() {
                 p: 4,
               }}
             >
-              <InternArticleForm/>
+           
+              <InternArticleForm />
               <Button onClick={handleCloseArticle}>Close</Button>
             </Box>
           </Modal>

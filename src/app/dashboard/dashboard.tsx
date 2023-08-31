@@ -3,22 +3,61 @@ import CountBox from './countBox';
 import TableArticle from './tableArticle';
 import DataChart from './dataChart';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPresentationDashboardData } from 'src/presentation/createPresentation';
+import {
+  createPresentationArticles,
+  createPresentationDashboardData,
+} from 'src/presentation/createPresentation';
 import { fetchDashboard } from 'src/features/dashboard/fetchDashboard';
+import { fetchArticles } from 'src/features/articles/fetchArticles';
+import {
+  sortedByDate,
+  sortedByMainScore,
+  sortedByRelatedScore,
+} from 'src/features/articles/articlesSlice';
+
 export default function Dashboard() {
   const presentation = useSelector(createPresentationDashboardData);
   const dashboards = presentation.dashboard;
+  const articlePresentation = useSelector(createPresentationArticles);
+  console.log('this is the articles presentation model: ', articlePresentation);
+  const firstOne = articlePresentation.ids;
+  console.log('THE FIRST ONE: ', firstOne.length)
+  const [sortingOrder, setSortingOrder] = React.useState<'asc' | 'desc'>('asc');
+  console.log('this is the dashboard presntation model: ', presentation);
+   
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch<any>(fetchDashboard());
+    dispatch<any>(fetchArticles());
+    console.log(
+      'this is the articles presntation model after use effectr : ',
+      articlePresentation
+    );
+
+    console.log(
+      'this is the dashboard presntation model useeffect : ',
+      presentation
+    );
   }, []);
+  const toggleSort = () => {
+    dispatch(sortedByMainScore('desc')); // Dispatch the action
+  };
+  const toggleSortDate = () => {
+    dispatch(sortedByDate('desc')); // Dispatch the action
+  };
+  const keyWordFetch = ()=>{
+    
+  }
   if (dashboards.length == 0) {
     return <div>is loading</div>;
   }
+
   return (
     <>
       <div className="dashboard-container">
-        <h3 className="dashboard-title-big">Dashboard</h3>
+        <button onClick={toggleSort}>Sort by Main Score</button>
+        <button onClick={toggleSortDate}>Sort by Main date</button>
+        <h3 className="dashboard-title-big">Dashboard {firstOne[0]}</h3>
         <div className="dashboard-title-medium">Todays article </div>
         <div className="padding_vertical_small"></div>
         <div className="dashboard-news-container">

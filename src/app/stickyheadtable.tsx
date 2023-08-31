@@ -110,6 +110,7 @@ interface Data {
   score: number | null;
   score_second: number | null;
   category_label: string | null;
+  combined: boolean;
 }
 
 const StickyHeadTable: React.FC<statusProps> = ({ status, url }) => {

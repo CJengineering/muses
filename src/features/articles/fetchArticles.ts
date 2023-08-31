@@ -7,13 +7,20 @@ import { TableStatus } from 'src/features/table/tableSlice';
 
 type ThunkResult<D> = ThunkAction<void, AppState, D, AnyAction>;
 
-export const fetchArticles = (
-  status: TableStatus
-): ThunkResult<{
+export const fetchArticles = (): ThunkResult<{
   articleGateway: ArticleGateway;
 }> => {
   return async (dispatch: Dispatch<any>, getState, { articleGateway }) => {
-    const articles = await articleGateway.fetchArticles(status);
-    dispatch(articlesFetched(articles));
+    console.log('fetchArticles thunk is executing');
+
+    try {
+      const articles = await articleGateway.fetchArticles();
+      console.log('Fetched articles:', articles);
+
+      dispatch(articlesFetched(articles));
+      console.log('Dispatching articlesFetched:', articles);
+    } catch (error) {
+      console.error('Error fetching articles:', error);
+    }
   };
 };

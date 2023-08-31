@@ -1,7 +1,7 @@
 import { TableStatus } from 'src/features/table/tableSlice';
 
 export interface ArticleGateway {
-  fetchArticles(status: TableStatus): Promise<Article[]>;
+  fetchArticles(): Promise<Article[]>;
 }
 
 export interface DashBoardGateway {
@@ -58,7 +58,7 @@ export interface Article {
   title: string;
   link: string;
   url_link: string | undefined;
-  published: Date;
+  published: string;
   posted: boolean;
   key_word: {
     key_word: string;
@@ -72,6 +72,4 @@ export interface Article {
   source: "articles" | "gosearts" | "bing_articles";// Add this attribute
 }
 
-export interface ArticleGateway {
-  fetchArticles(status: TableStatus): Promise<Article[]>;
-}
+
