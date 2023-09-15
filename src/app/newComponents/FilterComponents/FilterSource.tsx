@@ -8,10 +8,10 @@ export default function FilterSource() {
 
     <div className="filter-by-checkbox-container">
       <div className="checkbox-title">Source</div>
-      <SourceCheck url={'src/assets/ICONS/google_icon.svg'} title={'Google API'}></SourceCheck>
-      <SourceCheck url={'src/assets/ICONS/bing_icon.svg'} title={'Bing API'}></SourceCheck>
-      <SourceCheck url={'src/assets/ICONS/googleAlerts_icon.svg'} title={'Google Alerts'}></SourceCheck>
-      <SourceCheck url={'src/assets/ICONS/heart_icon.svg'} title={'Custom Pages'}></SourceCheck>
+      <SourceCheck url={'google'} title={'Google API'}></SourceCheck>
+      <SourceCheck url={'bing'} title={'Bing API'}></SourceCheck>
+      <SourceCheck url={'google-alert'} title={'Google Alerts'}></SourceCheck>
+      <SourceCheck url={'custom'} title={'Custom Pages'}></SourceCheck>
     </div>
   </div>
 
