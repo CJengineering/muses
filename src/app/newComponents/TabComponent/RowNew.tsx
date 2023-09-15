@@ -40,7 +40,7 @@ export default function RowNew() {
         </a>
       </TableCell>
       <TableCell align="left">
-        <IconSource url="src/assets/ICONS/google_icon.svg" />
+       <GoogleIcon/>
       </TableCell>
       <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
         12/03/23
