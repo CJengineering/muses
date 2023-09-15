@@ -8,9 +8,15 @@ export type PresentationArticles = {
   articles: Record<number, Article>;
   ids: number[];
 };
+export type PrsentationFilterToggle ={
+  status: boolean;
+}
 export type PresentationDashboardData = {
   dashboard: DashboardData[];
 };
+export const createPresentationFilterToggle =(state: RootState): PrsentationFilterToggle =>{
+   return {  status: state.filterToggle.status}
+}
 export const createPresentationArticles = (
   state: RootState
 ): PresentationArticles => {

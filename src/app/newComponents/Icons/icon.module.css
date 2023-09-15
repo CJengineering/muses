@@ -1,0 +1,24 @@
+.icon{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease; 
+}
+.icon:hover{
+    fill: blue;
+}
+.st0 {
+    fill: #FFC107;
+  }
+  
+  .st1 {
+    fill: #FF3D00;
+  }
+  
+  .st2 {
+    fill: #4CAF50;
+  }
+  
+  .st3 {
+    fill: #1976D2;
+  }

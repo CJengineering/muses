@@ -1,0 +1,50 @@
+.tab_search_filter_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 1rem;
+}
+.searchkeyword{
+    font-family: 'IBM Plex Mono';
+}
+.tab_nav_container{
+    margin-bottom: 1rem;
+}
+.actions_container{
+    display: flex;
+    column-gap: 1rem;
+}
+.table{
+    font-family: 'IBM Plex Mono';
+}
+.icon{
+    cursor: pointer;
+}
+.icon :hover{
+    color:blue
+}
+.text_link {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease; 
+}
+
+.text_link:hover {
+    color: blue;
+}
+.tebleRow{
+    transition: color 0.3s ease; 
+}
+.tableRow:hover {
+    background-color:#E5E5E5;
+  }
+
+  .iconSource{
+    cursor: pointer;
+    transition: color 0.3s ease; 
+  }
+
+.iconSource:hover{
+    filter: brightness(120%);
+    color: blue;
+}

@@ -1,0 +1,107 @@
+.filter_wrapper{
+    background-color: #F9F9F9;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid blue;
+
+    
+
+}
+.filter_title{
+    font-size: 1,25rem;
+}
+.filter_by_container{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid darkgray;
+}
+.checkbox_actions_container{
+  margin-top: 1rem;
+  background-color: #ffffff;
+  padding:  0.5rem 1rem;
+  border: 1px solid gray;
+  display:  flex;
+  width: 400px;
+
+  justify-content: space-between;
+  align-items: center;
+}
+.checkbox_name_action{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 1rem;
+    align-items: center;
+}
+.keywords_filter_wrapper{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid darkgray;
+   
+    padding-bottom: 2rem;
+    
+}
+.selector_label_container{
+    display: flex;
+    width: 300px;
+ 
+    align-items: center;
+  
+
+}
+.label{
+    font-family:'IBM Plex Mono';
+}
+.keyword_brain{
+    display: flex;
+    justify-content: space-around;
+    column-gap: 0.5rem;
+    margin-right: 2rem;
+    font-weight: bold;
+    align-items: center;
+    font-family: 'IBM Plex Mono';
+  
+}
+.keyword_filter_dropdown_container{
+
+ margin-top: 1rem;
+
+ margin-bottom: 1rem;
+}
+.keywords_selected{
+    width: 10rem;
+    display: flex;
+    column-gap: 5px;
+    justify-content: space-around;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 5px 15px;
+    font-size: 1rem;
+   
+
+}
+.keywords_selected_container{
+    display: flex;
+    column-gap: 1rem;
+}
+.filter_date_wrapper{
+    margin-bottom: 2rem;
+    padding-bottom: 2rem   ;
+    border-bottom: 1px solid darkgray;
+}
+.filter_score_wrapper{
+    margin-bottom: 2rem;
+    padding-bottom: 2rem   ;
+    border-bottom: 1px solid darkgray;
+}
+.filter_score_range_container{
+    padding: 0.5rem;
+    width: 40%;
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+}
+.filter_confirmations_buttons_conatainer{
+    display: flex;
+    justify-content: flex-end;
+}

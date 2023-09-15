@@ -34,7 +34,7 @@ import KeyWordTable from './keywordtab';
 import Keyword from './keyword';
 import GoogleSearchArticle from './googleSearchArticle';
 import BingArticle from './bingNewsArticle';
-import { useGetSimpleTestQuery } from 'src/features/api/apiSlice';
+import Main from './newComponents/Main';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
@@ -48,6 +48,7 @@ export function App() {
 
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/main" element={<Main />} />
               <Route path="/news/:urlKey" element={<TestTabs />} />
               <Route path="/keywords" element={<KeyWordTable />} />
               <Route path="/google-alerts/:id" element={<AlertArticle />} />

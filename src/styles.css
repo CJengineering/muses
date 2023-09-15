@@ -1,13 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-  font-family: 'Montserat';
-  src: url('/src/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-family: 'IBM Plex Mono', monospace;
+
+  src: url('/src/fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  /* Add other font formats if you have them (e.g., woff, woff2) */
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: bold;
+  src: url('/src/fonts/IBMPlexMono-Bold.ttf') format('truetype');
   /* Add other font formats if you have them (e.g., woff, woff2) */
 }
 
 body{
   margin: 0;
-  font-family: 'Montserat';
+  font-family: 'IBM Plex Mono';
+  background-color: #F9F9F9;
 
 }
 .container {
@@ -143,4 +151,27 @@ justify-content: space-between;
 
 .table-container{
 
+}
+.blue{
+  background-color: blue;
+}
+.red{
+  background-color: red;
+}
+.green{
+  background-color: green;
+}
+.yellow{background-color: yellow;}
+.main-page-wrapper{
+  width: 100%;
+  padding: 1rem;
+}
+.tab-wrapper{
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.tab-nav-container{
+  display: flex;
+  justify-content: space-between;
 }
