@@ -7,7 +7,7 @@ import {
   Snackbar,
 } from '@mui/material';
 
-interface Keyword {
+export interface Keyword {
   id: number;
   key_word: string;
   rss_url: string;

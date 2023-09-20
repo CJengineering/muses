@@ -1,8 +1,17 @@
+import { useUpdateShortlist } from 'src/app/hooks';
 import styles from './icon.module.css';
 
-export default function ThumbUpIcon() {
+interface ThumbUpIconProps {
+    id?: number;
+}
+
+export default function ThumbUpIcon({id}:ThumbUpIconProps) {
+    const { updateShortlist } = useUpdateShortlist();
+    const handleShortlist = async (id: number)=>{
+        await updateShortlist(id)
+      }
   return (
-    <div className={styles.icon}>
+    <div className={styles.icon} onClick={() =>id && handleShortlist(id)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"

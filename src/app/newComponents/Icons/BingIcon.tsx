@@ -382,7 +382,7 @@ z"
             <stop offset="1" stop-color="#000000" />
           </linearGradient>
           <path
-            opacity='0.15'fill="url(#SVGID_00000013192545721566539130000017049941022727996837_);enable-background:new    ;"
+            opacity='0.85'fill="url(#SVGID_00000013192545721566539130000017049941022727996837_);enable-background:new    ;"
             d="
 		M5.9,16.7C5.9,16.7,5.9,16.7,5.9,16.7C5.9,16.9,6,17,6,17.2C6,17,5.9,16.9,5.9,16.7z"
           />

@@ -1,8 +1,17 @@
+import { useWebflow } from 'src/app/hooks';
 import styles from './icon.module.css';
 
-export default function WebflowIcon() {
+export interface WebflowIconProps {
+    link?:string;
+}
+
+export default function WebflowIcon({link}:WebflowIconProps) {
+    const {  handleWebflow  } = useWebflow();
+    const webflow= async (link:string)=>{
+        await  handleWebflow(link)
+      }
   return (
-    <div className={styles.icon}>
+    <div className={styles.icon} onClick={()=>link && webflow(link)}>
       <svg
         version="1.1"
         id="Layer_1"

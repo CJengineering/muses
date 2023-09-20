@@ -5,17 +5,19 @@ import BingIcon from '../Icons/BingIcon';
 import GoogleIcon from '../Icons/GoogleIcon';
 import BellIcon from '../Icons/BellIcon';
 import HeartIcon from '../Icons/HeartIcon';
-type IconType = "bing" | "google" | "google-alert" | "custom";
+import { IconType } from 'src/app/interfaces';
 type SourceCheckProps = {
     url: IconType;
     title: string;
+    onChange: () => void; 
+    checked: boolean; 
   };
 
-export default function SourceCheck({ url, title }: SourceCheckProps) {
+export default function SourceCheck({ url, title, onChange, checked }: SourceCheckProps) {
     const typeIcon: Record<IconType, JSX.Element> = {
         "bing": <BingIcon/>,
         "google": <GoogleIcon/>,
-        "google-alert": <BellIcon/>,
+        "google_alert": <BellIcon/>,
         "custom": <HeartIcon/>
       };
   return (
@@ -24,7 +26,8 @@ export default function SourceCheck({ url, title }: SourceCheckProps) {
         {typeIcon[url]}
         <Typography>{title}</Typography>
       </div>
-      <Checkbox />
+      <Checkbox  checked={checked}   
+        onChange={onChange}/>
     </div>
   );
 }

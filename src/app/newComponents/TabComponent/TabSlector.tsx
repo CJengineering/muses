@@ -10,17 +10,31 @@ import { ThumbUp } from '@mui/icons-material';
 import ThumbUpIcon from '../Icons/ThumbUpIcon';
 import WebflowIcon from '../Icons/WebflowIcon';
 import ArchiveIcon from '../Icons/ArchiveIcon';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { createPresentationNewTab } from 'src/presentation/createPresentation';
+import { NewTableStatus, selectedNewTableValue } from 'src/features/new table selctor/newTableSlice';
+import { fetchPosts } from 'src/features/posts/fetchPosts';
+import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
 
 export default function TabSelctor() {
-  const [value, setValue] = React.useState('1');
+ const dispatch = useAppDispatch()
+ const presentationNewTab = useAppSelector(createPresentationNewTab)
+ const fetchData = async (url: NewTableStatus) => {
+       
+    await dispatch<any>(fetchPosts(url));
+    dispatch(filterStateChanged(false));
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  };
+  const handleChange = (event: React.SyntheticEvent, newValue: NewTableStatus) => {
+    console.log('this is the new Value', newValue),
+    dispatch(selectedNewTableValue(newValue)),
+    fetchData(newValue)
+ 
   };
 
   return (
     <Box sx={{ width: '100%', textTransform: 'none', marginBottom:'2rem' }}>
-      <TabContext value={value}>
+      <TabContext value={presentationNewTab.status}>
         <Box >
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab
@@ -40,7 +54,7 @@ export default function TabSelctor() {
                   <span style={{ textTransform: 'none', fontFamily: 'IBM Plex Mono', fontWeight:'bold' }}>Incoming</span>
                 </Box>
               }
-              value="1"
+              value="incoming"
             />
             <Tab
               label={
@@ -59,7 +73,7 @@ export default function TabSelctor() {
                   <span style={{ textTransform: 'none', fontFamily: 'IBM Plex Mono', fontWeight:'bold' }}>Shortlist</span>
                 </Box>
               }
-              value="2"
+              value="shortlist"
             />{' '}
             <Tab
               label={
@@ -76,7 +90,7 @@ export default function TabSelctor() {
                   <span style={{ textTransform: 'none', fontFamily: 'IBM Plex Mono', fontWeight:'bold' }}>Published</span>
                 </Box>
               }
-              value="3"
+              value="published"
             />{' '}
             <Tab
               label={
@@ -93,7 +107,7 @@ export default function TabSelctor() {
                   <span style={{ textTransform: 'none', fontFamily: 'IBM Plex Mono', fontWeight:'bold' }}>Archive</span>
                 </Box>
               }
-              value="4"
+              value="archived"
             />
           </TabList>
         </Box>

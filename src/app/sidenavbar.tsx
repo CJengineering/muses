@@ -13,6 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { Link as RouterLink } from 'react-router-dom';
 import KeyIcon from '@mui/icons-material/Key';
+import InboxIcon from './newComponents/Icons/InboxIcon';
 const drawerWidth = 300;
 
 interface NavItem {
@@ -22,6 +23,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  {text: 'Beta Version',
+  icon: <InboxIcon/>,
+  link:  '/main'
+    },
   {
     text: 'Home',
     icon: <HomeIcon style={{ color: '#C1C1C1' }} />,

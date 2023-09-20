@@ -1,11 +1,17 @@
 import Button from '@mui/material/Button/Button';
 import styles from './MainPageNav.module.css';
+import { useAppSelector } from 'src/app/hooks';
+import { createPresentationSearchAttributes } from 'src/presentation/createPresentation';
 export function MainPageNav() {
+    const presentationFilter = useAppSelector(createPresentationSearchAttributes)
+
   return (
     <div className="main-page-nav-wrapper ">
       <div className={styles.main_page_nav_container}>
         <div className="main_page_nav_item">
           <h1>Pages </h1>
+
+
         </div>
         <div className="main_page_nav_item">
           <div className={styles.nav_item_buttons_container}>

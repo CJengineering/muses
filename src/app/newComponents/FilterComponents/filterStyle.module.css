@@ -70,6 +70,7 @@
 }
 .keywords_selected{
     width: 10rem;
+    max-height: 3rem;
     display: flex;
     column-gap: 5px;
     justify-content: space-around;
@@ -77,6 +78,8 @@
     border: 1px solid black;
     padding: 5px 15px;
     font-size: 1rem;
+    overflow: hidden;
+  
    
 
 }
@@ -104,4 +107,10 @@
 .filter_confirmations_buttons_conatainer{
     display: flex;
     justify-content: flex-end;
+}
+.keyword_selected{
+ overflow: hidden;
+}
+.closeX{
+    cursor: pointer;
 }

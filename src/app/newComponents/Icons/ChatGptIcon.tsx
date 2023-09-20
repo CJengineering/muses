@@ -1,8 +1,15 @@
+import { useAnalyzer } from 'src/app/hooks';
 import styles from './icon.module.css';
-
-export default function ChatGptIcon() {
+export interface ChatGptIconProps {
+   id:number;
+}
+export default function ChatGptIcon({id}: ChatGptIconProps) {
+    const { handleAnalyser } = useAnalyzer();
+    const analyser= async (id: number)=>{
+        await handleAnalyser(id)
+      }
   return (
-    <div className={styles.icon}>
+    <div className={styles.icon} onClick={()=>analyser(id)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
