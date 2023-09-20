@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from './app.module.css'
 import {
   TextField,
   Autocomplete,
@@ -62,10 +63,10 @@ const InternArticleForm: React.FC = () => {
   };
 
   return (
-    <form>
-      <Typography>Create a new Article</Typography>
+    <form className={styles.formKeyword}>
+
       <TextField
-        label="Paste your link"
+        label="Paste your URL"
         value={link}
         onChange={(event) => setLink(event.target.value)}
         fullWidth
@@ -86,7 +87,7 @@ const InternArticleForm: React.FC = () => {
           />
         )}
       />
-      <Button variant="contained" onClick={handleSubmit}>Submit</Button>
+      <Button variant="contained" sx={{marginTop:'2rem'}}color='success'onClick={handleSubmit}>+ Article</Button>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

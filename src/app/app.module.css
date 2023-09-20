@@ -1,1 +1,10 @@
 /* Your styles goes here. */
+.formContainer{
+    margin-top: 6rem;
+}
+.formKeyword{
+    background-color: white;
+    border-radius: 15px;
+    padding: 1rem;
+    width: 100%;
+}

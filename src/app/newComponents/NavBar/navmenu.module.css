@@ -1,0 +1,23 @@
+.navmenuWrapper{
+    background-color: white;
+    margin-top: 6rem;
+    margin-left: 2rem;
+    border-radius: 15px;
+    padding-right: 2rem;
+
+}
+.logo{
+    color: black;
+    font-size: 48px;
+    font-family: 'IBM Plex Mono';
+    padding: 0;
+    font-weight: bolder;
+    padding: 0.5rem 1rem;
+}
+.fontClass{
+    font-family: 'IBM Plex Mono';
+}
+.linkButton{
+    background-color: blue;
+
+}

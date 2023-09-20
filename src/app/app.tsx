@@ -35,6 +35,7 @@ import Keyword from './keyword';
 import GoogleSearchArticle from './googleSearchArticle';
 import BingArticle from './bingNewsArticle';
 import Main from './newComponents/Main';
+import NavMenu from './newComponents/NavBar/NavMenu';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
@@ -44,7 +45,8 @@ export function App() {
       {authenticated ? (
         <>
           <div style={{ display: 'flex', width: '100%'}}>
-            <SideNavBar />
+            {/*<SideNavBar />*/}
+            <NavMenu/>
 
             <Routes>
               <Route path="/" element={<Home />} />

@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material';
+import styles from './app.module.css'
 
 function CreateKeywordForm() {
   const [keyword, setKeyword] = useState<string>('');
@@ -45,7 +46,7 @@ function CreateKeywordForm() {
         setKeyword('');
         setRssFeed('');
         setIsFactiva(false);
-        setIsCombined(false)
+        setIsCombined(false);
       } else {
         throw new Error('Failed to submit keyword');
       }
@@ -68,13 +69,11 @@ function CreateKeywordForm() {
     setIsFactiva((prevIsFactiva) => !prevIsFactiva);
   };
   const handleToggleCombined = () => {
-    setIsCombined((prevIsCombined => !prevIsCombined));
+    setIsCombined((prevIsCombined) => !prevIsCombined);
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="padding_vertical_small"></div>
-      <Typography variant="h4">Create a new keyword</Typography>
-      <div className="padding_vertical_small"></div>
+    <form onSubmit={handleSubmit} className={styles.formKeyword}>
+
       <TextField
         label="Keyword"
         variant="outlined"
@@ -91,19 +90,27 @@ function CreateKeywordForm() {
         fullWidth
         margin="normal"
       />
-      <FormControlLabel
-        control={<Switch checked={isFactiva} onChange={handleToggleFactiva} />}
-        label="Factiva"
-      />
-       <FormControlLabel
-        control={<Switch checked={isCombined} onChange={handleToggleCombined} />}
-        label="Combined"
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Submit
-      </Button>
-      {successMessage && <h1>{successMessage}</h1>}
-      {errorMessage && <h1>{errorMessage}</h1>}
+      <div>
+        <div>
+          <FormControlLabel
+            control={
+              <Switch checked={isFactiva} onChange={handleToggleFactiva} />
+            }
+            label="Factiva"
+          />
+          <FormControlLabel
+            control={
+              <Switch checked={isCombined} onChange={handleToggleCombined} />
+            }
+            label="Combined"
+          />
+        </div>
+        <Button type="submit" variant="contained" color="primary" sx={{marginTop:'2rem'}}>
+          + Keyword
+        </Button>
+      </div>
+      {successMessage && <h3>{successMessage}</h3>}
+      {errorMessage && <h3>{errorMessage}</h3>}
     </form>
   );
 }

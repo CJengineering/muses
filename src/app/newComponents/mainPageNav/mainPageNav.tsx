@@ -2,6 +2,8 @@ import Button from '@mui/material/Button/Button';
 import styles from './MainPageNav.module.css';
 import { useAppSelector } from 'src/app/hooks';
 import { createPresentationSearchAttributes } from 'src/presentation/createPresentation';
+import KeywordModal from '../modals/KeywordModal';
+import CustomArticle from '../modals/CustomArticle';
 export function MainPageNav() {
     const presentationFilter = useAppSelector(createPresentationSearchAttributes)
 
@@ -15,12 +17,14 @@ export function MainPageNav() {
         </div>
         <div className="main_page_nav_item">
           <div className={styles.nav_item_buttons_container}>
-            <Button variant="contained" color="success">
+            {/* <Button variant="contained" color="success">
               + article
             </Button>
             <Button variant="contained" sx={{backgroundColor:'blue'}}>
               + keyword
-            </Button>
+            </Button> */}
+            <CustomArticle/>
+            <KeywordModal/>
             <div className={styles.nav_icon_user}>ND</div>
           </div>
         </div>
