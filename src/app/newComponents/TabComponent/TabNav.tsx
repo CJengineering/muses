@@ -18,6 +18,8 @@ import { fetchPosts } from 'src/features/posts/fetchPosts';
 import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
 import Button from '@mui/material/Button';
 import { clearSelectedRows } from 'src/features/rowSelection/rowSlice';
+import { selectedPostFiltred } from 'src/features/posts/postsSlice';
+import ActionSelector from '../bulk actions/ActionSelector';
 export default function TabNav() {
   const dispatch = useAppDispatch();
   const presentationBulk = useAppSelector(createPresentationSelectedRows);
@@ -29,26 +31,19 @@ export default function TabNav() {
   };
   const presentationTableStatus = useAppSelector(createPresentationNewTab);
 
-  const handleBulkArchive = async () => {
-    presentationBulk.selectedRows.forEach((item) => {
-     updateArchive(item);
-    });
-   await dispatch<any>(fetchPosts(presentationTableStatus.status));
-    dispatch(filterStateChanged(false));
-    dispatch( clearSelectedRows())
-  };
+
   return (
     <div className="tab-nav-container ">
       <div className="tab-nav-item">
         <TabSelctor />
-        {presentationBulk.selectedRows.length > 0 ? (
-          <Button variant="contained" color="error" onClick={handleBulkArchive}>
-            Archive All
-          </Button>
+        
+      </div>
+      {presentationBulk.selectedRows.length > 0 ? (
+            <ActionSelector/>
+        
         ) : (
           ''
         )}
-      </div>
       <div className="tab-nav-item">
         <div className={styles.tab_search_filter_container}>
           <SearchKeyword />

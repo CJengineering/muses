@@ -41,9 +41,24 @@ const postsSlice = createSlice({
           return sourceFilter && keywordsFilter && dateStartFilter && dateEndFilter && scoreFilter;
         })
         .map(post => post.id);
+    },
+    selectedPostFiltred: (state, action: PayloadAction<number>)=>{
+      const postIdToDelete = action.payload;
+
+      // Create a new object excluding the post with the specified ID
+      const newPosts = Object.fromEntries(
+        Object.entries(state.posts).filter(([key, post]) => post.id !== postIdToDelete)
+      );
+    
+      return {
+        ...state,
+        posts: newPosts,
+        ids: state.ids.filter(id => id !== postIdToDelete)
+      };
+      
     }
   },
 });
-export const { postsFetched, postsFiltred} =
+export const { postsFetched, postsFiltred,selectedPostFiltred} =
   postsSlice.actions;
 export default postsSlice.reducer;

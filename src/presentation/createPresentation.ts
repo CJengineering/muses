@@ -75,3 +75,7 @@ export const  createPresentationSearchAttributes =(state:RootState)=>{
 export const createPresentationSelectedRows =(state :RootState)=>{
   return {selectedRows: state.rows.selectedRows}
 }
+
+export const createPresentationBulkAction= (state: RootState)=>{
+  return {status: state.actionState.status}
+}

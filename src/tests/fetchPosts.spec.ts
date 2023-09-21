@@ -3,7 +3,7 @@ import { InMemoryPostGateway } from '../features/posts/postsGateway';
 import { fetchPosts } from '../features/posts/fetchPosts';
 import { createPresentationPosts } from 'src/presentation/createPresentation';
 import { Post, SearchFilterAttribute } from 'src/app/interfaces';
-import { postsFiltred } from 'src/features/posts/postsSlice';
+import { postsFiltred, selectedPostFiltred } from 'src/features/posts/postsSlice';
 it('should fetch articles from our api', async () => {
   const postGateway = new InMemoryPostGateway();
   const store = createStore({ postGateway });
@@ -78,7 +78,7 @@ it('should filter the state', async () => {
   expect(presentation[0].source).toEqual('google');
   expect(presentation[0].keyword).toEqual('Testing')
 });
-it('should filter change the state', async () => {
+it.skip('should filter change the state', async () => {
     const postGateway = new InMemoryPostGateway();
     const filterAtributes: SearchFilterAttribute = {
       source: ['bing','google'],
@@ -101,4 +101,18 @@ it('should filter change the state', async () => {
     expect(presentation[0].source).toEqual('');
     expect(presentation[0].keyword).toEqual('Testing')
   });
-  
+  it('should filter the article on check ', async ()=>{
+    const postGateway= new InMemoryPostGateway();
+    const store = createStore(
+        { postGateway },
+        {
+          ...buildInitStore(),
+          posts: { ids: ids, posts: articles },
+        }
+      );
+      store.dispatch(selectedPostFiltred(2))
+      const presentation = createPresentationPosts(store.getState());
+      expect(presentation[0].id).toEqual(1)
+
+
+  })

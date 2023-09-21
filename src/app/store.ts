@@ -4,6 +4,7 @@ import tableReducer from 'src/features/table/tableSlice';
 import postsReducer from 'src/features/posts/postsSlice';
 import filterStateReducer from 'src/features/filterState/filterStateSlice';
 import searchAttributesReducer from 'src/features/searchAttributes/searchAttributesSlice';
+import actionStateReducer from 'src/features/actionState/actionStateSlice'
 import rowsReducer from 'src/features/rowSelection/rowSlice'
 import newTableReducer from 'src/features/new table selctor/newTableSlice';
 import filterToggleReducer from 'src/features/filterToggle/filterToggleSlice';
@@ -25,7 +26,8 @@ export const rootReducer = combineReducers({
   posts: postsReducer,
   newtable: newTableReducer,
   searchAttribute: searchAttributesReducer,
-  rows: rowsReducer
+  rows: rowsReducer,
+  actionState: actionStateReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -39,7 +41,8 @@ export const buildInitStore = (): AppState => ({
   posts: { ids: [], posts: {} },
   newtable: { status: 'incoming' },
   searchAttribute: {},
-  rows: {selectedRows:[]}
+  rows: {selectedRows:[]},
+  actionState: {status:'archive'}
 });
 
 export const createStore = (dependencies: unknown, hydrate?: AppState) =>
