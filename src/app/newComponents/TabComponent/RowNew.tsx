@@ -34,12 +34,12 @@ export default function RowNew({
   score,
   source,
 }: RowNewProps) {
-    const formatDate = (date: Date) => {
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because JavaScript months start from 0
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-      };
+  const formatDate = (date: Date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because JavaScript months start from 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
   const { updateArchive } = useUpdateArchive();
 
   const dispatch = useAppDispatch();
@@ -50,9 +50,9 @@ export default function RowNew({
     google_alert: <BellIcon />,
     custom: <HeartIcon />,
   };
-  const handleArchive = async (id: number)=>{
-    await updateArchive(id)
-  }
+  const handleArchive = async (id: number) => {
+    await updateArchive(id);
+  };
 
   const handleCheckboxChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -65,7 +65,12 @@ export default function RowNew({
     <>
       <TableRow
         key={id}
-        sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor:presentation.selectedRows.includes(id)? '#FCF9FF':'' }}
+        sx={{
+          '&:last-child td, &:last-child th': { border: 0 },
+          backgroundColor: presentation.selectedRows.includes(id)
+            ? '#FCF9FF'
+            : '',
+        }}
         className={styles.tableRow}
       >
         <TableCell>
@@ -94,19 +99,34 @@ export default function RowNew({
         <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
           {formatDate(date)}
         </TableCell>
-        <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
-          {keyword}
+        <TableCell
+          align="left"
+          sx={{
+            fontFamily: 'IBM Plex Mono',
+
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          <div
+            style={{
+              maxHeight: '3rem',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {keyword}
+          </div>
         </TableCell>
         <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
           {score}
         </TableCell>
         <TableCell>
           <div className={styles.actions_container}>
-           
             <ThumbUpIcon id={id} />
-            <WebflowIcon link={link} id={id}/>
-            <ArchiveIcon id={id}/>
-            <ChatGptIcon id={id}/>
+            <WebflowIcon link={link} id={id} />
+            <ArchiveIcon id={id} />
+            <ChatGptIcon id={id} />
           </div>
         </TableCell>
       </TableRow>

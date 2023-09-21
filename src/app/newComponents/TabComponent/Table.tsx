@@ -22,6 +22,9 @@ import {
 } from 'src/presentation/createPresentation';
 import { fetchPosts } from 'src/features/posts/fetchPosts';
 import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
+import { Pagination, TableSortLabel } from '@mui/material';
+import { sortedByDate } from 'src/features/articles/articlesSlice';
+import { postSortedByDate, postSortedByMainScore } from 'src/features/posts/postsSlice';
 const exampleObjects: RowNewProps[] = [
   {
     id: 1,
@@ -65,9 +68,12 @@ function createData(
 }
 
 export default function TableNew() {
-
+  const [direction, setDirection] = useState(false);
+  const [scoreDirection , setScoreDirection]= useState(false)
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(100);
   const dispatch = useAppDispatch();
-  const tableStatus = useAppSelector(createPresentationNewTab)
+  const tableStatus = useAppSelector(createPresentationNewTab);
   const presentationTable = useAppSelector(createPresentationPosts);
   useEffect(() => {
     const fetchData = async () => {
@@ -76,11 +82,25 @@ export default function TableNew() {
     fetchData();
     console.log('useffect working');
   }, []);
-
+  const handleChangePage = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
+  const filterDate = () => {
+    dispatch(postSortedByDate(direction))
+    setDirection(!direction);
+  };
+  const filterScore =()=>{
+    dispatch(postSortedByMainScore(scoreDirection))
+    setScoreDirection(!scoreDirection);
+  }
+  const startIdx = (page - 1) * rowsPerPage;
+  const endIdx = page * rowsPerPage;
 
   return (
     <div className="table">
-    
       <Table sx={{ minWidth: 850 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -114,11 +134,17 @@ export default function TableNew() {
               }}
               align="left"
             >
-              DATE
+              <TableSortLabel
+                active={true}
+                onClick={filterDate}
+                direction={direction ? 'asc' : 'desc'}
+              >
+                DATE
+              </TableSortLabel>
             </TableCell>
             <TableCell
               sx={{
-                width: 300,
+                width: 400,
                 fontWeight: 'bold',
                 fontFamily: 'IBM Plex Mono',
               }}
@@ -134,7 +160,13 @@ export default function TableNew() {
               }}
               align="left"
             >
-              SCORE
+              <TableSortLabel
+                active={true}
+                onClick={filterScore}
+                direction={scoreDirection? 'asc' : 'desc'}
+              >
+                SCORE
+              </TableSortLabel>
             </TableCell>
             <TableCell
               sx={{
@@ -149,7 +181,7 @@ export default function TableNew() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {presentationTable.map((object) => (
+          {presentationTable.slice(startIdx, endIdx).map((object) => (
             <RowNew
               key={object.id}
               title={object.title}
@@ -163,6 +195,11 @@ export default function TableNew() {
           ))}
         </TableBody>
       </Table>
+      <Pagination
+        count={Math.ceil(presentationTable.length / rowsPerPage)}
+        page={page}
+        onChange={handleChangePage}
+      />
     </div>
   );
 }

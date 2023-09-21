@@ -17,12 +17,20 @@ const postsSlice = createSlice({
       }
       state.ids = [...action.payload.map((post) => post.id)];
     },
-    postsFiltred: (state, action: PayloadAction <SearchFilterAttribute>)=>{
+    postsFiltred: (state, action: PayloadAction<SearchFilterAttribute>) => {
       const { source, keywords, dateStart, dateEnd, score } = action.payload;
 
       if (
-        (!source?.length || !keywords?.length || !dateStart || !dateEnd || !score) &&
-        (!source && !keywords && !dateStart && !dateEnd && !score)
+        (!source?.length ||
+          !keywords?.length ||
+          !dateStart ||
+          !dateEnd ||
+          !score) &&
+        !source &&
+        !keywords &&
+        !dateStart &&
+        !dateEnd &&
+        !score
       ) {
         // If all filter attributes are empty, reset the state to initial state
         state.ids = initialState.ids;
@@ -31,34 +39,83 @@ const postsSlice = createSlice({
       }
 
       state.ids = Object.values(state.posts)
-        .filter(post => {
-          const sourceFilter = !source || !source.length || source.includes(post.source);
-          const keywordsFilter = !keywords || !keywords.length || keywords.includes(post.key_word.key_word);
-          const dateStartFilter = !dateStart || new Date(post.published) >= dateStart;
+        .filter((post) => {
+          const sourceFilter =
+            !source || !source.length || source.includes(post.source);
+          const keywordsFilter =
+            !keywords ||
+            !keywords.length ||
+            keywords.includes(post.key_word.key_word);
+          const dateStartFilter =
+            !dateStart || new Date(post.published) >= dateStart;
           const dateEndFilter = !dateEnd || new Date(post.published) <= dateEnd;
-          const scoreFilter = !score || (post.score >= score[0] && post.score <= score[1]);
+          const scoreFilter =
+            !score || (post.score >= score[0] && post.score <= score[1]);
 
-          return sourceFilter && keywordsFilter && dateStartFilter && dateEndFilter && scoreFilter;
+          return (
+            sourceFilter &&
+            keywordsFilter &&
+            dateStartFilter &&
+            dateEndFilter &&
+            scoreFilter
+          );
         })
-        .map(post => post.id);
+        .map((post) => post.id);
     },
-    selectedPostFiltred: (state, action: PayloadAction<number>)=>{
+    postSortedByDate: (state, action: PayloadAction<boolean>) => {
+      const order = action.payload;
+      const sortedIds = [...state.ids].sort((a, b) => {
+        const dateA = new Date(state.posts[a].created_at);
+        const dateB = new Date(state.posts[b].created_at);
+
+        return order === false
+          ? dateA.getTime() - dateB.getTime()
+          : dateB.getTime() - dateA.getTime();
+      });
+
+      // Update the ids to the new sorted order
+      state.ids = sortedIds;
+    },
+    selectedPostFiltred: (state, action: PayloadAction<number>) => {
       const postIdToDelete = action.payload;
 
       // Create a new object excluding the post with the specified ID
       const newPosts = Object.fromEntries(
-        Object.entries(state.posts).filter(([key, post]) => post.id !== postIdToDelete)
+        Object.entries(state.posts).filter(
+          ([key, post]) => post.id !== postIdToDelete
+        )
       );
-    
+
       return {
         ...state,
         posts: newPosts,
-        ids: state.ids.filter(id => id !== postIdToDelete)
+        ids: state.ids.filter((id) => id !== postIdToDelete),
       };
-      
-    }
+    },
+    postSortedByMainScore: (state, action: PayloadAction<boolean>) => {
+      const isAscending = action.payload; 
+
+      const sortedRows = [...state.ids].sort((a, b) => {
+   
+        const scoreA = state.posts[a]?.score ?? Number.MIN_SAFE_INTEGER;
+        const scoreB = state.posts[b]?.score ?? Number.MIN_SAFE_INTEGER;
+
+        if (isAscending) {
+          return scoreA - scoreB;
+        } else {
+          return scoreB - scoreA;
+        }
+      });
+
+      state.ids = sortedRows;
+    },
   },
 });
-export const { postsFetched, postsFiltred,selectedPostFiltred} =
-  postsSlice.actions;
+export const {
+  postsFetched,
+  postsFiltred,
+  selectedPostFiltred,
+  postSortedByDate,
+  postSortedByMainScore
+} = postsSlice.actions;
 export default postsSlice.reducer;
