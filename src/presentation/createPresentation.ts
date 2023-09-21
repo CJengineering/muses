@@ -49,7 +49,7 @@ export const createPresentationPosts = (state: RootState): RowNewProps[] => {
   ids.forEach((id) => {
     const post = posts[id];
 
-    const combinedScore = post.score + post.score_second;
+    
 
     let source: IconType;
     source = post.source as IconType;
@@ -58,9 +58,9 @@ export const createPresentationPosts = (state: RootState): RowNewProps[] => {
       id: post.id,
       title: post.title,
       link: post.link,
-      date: new Date(post.published),
+      date: new Date(post.created_at),
       keyword: post.key_word.key_word,
-      score: combinedScore,
+      score: post.score,
       source: source,
     });
   });

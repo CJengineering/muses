@@ -34,6 +34,12 @@ export default function RowNew({
   score,
   source,
 }: RowNewProps) {
+    const formatDate = (date: Date) => {
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because JavaScript months start from 0
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      };
   const { updateArchive } = useUpdateArchive();
 
   const dispatch = useAppDispatch();
@@ -59,7 +65,7 @@ export default function RowNew({
     <>
       <TableRow
         key={id}
-        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+        sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor:presentation.selectedRows.includes(id)? '#FCF9FF':'' }}
         className={styles.tableRow}
       >
         <TableCell>
@@ -86,7 +92,7 @@ export default function RowNew({
         </TableCell>
         <TableCell align="left">{typeIcon[source]}</TableCell>
         <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
-          {date.toLocaleDateString()}
+          {formatDate(date)}
         </TableCell>
         <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
           {keyword}

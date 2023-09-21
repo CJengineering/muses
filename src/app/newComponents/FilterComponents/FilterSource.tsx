@@ -10,7 +10,7 @@ import { createPresentationSearchAttributes } from 'src/presentation/createPrese
 export default function FilterSource() {
   const dispatch = useAppDispatch();
   const presentationTest = useAppSelector(createPresentationSearchAttributes);
-  const [selectedUrls, setSelectedUrls] = useState<IconType[]>([]);
+  const [selectedUrls, setSelectedUrls] = useState<IconType[]>(['bing','custom','google','google_alert']);
 
   useEffect(() => {
     dispatch(sourceAttributedToggled(selectedUrls));

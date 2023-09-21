@@ -13,15 +13,17 @@
 .actions_container{
     display: flex;
     column-gap: 1rem;
+    visibility: hidden;
 }
 .table{
     font-family: 'IBM Plex Mono';
 }
 .icon{
     cursor: pointer;
+    color: #606060;
 }
-.icon :hover{
-    color:blue
+.icon:hover{
+   color: #001AFF;
 }
 .text_link {
     text-decoration: none;
@@ -32,7 +34,7 @@
 .text_link:hover {
     color: blue;
 }
-.tebleRow{
+.tableRow{
     transition: color 0.3s ease; 
 }
 .tableRow:hover {
@@ -48,3 +50,6 @@
     filter: brightness(120%);
     color: blue;
 }
+.tableRow:hover .actions_container {
+    visibility: visible;
+  }

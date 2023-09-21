@@ -17,7 +17,7 @@ it('should fetch articles from our api', async () => {
     link: 'https://example.com/link1',
     date: new Date('2023-09-18'),
     keyword: 'example keyword 1',
-    score: 36,
+    score: 32,
     source: 'bing',
   });
 });

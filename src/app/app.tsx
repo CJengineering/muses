@@ -44,7 +44,7 @@ export function App() {
     <>
       {authenticated ? (
         <>
-          <div style={{ display: 'flex', width: '100%'}}>
+          <div style={{ display: 'flex'}}>
             {/*<SideNavBar />*/}
             <NavMenu/>
 

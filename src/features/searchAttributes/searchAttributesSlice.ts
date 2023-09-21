@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IconType, SearchFilterAttribute } from 'src/app/interfaces';
 
 const initialState: SearchFilterAttribute = {
-  source: [],
+  source: ['bing','custom','google','google_alert'],
   keywords: [],
 };
 const searchAttributeSlice = createSlice({

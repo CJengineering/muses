@@ -7,7 +7,7 @@ import CreateKeywordForm from 'src/app/createKeywordForm';
 
 const style = {
   position: 'absolute' as 'absolute',
-  top: '20%',
+  top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
