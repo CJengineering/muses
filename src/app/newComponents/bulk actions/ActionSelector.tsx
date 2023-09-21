@@ -66,7 +66,7 @@ export default function ActionSelector() {
       if(actionStatus.status =='webflow'){
         const post= findArticleById(presentationData,item)
         if (post?.link !== null && post?.link !== undefined) {
-            handleWebflow(post.link);
+            handleWebflow(post.link, item);
             dispatch(selectedPostFiltred(item));
         }
     

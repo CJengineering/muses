@@ -78,9 +78,9 @@ export const useUpdateArchive = () => {
   }
 
   export const useWebflow= ()=>{
-    const handleWebflow = async (link: string) => {
+    const handleWebflow = async (link: string, id:number) => {
      
-        const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/article_creator?link=${link}`;
+        const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/article_creator?link=${link}&id=${id}`;
         try {
           const response = await fetch(url, {
             method: 'GET',
