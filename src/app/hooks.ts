@@ -8,7 +8,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useUpdateArchive = () => {
     const updateArchive = async (id :number) => {
-      const url = `http://127.0.0.1:3000/posts/${id}`;
+      const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/posts/${id}`;
       const body = JSON.stringify({ category_label: 'archived' });
   
       try {
@@ -33,7 +33,7 @@ export const useUpdateArchive = () => {
 
   export const useUpdateShortlist = () => {
     const updateShortlist = async (id :number) => {
-      const url = `http://127.0.0.1:3000/posts/${id}`;
+      const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/posts/${id}`;
       const body = JSON.stringify({ category_label: 'shortlist' });
   
       try {
@@ -59,7 +59,7 @@ export const useUpdateArchive = () => {
   export const useAnalyzer = ()=>{
     const handleAnalyser = async (id: number) => {
       
-        const url = `http://127.0.0.1:3000/static/analyzer_new?id=${id}`;
+        const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/analyzer_new?id=${id}`;
         try {
           const response = await fetch(url, {
             method: 'GET',
