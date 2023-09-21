@@ -98,7 +98,7 @@ export default function RowNew({
           <div className={styles.actions_container}>
            
             <ThumbUpIcon id={id} />
-            <WebflowIcon link={link}/>
+            <WebflowIcon link={link} id={id}/>
             <ArchiveIcon id={id}/>
             <ChatGptIcon id={id}/>
           </div>

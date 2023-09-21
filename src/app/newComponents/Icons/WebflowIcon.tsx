@@ -3,15 +3,17 @@ import styles from './icon.module.css';
 
 export interface WebflowIconProps {
     link?:string;
+    id?: number
 }
 
-export default function WebflowIcon({link}:WebflowIconProps) {
+export default function WebflowIcon({link,id}:WebflowIconProps) {
     const {  handleWebflow  } = useWebflow();
-    const webflow= async (link:string)=>{
-        await  handleWebflow(link)
+    const webflow= async (link:string, id:number)=>{
+        await  handleWebflow(link, id)
       }
+      
   return (
-    <div className={styles.icon} onClick={()=>link && webflow(link)}>
+    <div className={styles.icon}onClick={() => link && typeof id === 'number' && webflow(link, id)}>
       <svg
         version="1.1"
         id="Layer_1"
