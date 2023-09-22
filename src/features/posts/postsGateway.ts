@@ -2,11 +2,16 @@ import { Post, PostGateway } from 'src/app/interfaces';
 import { NewTableStatus } from '../new table selctor/newTableSlice';
 
 export class ApiPostGateway implements PostGateway {
-  async fetchPosts(url: NewTableStatus): Promise<Post[]> {
-    let id = 1;
-    const response = await fetch(
-      ` https://new-alerts-e4f6j5kdsq-ew.a.run.app/posts?status=${url}`
-    );
+  async fetchPosts(url: NewTableStatus, id?: number): Promise<Post[]> {
+    let requestUrl;
+
+    if (id) {
+      requestUrl = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/key_words/${id}/keyword_posts/${id}?status=${url}`;
+    } else {
+      requestUrl = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/posts?status=${url}`;
+    }
+
+    const response = await fetch(requestUrl);
     const data: any = await response.json();
     return data;
   }

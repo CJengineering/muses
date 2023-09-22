@@ -31,6 +31,7 @@ import {
 } from 'src/features/posts/postsSlice';
 import { allSelected } from 'src/features/SelectAll/selectAllSlice';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
+import { useLocation, useParams } from 'react-router-dom';
 const exampleObjects: RowNewProps[] = [
   {
     id: 1,
@@ -82,13 +83,21 @@ export default function TableNew() {
   const presentationSelctAll = useAppSelector(createPresentationSelectAll);
   const tableStatus = useAppSelector(createPresentationNewTab);
   const presentationTable = useAppSelector(createPresentationPosts);
+  const location = useLocation();
+  const { id } = useParams();
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch<any>(fetchPosts(tableStatus.status));
+      if (location.pathname === `/keywords-beta/${id}`) {
+        await dispatch<any>(fetchPosts(tableStatus.status,Number(id)));
+      }
+      if(location.pathname==='/main'){
+        await dispatch<any>(fetchPosts(tableStatus.status))
+      }
     };
     fetchData();
     console.log('useffect working');
-  }, []);
+  }, [dispatch, location.pathname, id]);
+
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number

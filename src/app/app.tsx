@@ -36,6 +36,7 @@ import GoogleSearchArticle from './googleSearchArticle';
 import BingArticle from './bingNewsArticle';
 import Main from './newComponents/Main';
 import NavMenu from './newComponents/NavBar/NavMenu';
+import TableKeyword from './newComponents/TabComponent/TableKeyword';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
@@ -50,6 +51,8 @@ export function App() {
 
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/keywords-list" element={<TableKeyword/>} />
+              <Route path="/keywords-beta/:id" element={<Main />} />
               <Route path="/main" element={<Main />} />
               <Route path="/news/:urlKey" element={<TestTabs />} />
               <Route path="/keywords" element={<KeyWordTable />} />

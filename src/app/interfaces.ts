@@ -13,7 +13,7 @@ export interface SearchFilterAttribute {
   score?:[number, number]
 }
 export interface PostGateway{
-  fetchPosts(url: NewTableStatus):Promise<Post[]>;
+  fetchPosts(url: NewTableStatus,id?: number):Promise<Post[]>;
 }
 export type RowNewProps = {
   id: number;

@@ -7,13 +7,13 @@ import { NewTableStatus } from '../new table selctor/newTableSlice';
 
 type ThunkResult<D> = ThunkAction<void, AppState, D, AnyAction>;
 
-export const fetchPosts = (url: NewTableStatus): ThunkResult<{
+export const fetchPosts = (url: NewTableStatus,id?:number): ThunkResult<{
   postGateway: PostGateway;
 }> => {
   return async (dispatch: Dispatch<any>, getState, { postGateway }) => {
     console.log('fetchPosts thunk is executing');
 
-    const posts = await postGateway.fetchPosts(url);
+    const posts = await postGateway.fetchPosts(url, id);
     console.log('Fetched posts:', posts);
 
     dispatch(postsFetched(posts));

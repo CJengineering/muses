@@ -22,6 +22,8 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { text: 'Beta Version', icon: <InboxIcon />, link: '/main' },
+  { text: 'KeyWords BETA', icon: <InboxIcon />, link: '/keywords-list' },
+
   {
     text: 'Home',
     icon: <HomeIcon />,
