@@ -1,11 +1,14 @@
-import { useUpdateArchive } from 'src/app/hooks';
+import { useAppDispatch, useUpdateArchive } from 'src/app/hooks';
 import styles from './icon.module.css';
+import { selectedPostFiltred } from 'src/features/posts/postsSlice';
 export interface ArchiveIconProps {
     id?: number;
 }
 export default function ArchiveIcon({id}:ArchiveIconProps) {
+    const dispatch = useAppDispatch()
     const { updateArchive } = useUpdateArchive();
     const handleArchive = async (id: number)=>{
+        dispatch(selectedPostFiltred(id));
         await updateArchive(id)
       }
   return (

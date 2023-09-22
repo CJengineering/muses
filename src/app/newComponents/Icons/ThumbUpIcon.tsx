@@ -1,13 +1,16 @@
-import { useUpdateShortlist } from 'src/app/hooks';
+import { useAppDispatch, useUpdateShortlist } from 'src/app/hooks';
 import styles from './icon.module.css';
+import { selectedPostFiltred } from 'src/features/posts/postsSlice';
 
 interface ThumbUpIconProps {
     id?: number;
 }
 
 export default function ThumbUpIcon({id}:ThumbUpIconProps) {
+    const dispatch = useAppDispatch()
     const { updateShortlist } = useUpdateShortlist();
     const handleShortlist = async (id: number)=>{
+        dispatch(selectedPostFiltred(id));
         await updateShortlist(id)
       }
   return (
