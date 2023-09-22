@@ -112,6 +112,7 @@ export default function RowNew({
             style={{
               maxHeight: '3rem',
               overflow: 'hidden',
+              whiteSpace:'nowrap',
               textOverflow: 'ellipsis',
             }}
           >
