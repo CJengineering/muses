@@ -28,6 +28,9 @@ export type PresentationDashboardData = {
 export const createPresentationFilterToggle =(state: RootState): PrsentationFilterToggle =>{
    return {  status: state.filterToggle.status}
 }
+export const createPresentationSelectAll = (state:RootState)=>{
+  return {status: state.selectAll.status}
+}
 export const createPresentationFilterState =( state: RootState): PresentationFilterState =>{
   return { status: state.filterState.status}
 }

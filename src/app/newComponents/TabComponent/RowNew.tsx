@@ -91,7 +91,7 @@ export default function RowNew({
             alignItems: 'center',
           }}
         >
-          <a href={link} className={styles.text_link}>
+          <a href={link} target='_blank' className={styles.text_link}>
             {title}
           </a>
         </TableCell>

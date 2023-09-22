@@ -18,13 +18,19 @@ import {
 import {
   createPresentationNewTab,
   createPresentationPosts,
+  createPresentationSelectAll,
   createPresentationSelectedRows,
 } from 'src/presentation/createPresentation';
 import { fetchPosts } from 'src/features/posts/fetchPosts';
 import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
 import { Pagination, TableSortLabel } from '@mui/material';
 import { sortedByDate } from 'src/features/articles/articlesSlice';
-import { postSortedByDate, postSortedByMainScore } from 'src/features/posts/postsSlice';
+import {
+  postSortedByDate,
+  postSortedByMainScore,
+} from 'src/features/posts/postsSlice';
+import { allSelected } from 'src/features/SelectAll/selectAllSlice';
+import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
 const exampleObjects: RowNewProps[] = [
   {
     id: 1,
@@ -69,10 +75,11 @@ function createData(
 
 export default function TableNew() {
   const [direction, setDirection] = useState(false);
-  const [scoreDirection , setScoreDirection]= useState(false)
+  const [scoreDirection, setScoreDirection] = useState(false);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(100);
   const dispatch = useAppDispatch();
+  const presentationSelctAll = useAppSelector(createPresentationSelectAll);
   const tableStatus = useAppSelector(createPresentationNewTab);
   const presentationTable = useAppSelector(createPresentationPosts);
   useEffect(() => {
@@ -89,13 +96,28 @@ export default function TableNew() {
     setPage(value);
   };
   const filterDate = () => {
-    dispatch(postSortedByDate(direction))
+    dispatch(postSortedByDate(direction));
     setDirection(!direction);
   };
-  const filterScore =()=>{
-    dispatch(postSortedByMainScore(scoreDirection))
+  const filterScore = () => {
+    dispatch(postSortedByMainScore(scoreDirection));
     setScoreDirection(!scoreDirection);
-  }
+  };
+  const handleCheckboxChangeAll = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    dispatch(allSelected(!presentationSelctAll.status));
+  };
+  const addToSelctAll = (id: number) => {
+    dispatch(toggleSelectedRow(id));
+  };
+  const selectAllAfterSlice = () => {
+    const rowsAfterSlice = presentationTable.slice(startIdx, endIdx);
+    const idsAfterSlice = rowsAfterSlice.map((object) => object.id);
+    idsAfterSlice.forEach((id) => {
+      dispatch(toggleSelectedRow(id));
+    });
+  };
   const startIdx = (page - 1) * rowsPerPage;
   const endIdx = page * rowsPerPage;
 
@@ -105,7 +127,11 @@ export default function TableNew() {
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: 10 }}>
-              <Checkbox></Checkbox>
+              <Checkbox
+                checked={presentationSelctAll.status}
+                onChange={(event) => handleCheckboxChangeAll(event)}
+                onClick={() => selectAllAfterSlice()}
+              ></Checkbox>
             </TableCell>
             <TableCell
               sx={{
@@ -163,7 +189,7 @@ export default function TableNew() {
               <TableSortLabel
                 active={true}
                 onClick={filterScore}
-                direction={scoreDirection? 'asc' : 'desc'}
+                direction={scoreDirection ? 'asc' : 'desc'}
               >
                 SCORE
               </TableSortLabel>
