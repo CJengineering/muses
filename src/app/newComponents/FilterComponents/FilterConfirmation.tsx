@@ -12,6 +12,7 @@ import { postsFiltred } from 'src/features/posts/postsSlice';
 import { filterToggled } from 'src/features/filterToggle/filterToggleSlice';
 import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
 import { fetchPosts } from 'src/features/posts/fetchPosts';
+import { useLocation, useParams } from 'react-router-dom';
 
 export default function FilterConfirmation() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,8 @@ export default function FilterConfirmation() {
   const presentationFilter = useAppSelector(createPresentationSearchAttributes);
   const presentationToggle = useAppSelector(createPresentationFilterToggle);
   const presentationTable = useAppSelector(createPresentationNewTab);
+  const location = useLocation();
+  const { id } = useParams();
   const confirmFilter = () => {
     dispatch(postsFiltred(presentationFilter.searchAttributes));
     dispatch(filterToggled(!presentationToggle.status));
@@ -26,22 +29,34 @@ export default function FilterConfirmation() {
   };
 
   const resetFilter = async () => {
-    await dispatch<any>(fetchPosts(presentationTable.status));
-    dispatch(filterStateChanged(false));
-    dispatch(filterToggled(!presentationToggle.status));
+    if (location.pathname === `/keywords-beta/${id}`) {
+      await dispatch<any>(fetchPosts(presentationTable.status, Number(id)));
+      dispatch(filterStateChanged(false));
+      dispatch(filterToggled(!presentationToggle.status));
+    }
+    if (location.pathname === '/main') {
+        await dispatch<any>(fetchPosts(presentationTable.status));
+      dispatch(filterStateChanged(false));
+      dispatch(filterToggled(!presentationToggle.status));
+    }
   };
 
-  const closeFilter = ()=>{
-    dispatch(filterToggled(!presentationToggle.status))
-  }
+  const closeFilter = () => {
+    dispatch(filterToggled(!presentationToggle.status));
+  };
   return (
     <div className="filter-confirmation-wrapper">
       <div className={styles.filter_confirmations_buttons_conatainer}>
-        <Button onClick={resetFilter}variant="contained" color="error" sx={{ marginRight: '1rem' }}>
+        <Button
+          onClick={resetFilter}
+          variant="contained"
+          color="error"
+          sx={{ marginRight: '1rem' }}
+        >
           Reset
         </Button>
         <Button
-        onClick={closeFilter}
+          onClick={closeFilter}
           variant="contained"
           sx={{ backgroundColor: 'gray', marginRight: '1rem' }}
         >

@@ -11,7 +11,11 @@ import ThumbUpIcon from '../Icons/ThumbUpIcon';
 import WebflowIcon from '../Icons/WebflowIcon';
 import ArchiveIcon from '../Icons/ArchiveIcon';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { createPresentationNewTab } from 'src/presentation/createPresentation';
+import {
+  createPresentationFilterState,
+  createPresentationNewTab,
+  createPresentationSearchAttributes,
+} from 'src/presentation/createPresentation';
 import {
   NewTableStatus,
   selectedNewTableValue,
@@ -19,22 +23,29 @@ import {
 import { fetchPosts } from 'src/features/posts/fetchPosts';
 import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
 import { useLocation, useParams } from 'react-router-dom';
+import { postsFiltred } from 'src/features/posts/postsSlice';
 
 export default function TabSelctor() {
   const location = useLocation();
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const presentationNewTab = useAppSelector(createPresentationNewTab);
-  const fetchData = async (url: NewTableStatus, id?:number) => {
-    if (location.pathname === `/keywords-beta/${id}`) {
-        await dispatch<any>(fetchPosts(url,Number(id)));
-        dispatch(filterStateChanged(false));
-      }
-      if(location.pathname==='/main'){
-        await dispatch<any>(fetchPosts(url))
-        dispatch(filterStateChanged(false));
-      }
+  const filterState = useAppSelector(createPresentationSearchAttributes);
+  const filterStatus = useAppSelector(createPresentationFilterState);
 
+  const presentationNewTab = useAppSelector(createPresentationNewTab);
+  const fetchData = async (url: NewTableStatus, id?: number) => {
+    if (location.pathname === `/keywords-beta/${id}`) {
+      await dispatch<any>(fetchPosts(url, Number(id)));
+      if (filterStatus.status) {
+        dispatch(postsFiltred(filterState.searchAttributes));
+      }
+    }
+    if (location.pathname === '/main') {
+      await dispatch<any>(fetchPosts(url));
+      if (filterStatus.status) {
+        dispatch(postsFiltred(filterState.searchAttributes));
+      }
+    }
   };
   const handleChange = (
     event: React.SyntheticEvent,

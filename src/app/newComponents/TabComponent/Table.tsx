@@ -18,6 +18,7 @@ import {
 import {
   createPresentationNewTab,
   createPresentationPosts,
+  createPresentationSearchAttributes,
   createPresentationSelectAll,
   createPresentationSelectedRows,
 } from 'src/presentation/createPresentation';
@@ -28,6 +29,7 @@ import { sortedByDate } from 'src/features/articles/articlesSlice';
 import {
   postSortedByDate,
   postSortedByMainScore,
+  postsFiltred,
 } from 'src/features/posts/postsSlice';
 import { allSelected } from 'src/features/SelectAll/selectAllSlice';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
@@ -80,6 +82,7 @@ export default function TableNew() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(100);
   const dispatch = useAppDispatch();
+  const filterState = useAppSelector(createPresentationSearchAttributes)
   const presentationSelctAll = useAppSelector(createPresentationSelectAll);
   const tableStatus = useAppSelector(createPresentationNewTab);
   const presentationTable = useAppSelector(createPresentationPosts);
@@ -89,9 +92,11 @@ export default function TableNew() {
     const fetchData = async () => {
       if (location.pathname === `/keywords-beta/${id}`) {
         await dispatch<any>(fetchPosts(tableStatus.status,Number(id)));
+        
       }
       if(location.pathname==='/main'){
         await dispatch<any>(fetchPosts(tableStatus.status))
+        dispatch(postsFiltred(filterState.searchAttributes))
       }
     };
     fetchData();
