@@ -14,7 +14,7 @@ import {
   Switch,
 } from '@mui/material';
 import { useState } from 'react';
-import PageIcon from '../TabComponent/PageIcon';
+import PageIcon from '../Icons/PageIcon';
 import Dashboard from 'src/app/dashboard/dashboard';
 import DashboardIcon from '../TabComponent/DashboardIcon';
 

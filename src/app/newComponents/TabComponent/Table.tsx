@@ -256,7 +256,7 @@ export default function TableNew() {
         page={page}
         onChange={handleChangePage}
       />
-      {presentationTable.length >0 ? '' :<NoItemPage />}    
+      {presentationTable.length >0 ? '' : <NoItemPage />}    
     </div>
   );
 }

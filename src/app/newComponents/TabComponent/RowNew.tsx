@@ -24,6 +24,8 @@ import {
 } from 'src/app/hooks';
 import { createPresentationSelectedRows } from 'src/presentation/createPresentation';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
+import BingImage from '../Icons/BingNewIcon';
+import BingNewIcon from '../Icons/BingNewIcon';
 
 export default function RowNew({
   id,
@@ -45,7 +47,7 @@ export default function RowNew({
   const dispatch = useAppDispatch();
   const presentation = useAppSelector(createPresentationSelectedRows);
   const typeIcon: Record<IconType, JSX.Element> = {
-    bing: <BingIcon />,
+    bing: <BingNewIcon />,
     google: <GoogleIcon />,
     google_alert: <BellIcon />,
     custom: <HeartIcon />,
@@ -87,7 +89,7 @@ export default function RowNew({
             height: '3rem',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            display: '-webkit-boxflex',
+        
             alignItems: 'center',
           }}
         >
@@ -95,7 +97,7 @@ export default function RowNew({
             {title}
           </a>
         </TableCell>
-        <TableCell align="left">{typeIcon[source]}</TableCell>
+        <TableCell align="left" sx={{}}>{typeIcon[source]}</TableCell>
         <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
           {formatDate(date)}
         </TableCell>
