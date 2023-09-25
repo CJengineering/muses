@@ -1,24 +1,48 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import styles  from "./tabComponent.module.css"
+import styles from './tabComponent.module.css';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import {
+  PresentationSearchBar,
+  createPresentationDataForSearchBar,
+  createPresentationPosts,
+  createPresentationSearchBar,
+} from 'src/presentation/createPresentation';
+import { searchBarSet } from 'src/features/searchBar/searchBarSlice';
 
 export default function SearchKeyword() {
+  const search = useAppSelector(createPresentationSearchBar);
+  const dataSearch = useAppSelector(createPresentationDataForSearchBar);
+  const dispatch = useAppDispatch();
+  const handleAutocompleteChange = (
+    _event: React.ChangeEvent<{}>,
+    newValue: string | null
+  ) => {
+    if (newValue !== null) {
+      dispatch(searchBarSet(newValue));
+    }else {
+      dispatch(searchBarSet(""));
+    }
+  };
   return (
     <div className={styles.searchkeyword}>
-
+     
+   
       <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={top100Films}
+        options= {dataSearch}
+        value={search.status}
         size="small"
-        sx={{ width: 300}}
+        onChange={handleAutocompleteChange}
+        sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Search..." />}
       />
     </div>
   );
 }
-
+const testString = ['rrrrr', 'fsfsf'];
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
   { label: 'The Shawshank Redemption', year: 1994 },
@@ -89,7 +113,8 @@ const top100Films = [
   { label: 'Alien', year: 1979 },
   { label: 'Sunset Boulevard', year: 1950 },
   {
-    label: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
+    label:
+      'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
     year: 1964,
   },
   { label: 'The Great Dictator', year: 1940 },

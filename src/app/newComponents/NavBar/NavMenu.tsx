@@ -6,18 +6,21 @@ import SearchIcon from '@mui/icons-material/Search';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { Link as RouterLink } from 'react-router-dom';
 import KeyIcon from '@mui/icons-material/Key';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   Switch,
+  TableSortLabel,
 } from '@mui/material';
 import { useState } from 'react';
 import PageIcon from '../Icons/PageIcon';
 import Dashboard from 'src/app/dashboard/dashboard';
 import DashboardIcon from '../TabComponent/DashboardIcon';
-
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 interface NavItem {
   text: string;
   icon: JSX.Element;
@@ -118,9 +121,23 @@ export default function NavMenu() {
               </ListItemButton>
             ))}
           </List>
-          show old menu
-          <Switch checked={isChecked} onChange={handleSwitchChange} />
-          <List className={styles.fontClass}sx={{display: isChecked? 'block': 'none'}}>
+          <List sx={{marginLeft:'1rem'}}>
+            <ListItemText>
+              <TableSortLabel
+                active={true}
+              
+                onClick={()=>{setIsChecked(!isChecked)}}
+                IconComponent={isChecked ? KeyboardArrowUpIcon : KeyboardArrowDownIcon}
+              >
+                    <ListItemIcon>< HourglassEmptyIcon/></ListItemIcon>
+                Legacy
+              </TableSortLabel>
+            </ListItemText>
+          </List>
+          <List
+            className={styles.fontClass}
+            sx={{ display: isChecked ? 'block' : 'none' }}
+          >
             {navItemsArchive.map((item) => (
               <ListItemButton
                 selected={item.text === selectedItem}

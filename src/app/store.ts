@@ -6,6 +6,7 @@ import filterStateReducer from 'src/features/filterState/filterStateSlice';
 import searchAttributesReducer from 'src/features/searchAttributes/searchAttributesSlice';
 import actionStateReducer from 'src/features/actionState/actionStateSlice'
 import selectAllReducer from 'src/features/SelectAll/selectAllSlice'
+import  searchBarReducer from 'src/features/searchBar/searchBarSlice'
 import rowsReducer from 'src/features/rowSelection/rowSlice'
 import newTableReducer from 'src/features/new table selctor/newTableSlice';
 import filterToggleReducer from 'src/features/filterToggle/filterToggleSlice';
@@ -29,7 +30,8 @@ export const rootReducer = combineReducers({
   searchAttribute: searchAttributesReducer,
   rows: rowsReducer,
   actionState: actionStateReducer,
-  selectAll: selectAllReducer
+  selectAll: selectAllReducer,
+  searchBar : searchBarReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -45,7 +47,8 @@ export const buildInitStore = (): AppState => ({
   searchAttribute: {source: ['bing','custom','google','google_alert'], score:[0,100], keywords:[] },
   rows: {selectedRows:[]},
   actionState: {status:'archive'},
-  selectAll: {status: false}
+  selectAll: {status: false},
+  searchBar : {status:''}
 });
 
 export const createStore = (dependencies: unknown, hydrate?: AppState) =>

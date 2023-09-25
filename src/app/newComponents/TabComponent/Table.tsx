@@ -20,6 +20,7 @@ import {
   createPresentationNewTab,
   createPresentationPosts,
   createPresentationSearchAttributes,
+  createPresentationSearchBar,
   createPresentationSelectAll,
   createPresentationSelectedRows,
 } from 'src/presentation/createPresentation';
@@ -80,6 +81,7 @@ function createData(
 
 export default function TableNew() {
   const [direction, setDirection] = useState(false);
+  const search = useAppSelector(createPresentationSearchBar);
   const [scoreDirection, setScoreDirection] = useState(false);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(100);
@@ -117,6 +119,15 @@ export default function TableNew() {
         dispatch(postsFiltred(filterState.searchAttributes));
       }
  },[tableStatus.status])
+ const renderedRows = presentationTable.filter((row) => {
+  const titleMatch =
+    search.status !== '' && row.title.toLowerCase().includes(search.status.toLowerCase());
+  const keywordMatch = row.keyword
+    .toLowerCase()
+    .includes(search.status.toLowerCase());
+
+  return titleMatch || keywordMatch;
+});
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -237,7 +248,7 @@ export default function TableNew() {
         </TableHead>
      
         <TableBody>
-          { presentationTable.slice(startIdx, endIdx).map((object) => (
+          { renderedRows.slice(startIdx, endIdx).map((object) => (
             <RowNew
               key={object.id}
               title={object.title}

@@ -72,7 +72,7 @@ export default function TabSelctor() {
   };
 
   return (
-    <Box sx={{ width: '100%', textTransform: 'none', marginBottom: '2rem' }}>
+    <Box sx={{ width: '600px', textTransform: 'none', marginBottom: '2rem' }}>
       <TabContext value={presentationNewTab.status}>
         <Box>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -80,10 +80,12 @@ export default function TabSelctor() {
               label={
                 <Box
                   sx={{
+             
                     display: 'flex',
                     alignItems: 'right',
                     gap: 1,
                     transition: 'color 0.3s',
+                    lineHeight: '1.9',
                     '&:hover': {
                       color: 'blue',
                     },
@@ -102,13 +104,16 @@ export default function TabSelctor() {
                 </Box>
               }
               value="incoming"
+              sx={{ paddingInline: '0' }}
             />
             <Tab
               label={
                 <Box
                   sx={{
+                    
                     display: 'flex',
                     alignItems: 'right',
+                    lineHeight: '1.9',
                     gap: 1,
                     transition: 'color 0.3s',
                     '&:hover': {
@@ -129,6 +134,7 @@ export default function TabSelctor() {
                 </Box>
               }
               value="shortlist"
+              sx={{ marginLeft:'2rem',paddingInline: '0' }}
             />{' '}
             <Tab
               label={
@@ -136,7 +142,9 @@ export default function TabSelctor() {
                   sx={{
                     display: 'flex',
                     alignItems: 'right',
+                    lineHeight: '1.9',
                     gap: 1,
+                    alignContent: 'center',
                     transition: 'color 0.3s',
                     '&:hover': {
                       color: 'blue',
@@ -156,12 +164,15 @@ export default function TabSelctor() {
                 </Box>
               }
               value="published"
+              sx={{  marginLeft:'2rem',paddingInline: '0' }}
             />{' '}
             <Tab
               label={
                 <Box
                   sx={{
                     display: 'flex',
+                    alignContent: 'center',
+                    lineHeight: '1.9',
                     alignItems: 'right',
                     gap: 1,
                     transition: 'color 0.3s',
@@ -183,6 +194,7 @@ export default function TabSelctor() {
                 </Box>
               }
               value="archived"
+              sx={{  marginLeft:'2rem',paddingInline: '0' }}
             />
           </TabList>
         </Box>
