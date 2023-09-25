@@ -11,8 +11,12 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Switch,
 } from '@mui/material';
 import { useState } from 'react';
+import PageIcon from '../TabComponent/PageIcon';
+import Dashboard from 'src/app/dashboard/dashboard';
+import DashboardIcon from '../TabComponent/DashboardIcon';
 
 interface NavItem {
   text: string;
@@ -21,14 +25,24 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { text: 'Beta Version', icon: <InboxIcon />, link: '/main' },
-  { text: 'KeyWords BETA', icon: <InboxIcon />, link: '/keywords-list' },
-
   {
-    text: 'Home',
-    icon: <HomeIcon />,
+    text: 'Dashboard',
+    icon: <DashboardIcon />,
     link: '/',
   },
+  {
+    text: 'Page',
+    icon: <PageIcon />,
+    link: '/main',
+  },
+  {
+    text: 'KeyWords ',
+    icon: <PageIcon />,
+    link: '/keywords-list',
+  },
+];
+
+const navItemsArchive: NavItem[] = [
   {
     text: 'Google Alerts',
     icon: <NotificationsIcon />,
@@ -58,9 +72,13 @@ const navItems: NavItem[] = [
 
 export default function NavMenu() {
   const [selectedItem, setSelectedItem] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleItemClick = (text: string) => {
     setSelectedItem(text === selectedItem ? '' : text);
+  };
+  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
   };
 
   return (
@@ -71,14 +89,47 @@ export default function NavMenu() {
           <List className={styles.fontClass}>
             {navItems.map((item) => (
               <ListItemButton
-              selected={item.text === selectedItem}
-              onClick={() => handleItemClick(item.text)}
+                selected={item.text === selectedItem}
+                onClick={() => handleItemClick(item.text)}
                 key={item.text}
                 component={RouterLink}
                 to={item.link}
                 sx={{
                   '&.Mui-selected': {
-                   
+                    color: 'blue',
+                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                      color: 'blue',
+                    },
+                  },
+                  '&:hover': {
+                    backgroundColor: 'lightblue',
+                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                      color: 'blue',
+                    },
+                  },
+                }}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
+                >
+                  {item.text}
+                </ListItemText>
+              </ListItemButton>
+            ))}
+          </List>
+          show old menu
+          <Switch checked={isChecked} onChange={handleSwitchChange} />
+          <List className={styles.fontClass}sx={{display: isChecked? 'block': 'none'}}>
+            {navItemsArchive.map((item) => (
+              <ListItemButton
+                selected={item.text === selectedItem}
+                onClick={() => handleItemClick(item.text)}
+                key={item.text}
+                component={RouterLink}
+                to={item.link}
+                sx={{
+                  '&.Mui-selected': {
                     color: 'blue',
                     '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                       color: 'blue',

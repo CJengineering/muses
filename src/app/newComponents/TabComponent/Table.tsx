@@ -16,6 +16,7 @@ import {
   useUpdateArchive,
 } from 'src/app/hooks';
 import {
+  createPresentationFilterState,
   createPresentationNewTab,
   createPresentationPosts,
   createPresentationSearchAttributes,
@@ -82,7 +83,9 @@ export default function TableNew() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(100);
   const dispatch = useAppDispatch();
-  const filterState = useAppSelector(createPresentationSearchAttributes)
+  const filterStatus = useAppSelector(createPresentationFilterState);
+
+  const filterState = useAppSelector(createPresentationSearchAttributes);
   const presentationSelctAll = useAppSelector(createPresentationSelectAll);
   const tableStatus = useAppSelector(createPresentationNewTab);
   const presentationTable = useAppSelector(createPresentationPosts);
@@ -91,18 +94,28 @@ export default function TableNew() {
   useEffect(() => {
     const fetchData = async () => {
       if (location.pathname === `/keywords-beta/${id}`) {
-        await dispatch<any>(fetchPosts(tableStatus.status,Number(id)));
-        
+        await dispatch<any>(fetchPosts(tableStatus.status, Number(id)));
+        if (filterStatus.status) {
+            dispatch(postsFiltred(filterState.searchAttributes));
+          }
       }
-      if(location.pathname==='/main'){
-        await dispatch<any>(fetchPosts(tableStatus.status))
-        dispatch(postsFiltred(filterState.searchAttributes))
+      if (location.pathname === '/main') {
+        await dispatch<any>(fetchPosts(tableStatus.status));
+        if (filterStatus.status) {
+            dispatch(postsFiltred(filterState.searchAttributes));
+          }
       }
     };
     fetchData();
     console.log('useffect working');
-  }, [dispatch, location.pathname, id]);
-
+   
+  }, [location.pathname,tableStatus.status]);
+ useEffect(()=>{
+    console.log('useffect 2 working');
+    if (filterStatus.status) {
+        dispatch(postsFiltred(filterState.searchAttributes));
+      }
+ },[tableStatus.status])
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -137,6 +150,7 @@ export default function TableNew() {
 
   return (
     <div className="table">
+      {presentationTable.length.toString()}
       <Table sx={{ minWidth: 850 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -152,7 +166,7 @@ export default function TableNew() {
                 width: '100%',
                 fontWeight: 'bold',
                 fontFamily: 'IBM Plex Mono',
-              }}
+              }} 
             >
               PAGE
             </TableCell>

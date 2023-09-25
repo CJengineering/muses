@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import {
   createPresentationFilterState,
   createPresentationNewTab,
+  createPresentationPosts,
   createPresentationSearchAttributes,
 } from 'src/presentation/createPresentation';
 import {
@@ -31,29 +32,43 @@ export default function TabSelctor() {
   const dispatch = useAppDispatch();
   const filterState = useAppSelector(createPresentationSearchAttributes);
   const filterStatus = useAppSelector(createPresentationFilterState);
+  const presentationTable = useAppSelector(createPresentationPosts);
 
   const presentationNewTab = useAppSelector(createPresentationNewTab);
+
   const fetchData = async (url: NewTableStatus, id?: number) => {
     if (location.pathname === `/keywords-beta/${id}`) {
-      await dispatch<any>(fetchPosts(url, Number(id)));
-      if (filterStatus.status) {
-        dispatch(postsFiltred(filterState.searchAttributes));
+      try {
+        await dispatch<any>(fetchPosts(url, Number(id)));
+        if (filterStatus.status) {
+          dispatch(postsFiltred(filterState.searchAttributes));
+        }
+      } catch (error) {
+        // Handle any errors that may occur during the dispatch
+        console.error('Error fetching data:', error);
       }
     }
     if (location.pathname === '/main') {
-      await dispatch<any>(fetchPosts(url));
-      if (filterStatus.status) {
-        dispatch(postsFiltred(filterState.searchAttributes));
+      try {
+        await dispatch<any>(fetchPosts(url));
+        console.log('DATA INSIDE ACTION', presentationTable.length)
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     }
   };
-  const handleChange = (
+
+
+  const handleChange = async (
     event: React.SyntheticEvent,
     newValue: NewTableStatus
   ) => {
-    console.log('this is the new Value', newValue),
-      dispatch(selectedNewTableValue(newValue)),
-      fetchData(newValue, Number(id));
+    console.log('this is the new Value', newValue);
+
+   
+      dispatch(selectedNewTableValue(newValue));
+    
+   
   };
 
   return (

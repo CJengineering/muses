@@ -43,8 +43,8 @@ export default function Home() {
     <h1>Dashboard</h1>
       <div className={styles.formContainer}>
         <CreateKeywordForm />
-        <div className="padding_vertical_small"></div>
-        <div className="padding_vertical_small"></div>
+    
+     
         <InternArticleForm />
       </div>
     </>

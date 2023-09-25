@@ -1,10 +1,17 @@
 /* Your styles goes here. */
 .formContainer{
+    display: flex;
+    column-gap: 1rem;
+    justify-content: flex-start;
     margin-top: 6rem;
+    width: 50%;
+   
+    
 }
 .formKeyword{
     background-color: white;
     border-radius: 15px;
     padding: 1rem;
     width: 100%;
+   
 }

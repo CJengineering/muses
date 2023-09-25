@@ -78,7 +78,7 @@ it('should filter the state', async () => {
   expect(presentation[0].source).toEqual('google');
   expect(presentation[0].keyword).toEqual('Testing')
 });
-it.skip('should filter change the state', async () => {
+it('should filter change the state', async () => {
     const postGateway = new InMemoryPostGateway();
     const filterAtributes: SearchFilterAttribute = {
       source: ['bing','google'],
@@ -94,12 +94,37 @@ it.skip('should filter change the state', async () => {
       }
     );
     store.dispatch(postsFiltred(filterAtributes));
+ 
     store.dispatch(postsFiltred(filterAtributesVOID))
     
     const presentation = createPresentationPosts(store.getState());
   
-    expect(presentation[0].source).toEqual('');
+    expect(presentation[0].source).toEqual('google');
     expect(presentation[0].keyword).toEqual('Testing')
+  });
+  it('should filter after fetch ', async () => {
+    const postGateway = new InMemoryPostGateway();
+    const filterAtributes: SearchFilterAttribute = {
+      source: ['google'],
+    };
+    const filterAtributesVOID :SearchFilterAttribute={
+        source: [],
+    }
+    const store = createStore(
+      { postGateway },
+      {
+        ...buildInitStore(),
+        posts: { ids: ids, posts: articles },
+      }
+    );
+    store.dispatch(postsFiltred(filterAtributes));
+    await store.dispatch<any>(fetchPosts('archived'));
+    store.dispatch(postsFiltred(filterAtributes));
+    
+    const presentation = createPresentationPosts(store.getState());
+  
+    expect(presentation).toEqual([]);
+    expect(presentation).toEqual([])
   });
   it('should filter the article on check ', async ()=>{
     const postGateway= new InMemoryPostGateway();

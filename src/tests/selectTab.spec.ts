@@ -19,4 +19,3 @@ it('should select table with the selected value of the tab', () => {
     const presentation = createPresentation(store.getState());
     expect(presentation).toEqual({ status: 'published' });
   });
-  

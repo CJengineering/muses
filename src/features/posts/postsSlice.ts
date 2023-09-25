@@ -12,9 +12,11 @@ const postsSlice = createSlice({
   reducers: {
     postsFetched: (state, action: PayloadAction<Post[]>) => {
       console.log('postsFetched reducer is called');
+      const newPosts: Record<number, Post> = {};
       for (const post of action.payload) {
-        state.posts[post.id] = post;
+        newPosts[post.id] = post;
       }
+      state.posts= newPosts
       state.ids = [...action.payload.map((post) => post.id)];
     },
     postsFiltred: (state, action: PayloadAction<SearchFilterAttribute>) => {

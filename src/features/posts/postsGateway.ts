@@ -30,7 +30,7 @@ export class InMemoryPostGateway implements PostGateway {
         key_word: {
           key_word: 'example keyword 1',
         },
-        created_at: '2021-01-01',
+        created_at: '2023-09-18',
         updated_at: '2021-01-01',
         key_word_id: 100,
         score: 32,
