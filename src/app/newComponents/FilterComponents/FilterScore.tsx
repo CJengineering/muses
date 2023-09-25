@@ -9,10 +9,10 @@ export default function FilterScore() {
     <div className={styles.filter_score_wrapper}>
       <div className="filter-score-title">Score</div>
       <div className={styles.filter_score_range_container}>
-        <div>{presentation.searchAttributes.score?.[0]}</div>
+        <div style={{width:'1rem'}}>{presentation.searchAttributes.score?.[0]}</div>
 
         <RangeSlider />
-        <div>{presentation.searchAttributes.score?.[1]}</div>
+        <div style={{width:'1rem'}}>{presentation.searchAttributes.score?.[1]}</div>
       </div>
     </div>
   );

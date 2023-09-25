@@ -49,8 +49,8 @@ const postsSlice = createSlice({
             !keywords.length ||
             keywords.includes(post.key_word.key_word);
           const dateStartFilter =
-            !dateStart || new Date(post.published) >= dateStart;
-          const dateEndFilter = !dateEnd || new Date(post.published) <= dateEnd;
+            !dateStart || new Date(post.created_at) >= dateStart;
+          const dateEndFilter = !dateEnd || new Date(post.created_at) <= dateEnd;
           const scoreFilter =
             !score || (post.score >= score[0] && post.score <= score[1]);
 

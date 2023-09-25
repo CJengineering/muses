@@ -42,7 +42,7 @@ export const buildInitStore = (): AppState => ({
   filterState: { status: false },
   posts: { ids: [], posts: {} },
   newtable: { status: 'incoming' },
-  searchAttribute: {source: ['bing','custom','google','google_alert']},
+  searchAttribute: {source: ['bing','custom','google','google_alert'], score:[0,100], keywords:[] },
   rows: {selectedRows:[]},
   actionState: {status:'archive'},
   selectAll: {status: false}
