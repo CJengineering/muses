@@ -150,7 +150,7 @@ export default function TableNew() {
 
   return (
     <div className="table">
-      {presentationTable.length.toString()}
+     
       <Table sx={{ minWidth: 850 }} aria-label="simple table">
         <TableHead>
           <TableRow>
