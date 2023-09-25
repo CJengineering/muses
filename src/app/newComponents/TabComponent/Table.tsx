@@ -35,6 +35,7 @@ import {
 import { allSelected } from 'src/features/SelectAll/selectAllSlice';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
 import { useLocation, useParams } from 'react-router-dom';
+import NoItemPage from './NoItemPage';
 const exampleObjects: RowNewProps[] = [
   {
     id: 1,
@@ -234,8 +235,9 @@ export default function TableNew() {
             </TableCell>
           </TableRow>
         </TableHead>
+     
         <TableBody>
-          {presentationTable.slice(startIdx, endIdx).map((object) => (
+          { presentationTable.slice(startIdx, endIdx).map((object) => (
             <RowNew
               key={object.id}
               title={object.title}
@@ -254,6 +256,7 @@ export default function TableNew() {
         page={page}
         onChange={handleChangePage}
       />
+      {presentationTable.length >0 ? '' :<NoItemPage />}    
     </div>
   );
 }

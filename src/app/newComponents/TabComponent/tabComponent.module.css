@@ -53,3 +53,27 @@
 .tableRow:hover .actions_container {
     visibility: visible;
   }
+
+  .noItemsWrapper{
+    display: flex;
+  
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+
+  }
+  .noItemsWrapper span{
+  
+    font-size: 124px;
+    font-weight: 100;
+    color: #E5E5E5;
+
+  }
+  .textContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
