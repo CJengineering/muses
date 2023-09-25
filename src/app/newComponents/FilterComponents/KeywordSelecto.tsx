@@ -48,7 +48,6 @@ export default function KeywordSelector() {
           onChange={handleChange}
           renderInput={(params) => (
             <div className={styles.selector_label_container}>
-              <span className="material-symbols-outlined">neurology</span>
 
               <TextField
                 {...params}
