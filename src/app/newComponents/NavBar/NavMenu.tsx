@@ -21,6 +21,8 @@ import Dashboard from 'src/app/dashboard/dashboard';
 import DashboardIcon from '../TabComponent/DashboardIcon';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import ContentIcon from '../Icons/ContentIcon';
+import BrainIcon from '../Icons/BrainIcon';
 interface NavItem {
   text: string;
   icon: JSX.Element;
@@ -34,13 +36,13 @@ const navItems: NavItem[] = [
     link: '/',
   },
   {
-    text: 'Page',
-    icon: <PageIcon />,
+    text: 'Content',
+    icon: <ContentIcon/>,
     link: '/main',
   },
   {
     text: 'Keywords ',
-    icon: <PageIcon />,
+    icon: <BrainIcon />,
     link: '/keywords-list',
   },
 ];
@@ -85,90 +87,101 @@ export default function NavMenu() {
   };
 
   return (
-    <div className={styles.navmenuWrapper}>
-      <div className={styles.navmenuContainer}>
-        <div className={styles.logo}>Muses</div>
-        <div className={styles.navLinkContainer}>
-          <List className={styles.fontClass}>
-            {navItems.map((item) => (
-              <ListItemButton
-                selected={item.text === selectedItem}
-                onClick={() => handleItemClick(item.text)}
-                key={item.text}
-                component={RouterLink}
-                to={item.link}
-                sx={{
-                  '&.Mui-selected': {
-                    color: 'blue',
-                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+    <div>
+  
+      <div className={styles.navmenuLogoWrapper}>
+        <div className={styles.logo}>MUSES</div>
+      </div>
+      <div className={styles.navmenuWrapper}>
+     
+        <div className={styles.navmenuContainer}>
+          <div className={styles.navLinkContainer}>
+            <List className={styles.fontClass}>
+              {navItems.map((item) => (
+                <ListItemButton
+                  selected={item.text === selectedItem}
+                  onClick={() => handleItemClick(item.text)}
+                  key={item.text}
+                  component={RouterLink}
+                  to={item.link}
+                  sx={{
+                    '&.Mui-selected': {
                       color: 'blue',
+                      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                        color: 'blue',
+                      },
                     },
-                  },
-                  '&:hover': {
-                    backgroundColor: 'lightblue',
-                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                      color: 'blue',
+                    '&:hover': {
+                      backgroundColor: 'lightblue',
+                      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                        color: 'blue',
+                      },
                     },
-                  },
-                }}
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText
-                  primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
+                  }}
                 >
-                  {item.text}
-                </ListItemText>
-              </ListItemButton>
-            ))}
-          </List>
-          <List sx={{marginLeft:'1rem'}}>
-            <ListItemText>
-              <TableSortLabel
-                active={true}
-              
-                onClick={()=>{setIsChecked(!isChecked)}}
-                IconComponent={isChecked ? KeyboardArrowUpIcon : KeyboardArrowDownIcon}
-              >
-                    <ListItemIcon>< HourglassEmptyIcon/></ListItemIcon>
-                Legacy
-              </TableSortLabel>
-            </ListItemText>
-          </List>
-          <List
-            className={styles.fontClass}
-            sx={{ display: isChecked ? 'block' : 'none' }}
-          >
-            {navItemsArchive.map((item) => (
-              <ListItemButton
-                selected={item.text === selectedItem}
-                onClick={() => handleItemClick(item.text)}
-                key={item.text}
-                component={RouterLink}
-                to={item.link}
-                sx={{
-                  '&.Mui-selected': {
-                    color: 'blue',
-                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                      color: 'blue',
-                    },
-                  },
-                  '&:hover': {
-                    backgroundColor: 'lightblue',
-                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                      color: 'blue',
-                    },
-                  },
-                }}
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText
-                  primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText
+                    primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
+                  >
+                    {item.text}
+                  </ListItemText>
+                </ListItemButton>
+              ))}
+            </List>
+            <List sx={{ marginLeft: '1rem' }}>
+              <ListItemText>
+                <TableSortLabel
+                  active={true}
+                  onClick={() => {
+                    setIsChecked(!isChecked);
+                  }}
+                  IconComponent={
+                    isChecked ? KeyboardArrowUpIcon : KeyboardArrowDownIcon
+                  }
                 >
-                  {item.text}
-                </ListItemText>
-              </ListItemButton>
-            ))}
-          </List>
+                  <ListItemIcon>
+                    <HourglassEmptyIcon />
+                  </ListItemIcon>
+                  Legacy
+                </TableSortLabel>
+              </ListItemText>
+            </List>
+            <List
+              className={styles.fontClass}
+              sx={{ display: isChecked ? 'block' : 'none' }}
+            >
+              {navItemsArchive.map((item) => (
+                <ListItemButton
+                  selected={item.text === selectedItem}
+                  onClick={() => handleItemClick(item.text)}
+                  key={item.text}
+                  component={RouterLink}
+                  to={item.link}
+                  sx={{
+                    '&.Mui-selected': {
+                      color: 'blue',
+                      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                        color: 'blue',
+                      },
+                    },
+                    '&:hover': {
+                      backgroundColor: 'lightblue',
+                      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                        color: 'blue',
+                      },
+                    },
+                  }}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText
+                    primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
+                  >
+                    {item.text}
+                  </ListItemText>
+                </ListItemButton>
+              ))}
+            </List>
+          </div>
         </div>
       </div>
     </div>

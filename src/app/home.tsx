@@ -40,6 +40,8 @@ export default function Home() {
 
   return (
     <>
+    <div className="main-page-wrapper">
+
     <h1>Dashboard</h1>
       <div className={styles.formContainer}>
         <CreateKeywordForm />
@@ -47,6 +49,7 @@ export default function Home() {
      
         <InternArticleForm />
       </div>
+    </div>
     </>
   );
 }

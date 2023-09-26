@@ -11,7 +11,15 @@
   src: url('/src/fonts/IBMPlexMono-Bold.ttf') format('truetype');
   /* Add other font formats if you have them (e.g., woff, woff2) */
 }
-
+@font-face {
+  font-family: 'Space Mono';
+  font-weight: bold;
+  src: url('/src/fonts/SpaceMono-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Space Mono';
+  src: url('/src/fonts/SpaceMono-Regular.ttf') format('truetype');
+}
 body{
   margin: 0;
   font-family: 'IBM Plex Mono';

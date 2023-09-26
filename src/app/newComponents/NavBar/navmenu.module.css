@@ -1,6 +1,6 @@
 .navmenuWrapper{
     background-color: white;
-    margin-top: 6rem;
+   
     margin-left: 2rem;
     border-radius: 15px;
     padding-right: 2rem;
@@ -10,9 +10,9 @@
 }
 .logo{
     color: black;
-    font-size: 48px;
-    font-family: 'IBM Plex Mono';
-    padding: 0;
+    font-size: 16px;
+    font-family: 'Space Mono';
+    padding: ;
     font-weight: bolder;
     padding: 0.5rem 1rem;
 }
@@ -22,4 +22,17 @@
 .linkButton{
     background-color: blue;
 
+}
+.navmenuLogoWrapper{
+    background-color: white;
+   padding-left: 1rem;
+   margin-bottom: 1.2rem;
+    margin-top: 2.5rem;
+    margin-left: 2rem;
+    border-radius: 15px;
+    padding-right: 2rem;
+    
+}
+.navLinkContainer{
+    padding-top: 1rem;
 }
