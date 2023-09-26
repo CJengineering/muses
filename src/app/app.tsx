@@ -37,6 +37,7 @@ import BingArticle from './bingNewsArticle';
 import Main from './newComponents/Main';
 import NavMenu from './newComponents/NavBar/NavMenu';
 import TableKeyword from './newComponents/TabComponent/TableKeyword';
+import { ToastContainer } from 'react-toastify';
 
 export function App() {
   const { authenticated } = useContext(AuthContext);
@@ -64,6 +65,8 @@ export function App() {
               />
               <Route path="/bing-news/:id" element={<BingArticle />} />
             </Routes>
+            <ToastContainer position="top-center" autoClose={2000}
+/>
           </div>
         </>
       ) : (

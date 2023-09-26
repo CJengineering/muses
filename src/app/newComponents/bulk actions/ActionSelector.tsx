@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import {
-    useAnalyzer,
+  useAnalyzer,
   useAppDispatch,
   useAppSelector,
   useUpdateArchive,
@@ -26,6 +26,8 @@ import { selectedPostFiltred } from 'src/features/posts/postsSlice';
 import { filterStateChanged } from 'src/features/filterState/filterStateSlice';
 import { clearSelectedRows } from 'src/features/rowSelection/rowSlice';
 import { Post, RowNewProps } from 'src/app/interfaces';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ActionSelector() {
   function findArticleById(
@@ -39,44 +41,45 @@ export default function ActionSelector() {
       return null;
     }
   }
-  const presentationData = useAppSelector(createPresentationPosts)
+  const presentationData = useAppSelector(createPresentationPosts);
   const actionStatus = useAppSelector(createPresentationBulkAction);
   const dispatch = useAppDispatch();
   const presentationBulk = useAppSelector(createPresentationSelectedRows);
   const { updateArchive } = useUpdateArchive();
   const { updateShortlist } = useUpdateShortlist();
-  const {handleAnalyser} = useAnalyzer()
-  const {handleWebflow} = useWebflow()
+  const { handleAnalyser } = useAnalyzer();
+  const { handleWebflow } = useWebflow();
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(actionSelected(event.target.value as ActionStatus));
   };
   const handleBulkArchive = async () => {
-    presentationBulk.selectedRows.forEach((item) => {
+    presentationBulk.selectedRows.forEach(async (item) => {
       if (actionStatus.status == 'archive') {
-        updateArchive(item);
+        toast.success('Item is archiving');
+        await updateArchive(item);
+        
         dispatch(selectedPostFiltred(item));
       }
       if (actionStatus.status == 'shortlist') {
-        updateShortlist(item);
+        toast.success('Item is shortlisting');
+        await updateShortlist(item);
         dispatch(selectedPostFiltred(item));
       }
       if (actionStatus.status == 'analyse') {
-        handleAnalyser(item);
+        toast.success('Item is analysing');
+        await handleAnalyser(item);
       }
-      if(actionStatus.status =='webflow'){
-        const post= findArticleById(presentationData,item)
+      if (actionStatus.status == 'webflow') {
+        const post = findArticleById(presentationData, item);
         if (post?.link !== null && post?.link !== undefined) {
-            handleWebflow(post.link, item);
-            dispatch(selectedPostFiltred(item));
+          toast.success('Item sending to Webflow');
+          await handleWebflow(post.link, item);
+          dispatch(selectedPostFiltred(item));
         }
-    
-          
-
       }
-
-
     });
     //await dispatch<any>(fetchPosts(presentationTableStatus.status));
+
     dispatch(filterStateChanged(false));
     dispatch(clearSelectedRows());
   };
@@ -105,7 +108,7 @@ export default function ActionSelector() {
         </Select>
       </FormControl>
       <Button
-       onClick={handleBulkArchive}
+        onClick={handleBulkArchive}
         variant="contained"
         sx={{
           width: '100%',
@@ -120,6 +123,7 @@ export default function ActionSelector() {
       >
         {actionStatus.status}
       </Button>
+     
     </Box>
   );
 }

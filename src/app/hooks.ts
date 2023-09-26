@@ -2,6 +2,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store";
 import { useState, useEffect } from 'react';
 
+
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
@@ -10,7 +11,7 @@ export const useUpdateArchive = () => {
     const updateArchive = async (id :number) => {
       const url = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/posts/${id}`;
       const body = JSON.stringify({ category_label: 'archived' });
-  
+
       try {
         const response = await fetch(url, {
           method: 'PATCH',
@@ -19,7 +20,7 @@ export const useUpdateArchive = () => {
           },
           body: body,
         });
-  
+
         if (!response.ok) {
           throw new Error('Failed to update archive');
         }
@@ -27,7 +28,7 @@ export const useUpdateArchive = () => {
         console.error(error);
       }
     };
-  
+    
     return { updateArchive }; 
   };
 

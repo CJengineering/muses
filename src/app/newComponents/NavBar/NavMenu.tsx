@@ -39,7 +39,7 @@ const navItems: NavItem[] = [
     link: '/main',
   },
   {
-    text: 'KeyWords ',
+    text: 'Keywords ',
     icon: <PageIcon />,
     link: '/keywords-list',
   },
