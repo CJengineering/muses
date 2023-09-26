@@ -38,7 +38,7 @@ export default function TableKeyword() {
     fetchRows();
   }, []);
   return (
-    <div>
+    <div className='main-page-wrapper '>
          <MainPageNav/>
     <div className="table">
       <Table sx={{ minWidth: 850 }} aria-label="simple table">

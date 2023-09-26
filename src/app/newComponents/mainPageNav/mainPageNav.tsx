@@ -10,11 +10,11 @@ export function MainPageNav() {
   return (
     <div className="main-page-nav-wrapper ">
       <div className={styles.main_page_nav_container}>
-        <div className="main_page_nav_item">
+    
           <h1>Pages </h1>
 
 
-        </div>
+ 
         <div className="main_page_nav_item">
           <div className={styles.nav_item_buttons_container}>
             {/* <Button variant="contained" color="success">

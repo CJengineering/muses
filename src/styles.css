@@ -12,6 +12,12 @@
   /* Add other font formats if you have them (e.g., woff, woff2) */
 }
 @font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: 500;
+  src: url('/src/fonts/IBMPlexMono-Medium.ttf') format('truetype');
+  /* Add other font formats if you have them (e.g., woff, woff2) */
+}
+@font-face {
   font-family: 'Space Mono';
   font-weight: bold;
   src: url('/src/fonts/SpaceMono-Bold.ttf') format('truetype');
@@ -157,7 +163,11 @@ justify-content: space-between;
   
 }
 
-
+h1{
+  font-family: 'IBM Plex Mono';
+  font-weight: 500;
+  font-size: 21px;
+}
 .blue{
   background-color: blue;
 }

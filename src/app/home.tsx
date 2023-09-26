@@ -4,7 +4,7 @@ import { Box, Button, Modal, Typography } from '@mui/material';
 import CreateKeywordForm from './createKeywordForm';
 import Dashboard from './dashboard/dashboard';
 import InternArticleForm from './InternArticleForm';
-import styles  from './app.module.css'
+import styles from './app.module.css';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -16,7 +16,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 
 export default function Home() {
   useAuthentication();
@@ -40,16 +39,16 @@ export default function Home() {
 
   return (
     <>
-    <div className="main-page-wrapper">
+      <div className="main-page-wrapper">
+        <div className={styles.main_page_nav_container}>
+          <h1>Dashboard</h1>
+        </div>
+        <div className={styles.formContainer}>
+          <CreateKeywordForm />
 
-    <h1>Dashboard</h1>
-      <div className={styles.formContainer}>
-        <CreateKeywordForm />
-    
-     
-        <InternArticleForm />
+          <InternArticleForm />
+        </div>
       </div>
-    </div>
     </>
   );
 }
