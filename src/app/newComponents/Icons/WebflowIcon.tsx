@@ -1,19 +1,24 @@
 import { useWebflow } from 'src/app/hooks';
 import styles from './icon.module.css';
+import { toast } from 'react-toastify';
 
 export interface WebflowIconProps {
-    link?:string;
-    id?: number
+  link?: string;
+  id?: number;
 }
 
-export default function WebflowIcon({link,id}:WebflowIconProps) {
-    const {  handleWebflow  } = useWebflow();
-    const webflow= async (link:string, id:number)=>{
-        await  handleWebflow(link, id)
-      }
-      
+export default function WebflowIcon({ link, id }: WebflowIconProps) {
+  const { handleWebflow } = useWebflow();
+  const webflow = async (link: string, id: number) => {
+    toast.success('Item is sending to Webflow');
+    await handleWebflow(link, id);
+  };
+
   return (
-    <div className={styles.icon}onClick={() => link && typeof id === 'number' && webflow(link, id)}>
+    <div
+      className={styles.icon}
+      onClick={() => link && typeof id === 'number' && webflow(link, id)}
+    >
       <svg
         version="1.1"
         id="Layer_1"

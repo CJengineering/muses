@@ -1,6 +1,7 @@
 import { useAppDispatch, useUpdateShortlist } from 'src/app/hooks';
 import styles from './icon.module.css';
 import { selectedPostFiltred } from 'src/features/posts/postsSlice';
+import { toast } from 'react-toastify';
 
 interface ThumbUpIconProps {
     id?: number;
@@ -11,6 +12,7 @@ export default function ThumbUpIcon({id}:ThumbUpIconProps) {
     const { updateShortlist } = useUpdateShortlist();
     const handleShortlist = async (id: number)=>{
         dispatch(selectedPostFiltred(id));
+        toast.success('Item is shortlisting')
         await updateShortlist(id)
       }
   return (

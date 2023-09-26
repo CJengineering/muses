@@ -1,18 +1,20 @@
 import { useAppDispatch, useUpdateArchive } from 'src/app/hooks';
 import styles from './icon.module.css';
 import { selectedPostFiltred } from 'src/features/posts/postsSlice';
+import { toast } from 'react-toastify';
 export interface ArchiveIconProps {
-    id?: number;
+  id?: number;
 }
-export default function ArchiveIcon({id}:ArchiveIconProps) {
-    const dispatch = useAppDispatch()
-    const { updateArchive } = useUpdateArchive();
-    const handleArchive = async (id: number)=>{
-        dispatch(selectedPostFiltred(id));
-        await updateArchive(id)
-      }
+export default function ArchiveIcon({ id }: ArchiveIconProps) {
+  const dispatch = useAppDispatch();
+  const { updateArchive } = useUpdateArchive();
+  const handleArchive = async (id: number) => {
+    toast.success('Item is Archiving');
+    dispatch(selectedPostFiltred(id));
+    await updateArchive(id);
+  };
   return (
-    <div className={styles.icon} onClick={() =>id && handleArchive(id)}>
+    <div className={styles.icon} onClick={() => id && handleArchive(id)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
