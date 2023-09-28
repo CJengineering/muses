@@ -33,21 +33,14 @@ const ContentFormMobile: React.FC = () => {
       .then((data) => setKeywords(data))
       .catch((error) => console.error(error));
   }, []);
-  useEffect(() => {
-    const updateKeyboardVisibility = () => {
-      if (window.innerHeight < window.outerHeight) {
-        setKeyboardVisible(true);
-      } else {
-        setKeyboardVisible(false);
-      }
-    };
+  const handleFocus = () => {
+    setKeyboardVisible(true);
+  };
 
-    window.addEventListener('resize', updateKeyboardVisibility);
-    
-    return () => {
-      window.removeEventListener('resize', updateKeyboardVisibility);
-    };
-  }, []);
+  const handleBlur = () => {
+    setKeyboardVisible(false);
+  };
+
 
   useEffect(() => {
     if (keyboardVisible) {
@@ -61,7 +54,7 @@ const ContentFormMobile: React.FC = () => {
     if (selectedKeyword && link) {
       const endpoint = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/articleintern?id=${selectedKeyword.id}&link=${encodeURIComponent(link)}`;
   
-      // Make API request to the endpoint
+    
       fetch(endpoint)
         .then((response) => {
           if (response.status === 204) {
@@ -97,6 +90,8 @@ const ContentFormMobile: React.FC = () => {
         onChange={(event) => setLink(event.target.value)}
         fullWidth
         margin="normal"
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         variant="outlined"
         sx={{ '@media (max-width: 600px)': {
            width:'360px', marginInline:'auto'
@@ -116,6 +111,8 @@ const ContentFormMobile: React.FC = () => {
             label="Select keyword"
             variant="outlined"
             margin="normal"
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
           
         )}
