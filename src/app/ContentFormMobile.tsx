@@ -19,7 +19,7 @@ export interface Keyword {
 
 const ContentFormMobile: React.FC = () => {
   const [link, setLink] = useState('');
-  
+  const [position, setPosition] = useState(false);
   const [keywords, setKeywords] = useState<Keyword[]>([]); // Explicitly type the keywords state
   const [selectedKeyword, setSelectedKeyword] = useState<Keyword | null>(null); // Explicitly type the selectedKeyword state
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -44,10 +44,9 @@ const ContentFormMobile: React.FC = () => {
 
   useEffect(() => {
     if (keyboardVisible) {
-      document.documentElement.style.setProperty('--button-bottom-position', '50vh');
+        setPosition(true)
     } else {
-      document.documentElement.style.setProperty('--button-bottom-position', '0');
-    }
+        setPosition(false)    }
   }, [keyboardVisible]);
 
   const handleSubmit = () => {
@@ -122,7 +121,7 @@ const ContentFormMobile: React.FC = () => {
       display: 'none',
     } 
   }}  color='success'onClick={handleSubmit} >+ Article</Button>
-      <button className={styles.buttonFix} onClick={handleSubmit}type='submit'>+ ADD CONTENT</button>
+      <button className={styles.buttonFix}style={{position: position ? 'relative':'fixed' }} onClick={handleSubmit}type='submit'>+ ADD CONTENT</button>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
