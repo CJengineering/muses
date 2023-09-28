@@ -139,9 +139,7 @@ justify-content: space-around;
   color: #888888;
   cursor: pointer; 
 }
-.dashboard-title-medium {
-  /* Add your styles for the medium dashboard titles */
-}
+
 
 .count {
   font-weight: 700;
