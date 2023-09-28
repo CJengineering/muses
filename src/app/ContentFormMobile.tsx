@@ -19,10 +19,12 @@ export interface Keyword {
 
 const ContentFormMobile: React.FC = () => {
   const [link, setLink] = useState('');
+  
   const [keywords, setKeywords] = useState<Keyword[]>([]); // Explicitly type the keywords state
   const [selectedKeyword, setSelectedKeyword] = useState<Keyword | null>(null); // Explicitly type the selectedKeyword state
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState('');
+    const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   // Fetch keywords from the API endpoint
   useEffect(() => {
@@ -31,6 +33,29 @@ const ContentFormMobile: React.FC = () => {
       .then((data) => setKeywords(data))
       .catch((error) => console.error(error));
   }, []);
+  useEffect(() => {
+    const updateKeyboardVisibility = () => {
+      if (window.innerHeight < window.outerHeight) {
+        setKeyboardVisible(true);
+      } else {
+        setKeyboardVisible(false);
+      }
+    };
+
+    window.addEventListener('resize', updateKeyboardVisibility);
+    
+    return () => {
+      window.removeEventListener('resize', updateKeyboardVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (keyboardVisible) {
+      document.documentElement.style.setProperty('--button-bottom-position', '20vh');
+    } else {
+      document.documentElement.style.setProperty('--button-bottom-position', '0');
+    }
+  }, [keyboardVisible]);
 
   const handleSubmit = () => {
     if (selectedKeyword && link) {

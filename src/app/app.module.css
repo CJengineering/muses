@@ -57,6 +57,7 @@
         border: none;
         color: white;
         background-color: green;
+        bottom: var(--button-bottom-position, 0);
     }
   
 }
