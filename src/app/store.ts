@@ -6,6 +6,7 @@ import filterStateReducer from 'src/features/filterState/filterStateSlice';
 import searchAttributesReducer from 'src/features/searchAttributes/searchAttributesSlice';
 import actionStateReducer from 'src/features/actionState/actionStateSlice'
 import selectAllReducer from 'src/features/SelectAll/selectAllSlice'
+import modalMobileOpenReducer from 'src/features/modalMobileOpen/modalMobileOpen'
 import  searchBarReducer from 'src/features/searchBar/searchBarSlice'
 import rowsReducer from 'src/features/rowSelection/rowSlice'
 import newTableReducer from 'src/features/new table selctor/newTableSlice';
@@ -19,6 +20,7 @@ import {
 import filterToggleSlice from 'src/features/filterToggle/filterToggleSlice';
 import { ApiPostGateway } from 'src/features/posts/postsGateway';
 import searchAttributesSlice from 'src/features/searchAttributes/searchAttributesSlice';
+import modalMobileOpen from 'src/features/modalMobileOpen/modalMobileOpen';
 export const rootReducer = combineReducers({
   table: tableReducer,
   articles: articlesReducer,
@@ -31,7 +33,9 @@ export const rootReducer = combineReducers({
   rows: rowsReducer,
   actionState: actionStateReducer,
   selectAll: selectAllReducer,
-  searchBar : searchBarReducer
+  searchBar : searchBarReducer,
+  modalMobileOpen: modalMobileOpenReducer
+
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -48,7 +52,8 @@ export const buildInitStore = (): AppState => ({
   rows: {selectedRows:[]},
   actionState: {status:'archive'},
   selectAll: {status: false},
-  searchBar : {status:''}
+  searchBar : {status:''},
+  modalMobileOpen: {status: false}
 });
 
 export const createStore = (dependencies: unknown, hydrate?: AppState) =>

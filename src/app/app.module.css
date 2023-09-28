@@ -30,7 +30,7 @@
 }
 .modalForm{ 
     display: none;
-    background-color: tomato;
+  
 }
 .buttonFix{
     display: none;
@@ -38,12 +38,15 @@
 .mobileButtonHiddenOnMediaSmall{
     display: none;
 }
-@media screen and (max-width: 768px) {
+.mobileViewHomeWrapper{
+    display: none;
+}
+@media screen and (max-width: 600px) {
     .modalForm{
         display: flex;
         flex-direction: column;
         position: absolute;
-        background-color: thistle;
+        background-color: white ;
         height: 95svh;
         width: 100vw;
         top: 4%;
@@ -57,7 +60,16 @@
         border: none;
         color: white;
         background-color: green;
-        bottom: var(--button-bottom-position, 0);
+        
+    }
+    .mobileTitleContainer{
+        display: flex;
+        padding: 1rem;
+        justify-content: space-between;
+       
+    }
+    .mobileViewHomeWrapper{
+        display: inline;
     }
   
 }

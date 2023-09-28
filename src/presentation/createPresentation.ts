@@ -30,6 +30,9 @@ export type PresentationPosts = {
 export type PrsentationFilterToggle = {
   status: boolean;
 };
+export type PrsentationMobileOpen = {
+  status: boolean;
+}
 export type PresentationFilterState = {
   status: boolean;
 };
@@ -107,4 +110,9 @@ export const createPresentationDataForSearchBar = (
     dataSearch.add(post.title);
   });
   return Array.from(dataSearch)
+};
+export const createPresentationMobileOpenStatus = (
+  state: RootState
+): PrsentationMobileOpen => {
+  return { status: state.modalMobileOpen.status };
 };

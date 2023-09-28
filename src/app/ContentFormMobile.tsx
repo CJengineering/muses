@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from './app.module.css'
+import styles from './app.module.css';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   TextField,
   Autocomplete,
@@ -7,6 +8,9 @@ import {
   Button,
   Snackbar,
 } from '@mui/material';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { createPresentationMobileOpenStatus } from 'src/presentation/createPresentation';
+import { modalMobileOpend } from 'src/features/modalMobileOpen/modalMobileOpen';
 
 export interface Keyword {
   id: number;
@@ -24,8 +28,9 @@ const ContentFormMobile: React.FC = () => {
   const [selectedKeyword, setSelectedKeyword] = useState<Keyword | null>(null); // Explicitly type the selectedKeyword state
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState('');
-    const [keyboardVisible, setKeyboardVisible] = useState(false);
-
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  const isMobileModalOpen  = useAppSelector(createPresentationMobileOpenStatus)
+  const dispatch = useAppDispatch();
   // Fetch keywords from the API endpoint
   useEffect(() => {
     fetch('https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/keyword_list')
@@ -41,25 +46,26 @@ const ContentFormMobile: React.FC = () => {
     setKeyboardVisible(false);
   };
 
-
   useEffect(() => {
     if (keyboardVisible) {
-        setPosition(true)
+      setPosition(true);
     } else {
-        setPosition(false)    }
+      setPosition(false);
+    }
   }, [keyboardVisible]);
 
   const handleSubmit = () => {
     if (selectedKeyword && link) {
-      const endpoint = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/articleintern?id=${selectedKeyword.id}&link=${encodeURIComponent(link)}`;
-  
-    
+      const endpoint = `https://new-alerts-e4f6j5kdsq-ew.a.run.app/static/articleintern?id=${
+        selectedKeyword.id
+      }&link=${encodeURIComponent(link)}`;
+
       fetch(endpoint)
         .then((response) => {
           if (response.status === 204) {
             setMessage('Form data sent successfully.');
-            setLink(''); 
-            setSelectedKeyword(null); 
+            setLink('');
+            setSelectedKeyword(null);
           } else {
             setMessage('An error occurred while sending form data.');
           }
@@ -73,16 +79,23 @@ const ContentFormMobile: React.FC = () => {
     }
   };
 
-
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
     setMessage('');
   };
-
+  const handleTogleModal = () => {
+    dispatch(modalMobileOpend(!isMobileModalOpen.status))
+  };
   return (
- 
-    <form className={styles.modalForm}>
-      <h3>Add Content</h3>
+    <form
+      className={styles.modalForm}
+      style={{ display: isMobileModalOpen.status ? 'none' : 'flex' }}
+    >
+      <div className={styles.mobileTitleContainer}>
+        <h3>Add Content</h3>
+        <CloseIcon onClick={handleTogleModal} />
+      </div>
+
       <TextField
         label="Add content URL"
         value={link}
@@ -92,17 +105,24 @@ const ContentFormMobile: React.FC = () => {
         onFocus={handleFocus}
         onBlur={handleBlur}
         variant="outlined"
-        sx={{ '@media (max-width: 600px)': {
-           width:'360px', marginInline:'auto'
-          } }}
+        sx={{
+          '@media (max-width: 600px)': {
+            width: '360px',
+            marginInline: 'auto',
+          },
+        }}
       />
       <Autocomplete
         options={keywords}
         getOptionLabel={(option) => option.key_word}
         value={selectedKeyword}
-        sx={{ '@media (max-width: 600px)': {
-            width:'360px', marginInline:'auto'
-           } }}
+        sx={{
+          '@media (max-width: 600px)': {
+            width: '360px',
+            marginInline: 'auto',
+            marginBottom: '1rem',
+          },
+        }}
         onChange={(event, newValue) => setSelectedKeyword(newValue)}
         renderInput={(params) => (
           <TextField
@@ -113,15 +133,28 @@ const ContentFormMobile: React.FC = () => {
             onFocus={handleFocus}
             onBlur={handleBlur}
           />
-          
         )}
       />
-      <Button variant="contained"sx={{ 
-    '@media (max-width: 600px)': {
-      display: 'none',
-    } 
-  }}  color='success'onClick={handleSubmit} >+ Article</Button>
-      <button className={styles.buttonFix}style={{position: position ? 'relative':'fixed' }} onClick={handleSubmit}type='submit'>+ ADD CONTENT</button>
+      <Button
+        variant="contained"
+        sx={{
+          '@media (max-width: 600px)': {
+            display: 'none',
+          },
+        }}
+        color="success"
+        onClick={handleSubmit}
+      >
+        + Article
+      </Button>
+      <button
+        className={styles.buttonFix}
+        style={{ position: position ? 'relative' : 'fixed' }}
+        onClick={handleSubmit}
+        type="submit"
+      >
+        + ADD CONTENT
+      </button>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}
@@ -129,7 +162,6 @@ const ContentFormMobile: React.FC = () => {
         message={message}
       />
     </form>
- 
   );
 };
 

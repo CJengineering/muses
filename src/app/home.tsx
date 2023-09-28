@@ -9,6 +9,9 @@ import AddItemIcon from './newComponents/Icons/AddItemIcon';
 import AddLabelIcon from './newComponents/Icons/AddLabelIcon';
 import ContentFormMobile from './ContentFormMobile';
 import MobileButtonBig from './newComponents/MobileComponents/MobileButtonBig';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { createPresentationMobileOpenStatus } from 'src/presentation/createPresentation';
+import { modalMobileOpend } from 'src/features/modalMobileOpen/modalMobileOpen';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -23,9 +26,13 @@ const style = {
 
 export default function Home() {
   useAuthentication();
+
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isModalOpenArticle, setIsModalOpenArticle] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const dispatch = useAppDispatch();
+  const isMobileModalOpen  = useAppSelector(createPresentationMobileOpenStatus)
+
   const handleOpen = () => {
     setIsModalOpen(true);
   };
@@ -40,27 +47,29 @@ export default function Home() {
   const handleCloseArticle = () => {
     setIsModalOpenArticle(false);
   };
-
+ const togleMobileModal = () => {
+  dispatch(modalMobileOpend(!isMobileModalOpen.status))
+ }
   return (
     <>
-      <div className="mobileViewHomeWrapper">
+      <div className={styles.mobileViewHomeWrapper}>
         <h1>Dashboard</h1>
         <div className={styles.mobileViewHomeWrapperButtons} >
           <MobileButtonBig
-            onClick={() => console.log('hello')}
+            onClick={togleMobileModal}
             color="green"
             text="ADD CONTENT"
             iconComponent={AddItemIcon}
           />
            <MobileButtonBig
-            onClick={() => console.log('hello')}
+            onClick={togleMobileModal}
             color="blue"
             text="ADD KEYWORD"
             iconComponent={AddLabelIcon}
           />
         </div>
    
-         <ContentFormMobile/>
+         <ContentFormMobile />
       
        
       </div>
