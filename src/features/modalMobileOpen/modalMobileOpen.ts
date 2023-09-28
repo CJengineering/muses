@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface modalMobileOpenState {
   status: boolean;
+  statusKeyword: boolean;
 }
 
 export const initialState: modalMobileOpenState = {
   status: false,
+  statusKeyword: false
 };
 
 const modalMobileOpenSlice = createSlice({
@@ -15,7 +17,10 @@ const modalMobileOpenSlice = createSlice({
     modalMobileOpend(state, action: PayloadAction<boolean>) {
       state.status = action.payload;
     },
+    modalMobileForKeywordOpend(state, action: PayloadAction<boolean>) {
+        state.statusKeyword = action.payload;
+      },
   },
 });
-export const { modalMobileOpend } =  modalMobileOpenSlice.actions;
+export const { modalMobileOpend, modalMobileForKeywordOpend } =  modalMobileOpenSlice.actions;
 export default  modalMobileOpenSlice.reducer;

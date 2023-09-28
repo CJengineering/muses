@@ -32,6 +32,7 @@ export type PrsentationFilterToggle = {
 };
 export type PrsentationMobileOpen = {
   status: boolean;
+  statusKeyword: boolean;
 }
 export type PresentationFilterState = {
   status: boolean;
@@ -114,5 +115,5 @@ export const createPresentationDataForSearchBar = (
 export const createPresentationMobileOpenStatus = (
   state: RootState
 ): PrsentationMobileOpen => {
-  return { status: state.modalMobileOpen.status };
+  return { status: state.modalMobileOpen.status, statusKeyword: state.modalMobileOpen.statusKeyword };
 };

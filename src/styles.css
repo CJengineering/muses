@@ -166,6 +166,11 @@ h1{
   font-weight: 500;
   font-size: 21px;
 }
+h2{
+  font-family: 'IBM Plex Mono';
+  font-weight: 500;
+  font-size: 21px;
+}
 .blue{
   background-color: blue;
 }

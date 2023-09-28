@@ -11,7 +11,8 @@ import ContentFormMobile from './ContentFormMobile';
 import MobileButtonBig from './newComponents/MobileComponents/MobileButtonBig';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { createPresentationMobileOpenStatus } from 'src/presentation/createPresentation';
-import { modalMobileOpend } from 'src/features/modalMobileOpen/modalMobileOpen';
+import { modalMobileForKeywordOpend, modalMobileOpend } from 'src/features/modalMobileOpen/modalMobileOpen';
+import KeywordFormMobile from './KeywordFormMobile';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -50,10 +51,13 @@ export default function Home() {
  const togleMobileModal = () => {
   dispatch(modalMobileOpend(!isMobileModalOpen.status))
  }
+ const togleMobileModalKeyword = () => {
+  dispatch(modalMobileForKeywordOpend (!isMobileModalOpen.statusKeyword))
+ }
   return (
     <>
       <div className={styles.mobileViewHomeWrapper}>
-        <h1>Dashboard</h1>
+        <h1 style={{paddingLeft:'1rem'}}>Dashboard</h1>
         <div className={styles.mobileViewHomeWrapperButtons} >
           <MobileButtonBig
             onClick={togleMobileModal}
@@ -62,7 +66,7 @@ export default function Home() {
             iconComponent={AddItemIcon}
           />
            <MobileButtonBig
-            onClick={togleMobileModal}
+            onClick={togleMobileModalKeyword}
             color="blue"
             text="ADD KEYWORD"
             iconComponent={AddLabelIcon}
@@ -70,6 +74,7 @@ export default function Home() {
         </div>
    
          <ContentFormMobile />
+         <KeywordFormMobile />
       
        
       </div>

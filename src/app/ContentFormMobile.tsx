@@ -92,7 +92,7 @@ const ContentFormMobile: React.FC = () => {
       style={{ display: isMobileModalOpen.status ? 'none' : 'flex' }}
     >
       <div className={styles.mobileTitleContainer}>
-        <h3>Add Content</h3>
+        <h2>Add Content</h2>
         <CloseIcon onClick={handleTogleModal} />
       </div>
 

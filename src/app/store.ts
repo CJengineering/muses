@@ -53,7 +53,7 @@ export const buildInitStore = (): AppState => ({
   actionState: {status:'archive'},
   selectAll: {status: false},
   searchBar : {status:''},
-  modalMobileOpen: {status: true}
+  modalMobileOpen: {status: true, statusKeyword: true}
 });
 
 export const createStore = (dependencies: unknown, hydrate?: AppState) =>
