@@ -182,6 +182,13 @@ h1{
   width: 100%;
   padding: 1rem;
 }
+@media screen and (max-width: 768px) {
+  .main-page-wrapper{
+    display: none;
+  }
+}
+  
+
 .tab-wrapper{
   background-color: white;
   padding: 1rem;
@@ -191,3 +198,13 @@ h1{
   display: flex;
   justify-content: space-between;
 }
+.initial-full-screen-wrapper{
+  display: flex;
+  
+}
+@media screen and (max-width: 768px) {
+  .initial-full-screen-wrapper{
+    display: block;
+  }
+}
+  

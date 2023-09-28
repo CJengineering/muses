@@ -21,3 +21,45 @@
     align-items: center;
     padding: 1rem; 
 }
+.mobileViewHomeWrapperButtons{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    
+   
+}
+.modalForm{ 
+    display: none;
+    background-color: tomato;
+}
+.buttonFix{
+    display: none;
+}
+.mobileButtonHiddenOnMediaSmall{
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .modalForm{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        background-color: thistle;
+        height: 95vh;
+        width: 100vw;
+        top: 4%;
+    }
+    .buttonFix{
+        display: block ;
+        position: absolute;
+        bottom: 0;
+        height: 5rem;
+        width: 100%;
+        border: none;
+        color: white;
+        background-color: green;
+    }
+  
+}
+
+
+

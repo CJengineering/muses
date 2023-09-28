@@ -18,7 +18,7 @@ import {
 import { useState } from 'react';
 import PageIcon from '../Icons/PageIcon';
 import Dashboard from 'src/app/dashboard/dashboard';
-import DashboardIcon from '../TabComponent/DashboardIcon';
+import DashboardIcon from '../Icons/DashboardIcon';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import ContentIcon from '../Icons/ContentIcon';
@@ -87,7 +87,7 @@ export default function NavMenu() {
   };
 
   return (
-    <div>
+    <div className={styles.mediaQuery}>
   
       <div className={styles.navmenuLogoWrapper}>
         <div className={styles.logo}>MUSES</div>

@@ -53,26 +53,27 @@ export default function ActionSelector() {
     dispatch(actionSelected(event.target.value as ActionStatus));
   };
   const handleBulkArchive = async () => {
+    toast.success(`It's moving to ${actionStatus.status}`);
     presentationBulk.selectedRows.forEach(async (item) => {
       if (actionStatus.status == 'archive') {
-        toast.success('Item is archiving');
+   
         await updateArchive(item);
         
         dispatch(selectedPostFiltred(item));
       }
       if (actionStatus.status == 'shortlist') {
-        toast.success('Item is shortlisting');
+      
         await updateShortlist(item);
         dispatch(selectedPostFiltred(item));
       }
       if (actionStatus.status == 'analyse') {
-        toast.success('Item is analysing');
+      
         await handleAnalyser(item);
       }
       if (actionStatus.status == 'webflow') {
         const post = findArticleById(presentationData, item);
         if (post?.link !== null && post?.link !== undefined) {
-          toast.success('Item sending to Webflow');
+         
           await handleWebflow(post.link, item);
           dispatch(selectedPostFiltred(item));
         }

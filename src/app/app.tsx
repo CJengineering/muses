@@ -46,7 +46,7 @@ export function App() {
     <>
       {authenticated ? (
         <>
-          <div style={{ display: 'flex'}}>
+          <div className='initial-full-screen-wrapper' >
             {/*<SideNavBar />*/}
             <NavMenu/>
 

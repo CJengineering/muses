@@ -99,35 +99,35 @@ export default function TableNew() {
       if (location.pathname === `/keywords-beta/${id}`) {
         await dispatch<any>(fetchPosts(tableStatus.status, Number(id)));
         if (filterStatus.status) {
-            dispatch(postsFiltred(filterState.searchAttributes));
-          }
+          dispatch(postsFiltred(filterState.searchAttributes));
+        }
       }
       if (location.pathname === '/main') {
         await dispatch<any>(fetchPosts(tableStatus.status));
         if (filterStatus.status) {
-            dispatch(postsFiltred(filterState.searchAttributes));
-          }
+          dispatch(postsFiltred(filterState.searchAttributes));
+        }
       }
     };
     fetchData();
     console.log('useffect working');
-   
-  }, [location.pathname,tableStatus.status]);
- useEffect(()=>{
+  }, [location.pathname, tableStatus.status]);
+  useEffect(() => {
     console.log('useffect 2 working');
     if (filterStatus.status) {
-        dispatch(postsFiltred(filterState.searchAttributes));
-      }
- },[tableStatus.status])
- const renderedRows = presentationTable.filter((row) => {
-  const titleMatch =
-    search.status !== '' && row.title.toLowerCase().includes(search.status.toLowerCase());
-  const keywordMatch = row.keyword
-    .toLowerCase()
-    .includes(search.status.toLowerCase());
+      dispatch(postsFiltred(filterState.searchAttributes));
+    }
+  }, [tableStatus.status]);
+  const renderedRows = presentationTable.filter((row) => {
+    const titleMatch =
+      search.status !== '' &&
+      row.title.toLowerCase().includes(search.status.toLowerCase());
+    const keywordMatch = row.keyword
+      .toLowerCase()
+      .includes(search.status.toLowerCase());
 
-  return titleMatch || keywordMatch;
-});
+    return titleMatch || keywordMatch;
+  });
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -162,7 +162,6 @@ export default function TableNew() {
 
   return (
     <div className="table">
-     
       <Table sx={{ minWidth: 850 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -178,7 +177,7 @@ export default function TableNew() {
                 width: '100%',
                 fontWeight: 'bold',
                 fontFamily: 'IBM Plex Mono',
-              }} 
+              }}
             >
               PAGE
             </TableCell>
@@ -246,9 +245,9 @@ export default function TableNew() {
             </TableCell>
           </TableRow>
         </TableHead>
-     
+
         <TableBody>
-          { renderedRows.slice(startIdx, endIdx).map((object) => (
+          {renderedRows.slice(startIdx, endIdx).map((object) => (
             <RowNew
               key={object.id}
               title={object.title}
@@ -267,7 +266,7 @@ export default function TableNew() {
         page={page}
         onChange={handleChangePage}
       />
-      {presentationTable.length >0 ? '' : <NoItemPage />}    
+      {presentationTable.length > 0 ? '' : <NoItemPage />}
     </div>
   );
 }

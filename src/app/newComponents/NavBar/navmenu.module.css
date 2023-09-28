@@ -1,6 +1,6 @@
 .navmenuWrapper{
     background-color: white;
-   
+    position: relative;
     margin-left: 2rem;
     border-radius: 15px;
     padding-right: 2rem;
@@ -36,3 +36,22 @@
 .navLinkContainer{
     padding-top: 1rem;
 }
+
+@media screen and (max-width: 768px) {
+    .navmenuWrapper{
+        display: none;
+    }
+  
+    .navmenuLogoWrapper{
+        display: flex;
+   
+
+        margin-left: 0rem;
+        margin-top: 0rem;
+        background-color: aqua;
+        border-radius: 0px;
+        height: 5vh;
+
+    }
+}
+    
