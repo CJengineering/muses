@@ -29,7 +29,7 @@ const ContentFormMobile: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
-  const isMobileModalOpen  = useAppSelector(createPresentationMobileOpenStatus)
+  const isMobileModalOpen = useAppSelector(createPresentationMobileOpenStatus);
   const dispatch = useAppDispatch();
   // Fetch keywords from the API endpoint
   useEffect(() => {
@@ -84,7 +84,7 @@ const ContentFormMobile: React.FC = () => {
     setMessage('');
   };
   const handleTogleModal = () => {
-    dispatch(modalMobileOpend(!isMobileModalOpen.status))
+    dispatch(modalMobileOpend(!isMobileModalOpen.status));
   };
   return (
     <form
@@ -95,66 +95,67 @@ const ContentFormMobile: React.FC = () => {
         <h2>Add Content</h2>
         <CloseIcon onClick={handleTogleModal} />
       </div>
+      <div className={styles.modalAbsolutContainer}>
+        <TextField
+          label="Add content URL"
+          value={link}
+          onChange={(event) => setLink(event.target.value)}
+          fullWidth
+          margin="normal"
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          variant="outlined"
+          sx={{
+            '@media (max-width: 600px)': {
+              width: '360px',
+            },
+          }}
+        />
+        <Autocomplete
+          options={keywords}
+          getOptionLabel={(option) => option.key_word}
+          value={selectedKeyword}
+          sx={{
+            '@media (max-width: 600px)': {
+              width: '360px',
 
-      <TextField
-        label="Add content URL"
-        value={link}
-        onChange={(event) => setLink(event.target.value)}
-        fullWidth
-        margin="normal"
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        variant="outlined"
-        sx={{
-          '@media (max-width: 600px)': {
-            width: '360px',
-            marginInline: 'auto',
-          },
-        }}
-      />
-      <Autocomplete
-        options={keywords}
-        getOptionLabel={(option) => option.key_word}
-        value={selectedKeyword}
-        sx={{
-          '@media (max-width: 600px)': {
-            width: '360px',
-            marginInline: 'auto',
-            marginBottom: '1rem',
-          },
-        }}
-        onChange={(event, newValue) => setSelectedKeyword(newValue)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Select keyword"
-            variant="outlined"
-            margin="normal"
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-        )}
-      />
-      <Button
-        variant="contained"
-        sx={{
-          '@media (max-width: 600px)': {
-            display: 'none',
-          },
-        }}
-        color="success"
-        onClick={handleSubmit}
-      >
-        + Article
-      </Button>
-      <button
-        className={styles.buttonFix}
-        style={{ position: position ? 'relative' : 'fixed' }}
-        onClick={handleSubmit}
-        type="submit"
-      >
-        + ADD CONTENT
-      </button>
+              marginBottom: '1rem',
+            },
+          }}
+          onChange={(event, newValue) => setSelectedKeyword(newValue)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Select keyword"
+              variant="outlined"
+              margin="normal"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+          )}
+        />
+        <Button
+          variant="contained"
+          sx={{
+            '@media (max-width: 600px)': {
+              display: 'none',
+            },
+          }}
+          color="success"
+          onClick={handleSubmit}
+        >
+          + Article
+        </Button>
+        <button
+          className={styles.buttonFix}
+          style={{ position: position ? 'relative' : 'fixed' }}
+          onClick={handleSubmit}
+          type="submit"
+        >
+          + ADD CONTENT
+        </button>
+      </div>
+
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

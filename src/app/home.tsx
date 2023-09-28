@@ -72,7 +72,7 @@ export default function Home() {
             iconComponent={AddLabelIcon}
           />
         </div>
-   
+         
          <ContentFormMobile />
          <KeywordFormMobile />
       
