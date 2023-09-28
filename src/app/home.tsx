@@ -5,10 +5,10 @@ import CreateKeywordForm from './createKeywordForm';
 import Dashboard from './dashboard/dashboard';
 import InternArticleForm from './InternArticleForm';
 import styles from './app.module.css';
-import MobileButtonBig from './newComponents/Mobile Compenents/mobileButtonBig';
 import AddItemIcon from './newComponents/Icons/AddItemIcon';
 import AddLabelIcon from './newComponents/Icons/AddLabelIcon';
 import ContentFormMobile from './ContentFormMobile';
+import MobileButtonBig from './newComponents/MobileComponents/MobileButtonBig';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',

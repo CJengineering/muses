@@ -1,4 +1,4 @@
-import AddItemIcon from '../Icons/AddItemIcon';
+
 import styles from './mobileComponent.module.css';
 interface MobileButtonBigProps {
   onClick: () => void;
