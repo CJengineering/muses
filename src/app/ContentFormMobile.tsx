@@ -44,7 +44,7 @@ const ContentFormMobile: React.FC = () => {
 
   useEffect(() => {
     if (keyboardVisible) {
-      document.documentElement.style.setProperty('--button-bottom-position', '20vh');
+      document.documentElement.style.setProperty('--button-bottom-position', '50vh');
     } else {
       document.documentElement.style.setProperty('--button-bottom-position', '0');
     }
