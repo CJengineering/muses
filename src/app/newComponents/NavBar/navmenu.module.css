@@ -36,22 +36,41 @@
 .navLinkContainer{
     padding-top: 1rem;
 }
-
+.mobileMenuWrapper{
+    display: none;  
+}
 @media screen and (max-width: 768px) {
     .navmenuWrapper{
         display: none;
     }
+    .logo{
+       padding: 0rem;
+    }
   
     .navmenuLogoWrapper{
         display: flex;
+        
+        justify-content: space-between;
+        align-items: center;
    
         margin-bottom: 0rem;
         margin-left: 0rem;
         margin-top: 0rem;
-
+        padding-right: 24px;
+        padding-left: 24px;
         border-radius: 0px;
         height: 5vh;
 
+    }
+    .mobileMenuWrapper{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        height: 95svh;  
+        width: 100vw;
+        z-index: 3;
+        background-color: white;
     }
 }
     

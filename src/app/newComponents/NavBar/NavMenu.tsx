@@ -5,7 +5,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import { Link as RouterLink } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 import KeyIcon from '@mui/icons-material/Key';
+import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {
   List,
@@ -14,6 +16,7 @@ import {
   ListItemText,
   Switch,
   TableSortLabel,
+  dividerClasses,
 } from '@mui/material';
 import { useState } from 'react';
 import PageIcon from '../Icons/PageIcon';
@@ -23,6 +26,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import ContentIcon from '../Icons/ContentIcon';
 import BrainIcon from '../Icons/BrainIcon';
+
 interface NavItem {
   text: string;
   icon: JSX.Element;
@@ -37,7 +41,7 @@ const navItems: NavItem[] = [
   },
   {
     text: 'Content',
-    icon: <ContentIcon/>,
+    icon: <ContentIcon />,
     link: '/main',
   },
   {
@@ -78,7 +82,10 @@ const navItemsArchive: NavItem[] = [
 export default function NavMenu() {
   const [selectedItem, setSelectedItem] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const togleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   const handleItemClick = (text: string) => {
     setSelectedItem(text === selectedItem ? '' : text);
   };
@@ -88,12 +95,52 @@ export default function NavMenu() {
 
   return (
     <div className={styles.mediaQuery}>
-  
       <div className={styles.navmenuLogoWrapper}>
         <div className={styles.logo}>MUSES</div>
+        {isMenuOpen ? (
+          <CloseIcon onClick={togleMenu} />
+        ) : (
+          <MenuIcon onClick={togleMenu} />
+        )}
       </div>
+      {isMenuOpen ? (
+        <div className={styles.mobileMenuWrapper}>
+          <List className={styles.fontClass}>
+            {navItems.map((item) => (
+              <ListItemButton
+                selected={item.text === selectedItem}
+                onClick={() => handleItemClick(item.text)}
+                key={item.text}
+                component={RouterLink}
+                to={item.link}
+                sx={{
+                  '&.Mui-selected': {
+                    color: 'blue',
+                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                      color: 'blue',
+                    },
+                  },
+                  '&:hover': {
+                    backgroundColor: 'lightblue',
+                    '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                      color: 'blue',
+                    },
+                  },
+                }}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
+                >
+                  {item.text}
+                </ListItemText>
+              </ListItemButton>
+            ))}
+          </List>
+        </div>
+      ) :null}
+    
       <div className={styles.navmenuWrapper}>
-     
         <div className={styles.navmenuContainer}>
           <div className={styles.navLinkContainer}>
             <List className={styles.fontClass}>
