@@ -11,8 +11,12 @@ import ContentFormMobile from './ContentFormMobile';
 import MobileButtonBig from './newComponents/MobileComponents/MobileButtonBig';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { createPresentationMobileOpenStatus } from 'src/presentation/createPresentation';
-import { modalMobileForKeywordOpend, modalMobileOpend } from 'src/features/modalMobileOpen/modalMobileOpen';
+import {
+  modalMobileForKeywordOpend,
+  modalMobileOpend,
+} from 'src/features/modalMobileOpen/modalMobileOpen';
 import KeywordFormMobile from './KeywordFormMobile';
+import LatestLIst from './newComponents/MobileComponents/LatestLIst';
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -32,7 +36,7 @@ export default function Home() {
   const [isModalOpenArticle, setIsModalOpenArticle] = React.useState(false);
   const [data, setData] = React.useState([]);
   const dispatch = useAppDispatch();
-  const isMobileModalOpen  = useAppSelector(createPresentationMobileOpenStatus)
+  const isMobileModalOpen = useAppSelector(createPresentationMobileOpenStatus);
 
   const handleOpen = () => {
     setIsModalOpen(true);
@@ -48,35 +52,41 @@ export default function Home() {
   const handleCloseArticle = () => {
     setIsModalOpenArticle(false);
   };
- const togleMobileModal = () => {
-  dispatch(modalMobileOpend(!isMobileModalOpen.status))
- }
- const togleMobileModalKeyword = () => {
-  dispatch(modalMobileForKeywordOpend (!isMobileModalOpen.statusKeyword))
- }
+  const togleMobileModal = () => {
+    dispatch(modalMobileOpend(!isMobileModalOpen.status));
+  };
+  const togleMobileModalKeyword = () => {
+    dispatch(modalMobileForKeywordOpend(!isMobileModalOpen.statusKeyword));
+  };
   return (
     <>
       <div className={styles.mobileViewHomeWrapper}>
-        <h1 style={{paddingLeft:'1rem'}}>Dashboard</h1>
-        <div className={styles.mobileViewHomeWrapperButtons} >
+       <div className={styles.mainTitle}> Welcome, @User!</div>
+       <div className={styles.divider24}></div>
+        <div className={styles.mobileViewHomeWrapperButtons}>
           <MobileButtonBig
             onClick={togleMobileModal}
             color="green"
             text="ADD CONTENT"
             iconComponent={AddItemIcon}
           />
-           <MobileButtonBig
+          <MobileButtonBig
             onClick={togleMobileModalKeyword}
             color="blue"
             text="ADD KEYWORD"
             iconComponent={AddLabelIcon}
           />
         </div>
-         
-         <ContentFormMobile />
-         <KeywordFormMobile />
-      
-       
+
+        <ContentFormMobile />
+        <KeywordFormMobile />
+         <div className={styles.divider24}></div>
+        <div className={styles.latestWrapper}>
+          <div style={{fontWeight: 'bold'}}>Latest articles</div>
+          <div className={styles.latestContainer}>
+            <LatestLIst />
+          </div>
+        </div>
       </div>
       <div className="main-page-wrapper">
         <div className={styles.main_page_nav_container}>

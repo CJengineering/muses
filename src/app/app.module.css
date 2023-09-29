@@ -23,8 +23,8 @@
 }
 .mobileViewHomeWrapperButtons{
     display: flex;
-    width: 100%;
-    justify-content: space-evenly;
+    column-gap: 24px;
+    justify-content: center;
     
    
 }
@@ -43,6 +43,21 @@
 }
 .switchContainerMobile{
     display: none;
+}
+.latestWrapper{
+    display: none ;
+}
+.mainTitle{
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'IBM Plex Mono';
+    
+    
+}
+.divider24{
+
+    height: 24px;
+    width: 100%;
 }
 @media screen and (max-width: 600px) {
     .modalForm{
@@ -87,7 +102,10 @@
        
     }
     .mobileViewHomeWrapper{
-        display: inline;
+        display: block;
+        padding: 24px;
+     
+
     }
     .switchContainerMobile{
         display: flex;
@@ -108,6 +126,16 @@
         border: none;
         color: white;
         background-color: blue;
+        
+    }
+    .latestWrapper{
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        
+        border-radius: 5px;
+        margin-inline: auto;
+        background-color: white;
         
     }
 }
