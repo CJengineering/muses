@@ -60,6 +60,8 @@ export default function Home() {
   };
   return (
     <>
+        <ContentFormMobile />
+        <KeywordFormMobile />
       <div className={styles.mobileViewHomeWrapper}>
        <div className={styles.mainTitle}> Welcome, @User!</div>
        <div className={styles.divider24}></div>
@@ -78,8 +80,8 @@ export default function Home() {
           />
         </div>
 
-        <ContentFormMobile />
-        <KeywordFormMobile />
+
+      
          <div className={styles.divider24}></div>
         <div className={styles.latestWrapper}>
           <div style={{fontWeight: 'bold'}}>Latest articles</div>
