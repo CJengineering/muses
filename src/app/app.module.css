@@ -54,11 +54,18 @@
     
     
 }
+.mobileViewWrapper{
+    display: none;
+}
+.mobilePageWrapper{
+    padding: 0px 24px;
+}
 .divider24{
 
     height: 24px;
     width: 100%;
 }
+
 @media screen and (max-width: 600px) {
     .modalForm{
         display: flex;
@@ -113,9 +120,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center ;
-        padding: 1rem;
+        width: 100%;
+        padding: 1rem 1rem;
+        
 
-        width: 360px;
+       
     }
     .buttonFixBlue{
         display: block;
@@ -139,6 +148,9 @@
         margin-inline: auto;
         background-color: white;
         
+    }
+    .mobileViewWrapper{
+        display: block;
     }
 }
 
