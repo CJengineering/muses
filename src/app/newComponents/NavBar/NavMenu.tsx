@@ -109,7 +109,10 @@ export default function NavMenu() {
             {navItems.map((item) => (
               <ListItemButton
                 selected={item.text === selectedItem}
-                onClick={() => handleItemClick(item.text)}
+                onClick={() => {
+                  handleItemClick(item.text);
+                  togleMenu();
+                }}
                 key={item.text}
                 component={RouterLink}
                 to={item.link}
