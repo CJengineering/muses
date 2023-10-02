@@ -119,12 +119,15 @@ function UpdateKeywordForm({
   };
   return (
     <>
+     <div style={{display:'flex', padding:'0px'}}>
+
       <IconButton onClick={handleOpen}>
         <EditIcon />
       </IconButton>
       <IconButton onClick={handleDelete}>
         <DeleteIcon />
       </IconButton>
+     </div>
       <Modal
         open={open}
         onClose={handleClose}

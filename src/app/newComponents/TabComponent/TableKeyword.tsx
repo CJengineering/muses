@@ -5,19 +5,26 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TextField,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import styles from './tabComponent.module.css';
 import stylesApp from 'src/app/app.module.css';
+import JoinFullIcon from '@mui/icons-material/JoinFull';
 import { Data } from 'src/app/interfaces';
 import TabNav from './TabNav';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import MainPageNav from '../mainPageNav/mainPageNav';
+import UpdateKeywordForm from 'src/app/updtaeKeywordForm';
 export default function TableKeyword() {
   const [rows, setRows] = useState<Data[]>([]);
-  const [filteredRows, setFilteredRows] = useState([]);
+  const [filteredRows, setFilteredRows] = useState<Data[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentFilter, setCurrentFilter] = useState('');
+  
   const [page, setPage] = useState(0);
   const rowsPerPage = 100;
   const [open, setOpen] = useState(false);
@@ -37,10 +44,22 @@ export default function TableKeyword() {
       console.error(error);
     }
   };
+  const handleFilter = () => {
+    const filteredData = rows.filter((keyword) => {
+      const keyWordFilter = keyword.key_word.includes(searchInput);
+  
+      return keyWordFilter;
+    });
+  
+    setFilteredRows(filteredData);
+  };
 
   useEffect(() => {
     fetchRows();
   }, []);
+  useEffect(() => {
+    handleFilter();
+  }, [searchInput]);
   return (
     <>
       <div className={stylesApp.mobileViewWrapper}>
@@ -90,9 +109,15 @@ export default function TableKeyword() {
       </div>
       <div className="main-page-wrapper ">
         <MainPageNav />
+        <TextField
+  label="Search"
+  variant="outlined"
+  value={searchInput}
+  onChange={(e) => setSearchInput(e.target.value)}
+/>
         <div className="table">
           <Table sx={{ minWidth: 850 }} aria-label="simple table">
-            <TableHead>
+          <TableHead>
               <TableRow>
                 <TableCell
                   sx={{
@@ -108,8 +133,22 @@ export default function TableKeyword() {
                     width: 100,
                     fontWeight: 'bold',
                     fontFamily: 'IBM Plex Mono',
+                    color: currentFilter === 'combined' ? 'blue' : 'black',
                   }}
                   align="left"
+                  onClick={() => setCurrentFilter('rss_false')}
+                >
+                  RSS
+                </TableCell>
+                <TableCell
+                  sx={{
+                    width: 100,
+                    fontWeight: 'bold',
+                    fontFamily: 'IBM Plex Mono',
+                    color: currentFilter === 'combined' ? 'blue' : 'black',
+                  }}
+                  align="left"
+                  onClick={() => setCurrentFilter('combined')}
                 >
                   combined
                 </TableCell>
@@ -127,7 +166,7 @@ export default function TableKeyword() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((keyword) => (
+              {filteredRows.map((keyword) => (
                 <TableRow key={keyword.id} className={styles.tableRow}>
                   <TableCell
                     component="th"
@@ -149,7 +188,17 @@ export default function TableKeyword() {
                       {keyword.key_word}
                     </a>
                   </TableCell>
-                  <TableCell align="left"></TableCell>
+                  <TableCell align="left">{keyword.rss_url ?<CheckIcon sx={{color:'green'}} /> : < CloseIcon sx={{color:'red'}} />}</TableCell>
+                  <TableCell align="left">{keyword.combined ?<JoinFullIcon sx={{color:'blue'}} /> : null}</TableCell>
+                  <TableCell sx={{display:'felx'}}>
+                  <UpdateKeywordForm
+                    factiva={keyword.factiva}
+                    rss={keyword.rss_url}
+                    keywordName={keyword.key_word}
+                    keywordId={keyword.id}
+                    combined = {keyword.combined}
+                  />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

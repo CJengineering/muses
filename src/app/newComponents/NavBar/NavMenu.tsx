@@ -100,7 +100,11 @@ export default function NavMenu() {
         {isMenuOpen ? (
           <CloseIcon onClick={togleMenu} />
         ) : (
-          <MenuIcon onClick={togleMenu} />
+          <MenuIcon onClick={togleMenu} sx={{ display: 'none',
+            '@media (max-width: 600px)': {
+              display:' block'
+            }
+          }}  />
         )}
       </div>
       {isMenuOpen ? (

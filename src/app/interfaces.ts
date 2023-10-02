@@ -63,6 +63,7 @@ export interface Data {
   id: number;
   key_word: string;
   rss_url: string;
+  combined: boolean;
   created_at: string;
   updated_at: string;
   factiva: boolean;
