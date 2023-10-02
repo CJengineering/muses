@@ -38,6 +38,7 @@ export default function TableKeyword() {
       );
       const data = await response.json();
       setRows(data);
+      setFilteredRows([...data])
       console.log('this is  data to see for combined attribute :', data);
       setLoading(false);
     } catch (error) {
@@ -45,12 +46,18 @@ export default function TableKeyword() {
     }
   };
   const handleFilter = () => {
-    const filteredData = rows.filter((keyword) => {
-      const keyWordFilter = keyword.key_word.includes(searchInput);
-  
-      return keyWordFilter;
-    });
-  
+    let filteredData;
+
+    if (searchInput === '') {
+      // If search input is empty, show all rows
+      filteredData = [...rows];
+    } else {
+      filteredData = rows.filter((keyword) => {
+        const keyWordFilter = keyword.key_word.includes(searchInput);
+        return keyWordFilter;
+      });
+    }
+
     setFilteredRows(filteredData);
   };
 
@@ -60,6 +67,7 @@ export default function TableKeyword() {
   useEffect(() => {
     handleFilter();
   }, [searchInput]);
+
   return (
     <>
       <div className={stylesApp.mobileViewWrapper}>
