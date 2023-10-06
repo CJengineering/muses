@@ -51,10 +51,10 @@ export function App() {
             <NavMenu/>
 
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/dashboard" element={<Home />} />
               <Route path="/keywords-list" element={<TableKeyword/>} />
               <Route path="/keywords-beta/:id" element={<Main />} />
-              <Route path="/main" element={<Main />} />
+              <Route path="/content" element={<Main />} />
               <Route path="/news/:urlKey" element={<TestTabs />} />
               <Route path="/keywords" element={<KeyWordTable />} />
               <Route path="/google-alerts/:id" element={<AlertArticle />} />
