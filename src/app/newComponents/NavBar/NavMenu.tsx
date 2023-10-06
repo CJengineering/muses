@@ -37,17 +37,17 @@ const navItems: NavItem[] = [
   {
     text: 'Dashboard',
     icon: <DashboardIcon />,
-    link: '/',
+    link: '/dashboard',
   },
   {
     text: 'Content',
     icon: <ContentIcon />,
-    link: '/main',
+    link: '/content',
   },
   {
     text: 'Keywords ',
     icon: <BrainIcon />,
-    link: '/keywords-list',
+    link: '/keywords',
   },
 ];
 

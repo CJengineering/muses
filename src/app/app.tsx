@@ -52,7 +52,7 @@ export function App() {
 
             <Routes>
               <Route path="/dashboard" element={<Home />} />
-              <Route path="/keywords-list" element={<TableKeyword/>} />
+              <Route path="/keywords" element={<TableKeyword/>} />
               <Route path="/keywords-beta/:id" element={<Main />} />
               <Route path="/content" element={<Main />} />
               <Route path="/news/:urlKey" element={<TestTabs />} />
