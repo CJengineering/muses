@@ -101,4 +101,28 @@ export const useUpdateArchive = () => {
       };
       return {handleWebflow}
     }
+  export const useSlack = ()=>{
+    const sendSlackMessage = async (keyword: string, link: string) => {
+      try {
+        const response = await fetch(
+          'https://hermes-e4f6j5kdsq-ew.a.run.app/static/article_slack',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ keyword, link }),
+          }
+        );
   
+        if (response.ok) {
+          console.log('Keyword and link sent successfully:', keyword, link);
+        } else {
+          console.error('Failed to send keyword and link:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error sending keyword and link:', error);
+      }
+    };
+    return {sendSlackMessage}
+  }

@@ -26,6 +26,7 @@ import { createPresentationSelectedRows } from 'src/presentation/createPresentat
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
 import BingImage from '../Icons/BingNewIcon';
 import BingNewIcon from '../Icons/BingNewIcon';
+import SlackIcon from '../Icons/SlackIcon';
 
 export default function RowNew({
   id,
@@ -130,6 +131,7 @@ export default function RowNew({
             <WebflowIcon link={link} id={id} />
             <ArchiveIcon id={id} />
             <ChatGptIcon id={id} />
+            <SlackIcon keyword={keyword}link={link} />
           </div>
         </TableCell>
       </TableRow>

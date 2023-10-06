@@ -34,7 +34,7 @@ export default function FilterConfirmation() {
       dispatch(filterStateChanged(false));
       dispatch(filterToggled(!presentationToggle.status));
     }
-    if (location.pathname === '/main') {
+    if (location.pathname === '/content') {
         await dispatch<any>(fetchPosts(presentationTable.status));
       dispatch(filterStateChanged(false));
       dispatch(filterToggled(!presentationToggle.status));
