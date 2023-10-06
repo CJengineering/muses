@@ -102,7 +102,7 @@ export default function TableNew() {
           dispatch(postsFiltred(filterState.searchAttributes));
         }
       }
-      if (location.pathname === '/main') {
+      if (location.pathname === '/content') {
         await dispatch<any>(fetchPosts(tableStatus.status));
         if (filterStatus.status) {
           dispatch(postsFiltred(filterState.searchAttributes));
