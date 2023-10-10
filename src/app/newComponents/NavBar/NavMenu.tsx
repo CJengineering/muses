@@ -26,6 +26,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import ContentIcon from '../Icons/ContentIcon';
 import BrainIcon from '../Icons/BrainIcon';
+import { relative } from 'path';
 
 interface NavItem {
   text: string;
@@ -94,8 +95,8 @@ export default function NavMenu() {
   };
 
   return (
-    <div className={styles.mediaQuery}>
-      <div className={styles.navmenuLogoWrapper}>
+    <div className={styles.mediaQuery} >
+      <div className={styles.navmenuLogoWrapper} >
         <div className={styles.logo}>MUSES</div>
         {isMenuOpen ? (
           <CloseIcon onClick={togleMenu} />
@@ -146,7 +147,9 @@ export default function NavMenu() {
           </List>
         </div>
       ) :null}
-    
+    <div style={{position:'relative'}}>
+
+   
       <div className={styles.navmenuWrapper}>
         <div className={styles.navmenuContainer}>
           <div className={styles.navLinkContainer}>
@@ -238,6 +241,7 @@ export default function NavMenu() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

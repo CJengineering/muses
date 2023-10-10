@@ -161,8 +161,8 @@ export default function TableNew() {
   const endIdx = page * rowsPerPage;
 
   return (
-    <div className="table">
-      <Table sx={{ minWidth: 850 }} aria-label="simple table">
+    <div className="table" >
+      <Table sx={{ minWidth: 850 }} stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: 10 }}>

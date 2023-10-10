@@ -4,7 +4,7 @@
     margin-left: 2rem;
     border-radius: 15px;
     padding-right: 2rem;
-    width: 300px;
+    position:fixed;
     height: 600px;
 
 }
@@ -27,11 +27,14 @@
     background-color: white;
    padding-left: 1rem;
    margin-bottom: 1.2rem;
-    margin-top: 2.5rem;
+  
     margin-left: 2rem;
     border-radius: 15px;
     padding-right: 2rem;
     
+}
+.mediaQuery{
+    width: 268px;
 }
 .navLinkContainer{
     padding-top: 1rem;

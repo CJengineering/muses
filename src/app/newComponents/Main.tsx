@@ -10,7 +10,7 @@ export default function Main() {
       <div className={styles.mobileViewWrapper}>
         <div className={styles.mobilePageWrapper}>
         <div className={styles.divider24}></div>
-          <div className={styles.mainTitle}> Pages</div>
+          <div className={styles.mainTitle}> Content</div>
           <div className={styles.divider24}></div>
           <div className={styles.latestWrapper}>
             <div className={styles.latestContainer}>

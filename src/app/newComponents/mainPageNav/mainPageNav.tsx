@@ -5,16 +5,13 @@ import { createPresentationSearchAttributes } from 'src/presentation/createPrese
 import KeywordModal from '../modals/KeywordModal';
 import CustomArticle from '../modals/CustomArticle';
 export function MainPageNav() {
-    const presentationFilter = useAppSelector(createPresentationSearchAttributes)
+  const presentationFilter = useAppSelector(createPresentationSearchAttributes);
 
   return (
     <div className="main-page-nav-wrapper ">
-      <div className={styles.main_page_nav_container}>
-    
-          <h1>Pages </h1>
+      <div className={styles.main_page_nav_container} >
+        <h1>Content </h1>
 
-
- 
         <div className="main_page_nav_item">
           <div className={styles.nav_item_buttons_container}>
             {/* <Button variant="contained" color="success">
@@ -23,8 +20,8 @@ export function MainPageNav() {
             <Button variant="contained" sx={{backgroundColor:'blue'}}>
               + keyword
             </Button> */}
-            <CustomArticle/>
-            <KeywordModal/>
+            <CustomArticle />
+            <KeywordModal />
             <div className={styles.nav_icon_user}>ND</div>
           </div>
         </div>

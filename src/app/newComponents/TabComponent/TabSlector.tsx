@@ -72,7 +72,7 @@ export default function TabSelctor() {
   };
 
   return (
-    <Box sx={{ width: '600px', textTransform: 'none', marginBottom: '2rem' }}>
+    <Box sx={{ width: '600px', textTransform: 'none'}}>
       <TabContext value={presentationNewTab.status}>
         <Box>
           <TabList onChange={handleChange} aria-label="lab API tabs example">

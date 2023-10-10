@@ -182,9 +182,11 @@ h2{
   background-color: green;
 }
 .yellow{background-color: yellow;}
+
 .main-page-wrapper{
   width: 100%;
-  padding: 1rem;
+  padding-inline: 1rem;
+ 
 }
 @media screen and (max-width: 768px) {
   .main-page-wrapper{
@@ -201,6 +203,7 @@ h2{
 .tab-nav-container{
   display: flex;
   justify-content: space-between;
+  
 }
 .initial-full-screen-wrapper{
   display: flex;
