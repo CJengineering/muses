@@ -43,7 +43,7 @@ const navItems: NavItem[] = [
   {
     text: 'Content',
     icon: <ContentIcon />,
-    link: '/content',
+    link: '/',
   },
   {
     text: 'Keywords ',
