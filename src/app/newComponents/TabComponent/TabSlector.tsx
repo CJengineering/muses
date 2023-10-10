@@ -72,9 +72,11 @@ export default function TabSelctor() {
   };
 
   return (
+
     <Box sx={{ width: '600px', textTransform: 'none'}}>
-      <TabContext value={presentationNewTab.status}>
-        <Box>
+      <TabContext value={presentationNewTab.status} >
+        
+        <Box >
           <TabList onChange={handleChange} aria-label="lab API tabs example">
             <Tab
               label={
@@ -200,5 +202,6 @@ export default function TabSelctor() {
         </Box>
       </TabContext>
     </Box>
+
   );
 }

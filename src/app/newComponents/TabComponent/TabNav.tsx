@@ -33,7 +33,7 @@ export default function TabNav() {
 
 
   return (
-    <div className="tab-nav-container ">
+    <div className="tab-nav-container sticky">
       <div className="tab-nav-item">
         <TabSelctor />
         

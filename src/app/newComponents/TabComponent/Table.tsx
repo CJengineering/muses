@@ -162,7 +162,7 @@ export default function TableNew() {
 
   return (
     <div className="table" >
-      <Table sx={{ minWidth: 850 }} stickyHeader aria-label="sticky table">
+      <Table sx={{ minWidth: 850 }} aria-label=" table">
         <TableHead>
           <TableRow>
             <TableCell sx={{ width: 10 }}>

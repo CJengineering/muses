@@ -140,7 +140,12 @@ justify-content: space-around;
   cursor: pointer; 
 }
 
-
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+}
 .count {
   font-weight: 700;
   font-size: 2rem;
