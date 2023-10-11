@@ -22,7 +22,7 @@ import {
   useUpdateArchive,
   useUpdateShortlist,
 } from 'src/app/hooks';
-import { createPresentationSelectedRows } from 'src/presentation/createPresentation';
+import { createPresentationNewTab, createPresentationSelectedRows } from 'src/presentation/createPresentation';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
 import BingImage from '../Icons/BingNewIcon';
 import BingNewIcon from '../Icons/BingNewIcon';
@@ -44,7 +44,7 @@ export default function RowNew({
     return `${day}/${month}/${year}`;
   };
   const { updateArchive } = useUpdateArchive();
-
+  const stateOfContent = useAppSelector(createPresentationNewTab);
   const dispatch = useAppDispatch();
   const presentation = useAppSelector(createPresentationSelectedRows);
   const typeIcon: Record<IconType, JSX.Element> = {
@@ -127,9 +127,10 @@ export default function RowNew({
         </TableCell>
         <TableCell>
           <div className={styles.actions_container}>
-            <ThumbUpIcon id={id} />
+            {stateOfContent.status === 'shortlist' ? null :  <ThumbUpIcon id={id} />}
+            {stateOfContent.status === 'archived' ? null :  <ArchiveIcon id={id} />}
             <WebflowIcon link={link} id={id} />
-            <ArchiveIcon id={id} />
+            
             <ChatGptIcon id={id} />
             <SlackIcon keyword={keyword}link={link} />
           </div>
