@@ -4,6 +4,12 @@
     cursor: pointer;
     transition: color 0.3s ease; 
 }
+.iconContainer{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+}
 .iconBing{
   display: flex;
   justify-content: center;

@@ -209,7 +209,7 @@ export default function TableNew() {
             </TableCell>
             <TableCell
               sx={{
-                width: 400,
+                width: 300,
                 fontWeight: 'bold',
                 fontFamily: 'IBM Plex Mono',
               }}

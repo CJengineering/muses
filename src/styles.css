@@ -124,7 +124,9 @@ body{
 .dashboard-title-small {
   font-size: 1rem;
 }
-
+a {
+  padding: 0px;
+}
 .dashboard-news-container {
 display: flex;
 justify-content: space-around;

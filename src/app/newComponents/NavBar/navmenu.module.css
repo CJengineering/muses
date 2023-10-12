@@ -1,13 +1,14 @@
 .navmenuWrapper{
-    background-color: white;
-    position: relative;
-    margin-left: 2rem;
+  
     border-radius: 15px;
-    padding-right: 2rem;
-    position:fixed;
-    height: 600px;
+    position: fixed;
+  margin-top: 18px;
+   
+
+
 
 }
+
 .logo{
     color: black;
     font-size: 16px;
@@ -24,20 +25,24 @@
 
 }
 .navmenuLogoWrapper{
-    background-color: white;
-   padding-left: 1rem;
-   margin-bottom: 1.2rem;
+   
+   background-color: white;
+   margin-top: 18px;
+  display: flex ;
+    justify-content: flex-start;
   
-    margin-left: 2rem;
     border-radius: 15px;
-    padding-right: 2rem;
+   
     
 }
 .mediaQuery{
-    width: 268px;
+    width: 15%;
 }
-.navLinkContainer{
-    padding-top: 1rem;
+.logoBigScreen{
+    font-family: 'IBM Plex Mono';
+    font-size: 18px;
+    margin-left: 18px;
+    font-weight: bold;
 }
 .mobileMenuWrapper{
     display: none;  
@@ -49,13 +54,16 @@
     .logo{
        padding: 0rem;
     }
-  
+    .mediaQuery{
+        width: 100%;
+    }
+    
     .navmenuLogoWrapper{
         display: flex;
         
         justify-content: space-between;
         align-items: center;
-   
+        
         margin-bottom: 0rem;
         margin-left: 0rem;
         margin-top: 0rem;

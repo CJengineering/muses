@@ -33,6 +33,11 @@ interface NavItem {
   icon: JSX.Element;
   link: string;
 }
+interface NavItemLegacy   {
+  text: string;
+
+  link: string;
+}
 
 const navItems: NavItem[] = [
   {
@@ -52,30 +57,30 @@ const navItems: NavItem[] = [
   },
 ];
 
-const navItemsArchive: NavItem[] = [
+const navItemsArchive:  NavItemLegacy[] = [
   {
     text: 'Google Alerts',
-    icon: <NotificationsIcon />,
+
     link: '/news/google-alerts',
   },
   {
     text: 'Google Search',
-    icon: <SearchIcon />,
+   
     link: '/news/google-search',
   },
   {
     text: 'Bing News',
-    icon: <NewReleasesIcon />,
+
     link: '/news/bing-news',
   },
   {
     text: 'Internal Searches',
-    icon: <NewReleasesIcon />,
+
     link: '/news/internal-articles',
   },
   {
     text: 'Keywords',
-    icon: <KeyIcon />,
+
     link: '/keywords',
   },
 ];
@@ -97,7 +102,7 @@ export default function NavMenu() {
   return (
     <div className={styles.mediaQuery} >
       <div className={styles.navmenuLogoWrapper} >
-        <div className={styles.logo}>MUSES</div>
+        <div className={styles.logo}><img src="src/assets/MUSES_LOGO_SVG.svg"  height='24px'alt="muses Logo" /></div>
         {isMenuOpen ? (
           <CloseIcon onClick={togleMenu} />
         ) : (
@@ -109,7 +114,7 @@ export default function NavMenu() {
         )}
       </div>
       {isMenuOpen ? (
-        <div className={styles.mobileMenuWrapper}>
+        <div className={styles.mobileMenuWrapper} >
           <List className={styles.fontClass}>
             {navItems.map((item) => (
               <ListItemButton
@@ -136,7 +141,7 @@ export default function NavMenu() {
                   },
                 }}
               >
-                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemIcon >{item.icon}</ListItemIcon>
                 <ListItemText
                   primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
                 >
@@ -153,6 +158,7 @@ export default function NavMenu() {
       <div className={styles.navmenuWrapper}>
         <div className={styles.navmenuContainer}>
           <div className={styles.navLinkContainer}>
+            <div className={styles.logoBigScreen}>MUSES</div>
             <List className={styles.fontClass}>
               {navItems.map((item) => (
                 <ListItemButton
@@ -162,6 +168,9 @@ export default function NavMenu() {
                   component={RouterLink}
                   to={item.link}
                   sx={{
+                    padding:'8px 54px 8px 18px',
+                
+
                     '&.Mui-selected': {
                       color: 'blue',
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
@@ -176,7 +185,7 @@ export default function NavMenu() {
                     },
                   }}
                 >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemIcon sx={{minWidth:'0px', marginRight:'9px'}}>{item.icon}</ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
                   >
@@ -185,7 +194,7 @@ export default function NavMenu() {
                 </ListItemButton>
               ))}
             </List>
-            <List sx={{ marginLeft: '1rem' }}>
+            <List sx={{ marginLeft: '18px' }}>
               <ListItemText>
                 <TableSortLabel
                   active={true}
@@ -196,7 +205,7 @@ export default function NavMenu() {
                     isChecked ? KeyboardArrowUpIcon : KeyboardArrowDownIcon
                   }
                 >
-                  <ListItemIcon>
+                  <ListItemIcon sx={{minWidth:'0px', marginRight:'9px'}}>
                     <HourglassEmptyIcon />
                   </ListItemIcon>
                   Legacy
@@ -215,6 +224,7 @@ export default function NavMenu() {
                   component={RouterLink}
                   to={item.link}
                   sx={{
+                    paddingLeft: '18px',
                     '&.Mui-selected': {
                       color: 'blue',
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
@@ -229,7 +239,6 @@ export default function NavMenu() {
                     },
                   }}
                 >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText
                     primaryTypographyProps={{ fontFamily: 'IBM Plex Mono' }}
                   >
