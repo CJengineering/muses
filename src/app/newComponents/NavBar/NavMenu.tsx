@@ -160,7 +160,7 @@ export default function NavMenu() {
       <div className={styles.navmenuWrapper}>
         <div className={styles.navmenuContainer}>
           <div className={styles.navLinkContainer}>
-            <div className={styles.logoBigScreen}>MUSES</div>
+            <div className={styles.logoBigScreen}><img src={logo } height={24} alt="logo Muses" /></div>
             <List className={styles.fontClass}>
               {navItems.map((item) => (
                 <ListItemButton

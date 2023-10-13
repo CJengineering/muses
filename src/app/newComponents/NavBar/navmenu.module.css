@@ -26,10 +26,10 @@
 }
 .navmenuLogoWrapper{
    
-   background-color: white;
+   display: none;
    margin-top: 18px;
-  display: flex ;
-    justify-content: flex-start;
+
+
   
     border-radius: 15px;
    
