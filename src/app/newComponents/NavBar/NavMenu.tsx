@@ -170,7 +170,11 @@ export default function NavMenu() {
                   component={RouterLink}
                   to={item.link}
                   sx={{
-                    padding:'8px 54px 8px 18px',
+                    //padding:'8px 54px 8px 18px',
+                   
+                 
+                    paddingLeft: '18px',
+              
                 
 
                     '&.Mui-selected': {
@@ -181,8 +185,10 @@ export default function NavMenu() {
                     },
                     '&:hover': {
                       backgroundColor: 'lightblue',
+                      
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                         color: 'blue',
+                        
                       },
                     },
                   }}
@@ -226,6 +232,7 @@ export default function NavMenu() {
                   component={RouterLink}
                   to={item.link}
                   sx={{
+                    
                     paddingLeft: '18px',
                     '&.Mui-selected': {
                       color: 'blue',
