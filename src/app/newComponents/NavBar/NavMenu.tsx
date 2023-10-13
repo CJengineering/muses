@@ -27,6 +27,8 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import ContentIcon from '../Icons/ContentIcon';
 import BrainIcon from '../Icons/BrainIcon';
 import { relative } from 'path';
+import LogoMain from '../Icons/LogoMain';
+import logo from 'MUSES_LOGO_PNG.png';
 
 interface NavItem {
   text: string;
@@ -102,7 +104,7 @@ export default function NavMenu() {
   return (
     <div className={styles.mediaQuery} >
       <div className={styles.navmenuLogoWrapper} >
-        <div className={styles.logo}><img src="MUSES_LOGO_SVG.svg"  height='24px'alt="muses Logo" /></div>
+        <div className={styles.logo}><img src={logo } height={24} alt="logo Muses" /></div>
         {isMenuOpen ? (
           <CloseIcon onClick={togleMenu} />
         ) : (
