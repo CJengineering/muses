@@ -48,7 +48,7 @@ export default function TabSelctor() {
         console.error('Error fetching data:', error);
       }
     }
-    if (location.pathname === '/content') {
+    if (location.pathname === '/') {
       try {
         await dispatch<any>(fetchPosts(url));
         console.log('DATA INSIDE ACTION', presentationTable.length)

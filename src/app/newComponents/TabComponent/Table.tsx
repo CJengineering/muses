@@ -17,6 +17,7 @@ import {
 } from 'src/app/hooks';
 import {
   createPresentationFilterState,
+  createPresentationLoading,
   createPresentationNewTab,
   createPresentationPosts,
   createPresentationSearchAttributes,
@@ -37,6 +38,7 @@ import { allSelected } from 'src/features/SelectAll/selectAllSlice';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
 import { useLocation, useParams } from 'react-router-dom';
 import NoItemPage from './NoItemPage';
+import { loadValueSelected } from 'src/features/Loader/loaderSlice';
 const exampleObjects: RowNewProps[] = [
   {
     id: 1,
@@ -97,16 +99,27 @@ export default function TableNew() {
   useEffect(() => {
     const fetchData = async () => {
       if (location.pathname === `/keywords-beta/${id}`) {
+        dispatch(loadValueSelected(true));
         await dispatch<any>(fetchPosts(tableStatus.status, Number(id)));
         if (filterStatus.status) {
           dispatch(postsFiltred(filterState.searchAttributes));
         }
+        dispatch(loadValueSelected(false));
       }
-      if (location.pathname === '/content') {
-        await dispatch<any>(fetchPosts(tableStatus.status));
-        if (filterStatus.status) {
-          dispatch(postsFiltred(filterState.searchAttributes));
+      if (location.pathname === '/') {
+        try{
+
+          dispatch(loadValueSelected(true));
+          await dispatch<any>(fetchPosts(tableStatus.status));
+          if (filterStatus.status) {
+            dispatch(postsFiltred(filterState.searchAttributes));
+          }
+        }finally{
+          setTimeout(() => {
+            dispatch(loadValueSelected(false));;
+          }, 10000); 
         }
+     
       }
     };
     fetchData();

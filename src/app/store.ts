@@ -8,6 +8,7 @@ import actionStateReducer from 'src/features/actionState/actionStateSlice'
 import selectAllReducer from 'src/features/SelectAll/selectAllSlice'
 import modalMobileOpenReducer from 'src/features/modalMobileOpen/modalMobileOpen'
 import  searchBarReducer from 'src/features/searchBar/searchBarSlice'
+import loaderValueReducer from 'src/features/Loader/loaderSlice'
 import rowsReducer from 'src/features/rowSelection/rowSlice'
 import newTableReducer from 'src/features/new table selctor/newTableSlice';
 import filterToggleReducer from 'src/features/filterToggle/filterToggleSlice';
@@ -34,7 +35,8 @@ export const rootReducer = combineReducers({
   actionState: actionStateReducer,
   selectAll: selectAllReducer,
   searchBar : searchBarReducer,
-  modalMobileOpen: modalMobileOpenReducer
+  modalMobileOpen: modalMobileOpenReducer,
+  loadValue: loaderValueReducer
 
 });
 
@@ -53,7 +55,8 @@ export const buildInitStore = (): AppState => ({
   actionState: {status:'archive'},
   selectAll: {status: false},
   searchBar : {status:''},
-  modalMobileOpen: {status: true, statusKeyword: true}
+  modalMobileOpen: {status: true, statusKeyword: true},
+  loadValue: { status: false},
 });
 
 export const createStore = (dependencies: unknown, hydrate?: AppState) =>

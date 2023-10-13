@@ -12,6 +12,9 @@ import { RootState } from 'src/app/store';
 export const createPresentation = (state: RootState) => {
   return { status: state.table.status };
 };
+export const createPresentationLoading = (state: RootState) => {
+  return state.loadValue.status;
+};
 export const createPresentationNewTab = (state: RootState) => {
   return { status: state.newtable.status };
 };

@@ -102,7 +102,7 @@ export default function NavMenu() {
   return (
     <div className={styles.mediaQuery} >
       <div className={styles.navmenuLogoWrapper} >
-        <div className={styles.logo}><img src="src/assets/MUSES_LOGO_SVG.svg"  height='24px'alt="muses Logo" /></div>
+        <div className={styles.logo}><img src="MUSES_LOGO_SVG.svg"  height='24px'alt="muses Logo" /></div>
         {isMenuOpen ? (
           <CloseIcon onClick={togleMenu} />
         ) : (
