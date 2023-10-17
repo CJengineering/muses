@@ -204,7 +204,7 @@ export default function NavMenu() {
                 </ListItemButton>
               ))}
             </List>
-            <List sx={{ marginLeft: '18px' }}>
+            <List sx={{ marginLeft: '24px' }}>
               <ListItemText>
                 <TableSortLabel
                   active={true}
@@ -215,7 +215,7 @@ export default function NavMenu() {
                     isChecked ? KeyboardArrowUpIcon : KeyboardArrowDownIcon
                   }
                 >
-                  <ListItemIcon sx={{minWidth:'0px', marginRight:'9px'}}>
+                  <ListItemIcon sx={{minWidth:'0px', marginRight:'8px'}}>
                     <HourglassEmptyIcon />
                   </ListItemIcon>
                   Legacy
