@@ -155,7 +155,7 @@ export default function TableKeyword() {
                       fontFamily: 'IBM Plex Mono',
                     }}
                   >
-                    PAGE
+                    KEYWORD
                   </TableCell>
                   <TableCell
                     sx={{
