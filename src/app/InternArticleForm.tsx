@@ -64,13 +64,18 @@ const InternArticleForm: React.FC = () => {
 
   return (
     <form className={styles.formKeyword}>
-
+      <h2 style={{margin:'0px'}}>Add page</h2>
       <TextField
-        label="Paste your URL"
+        label="Add URL..."
         value={link}
         onChange={(event) => setLink(event.target.value)}
         fullWidth
-        margin="normal"
+        sx={{marginTop:'18px'}}
+        InputLabelProps={{
+          style: {
+            fontFamily: 'IBM Plex Mono',
+          },
+        }}
         variant="outlined"
       />
       <Autocomplete
@@ -81,13 +86,18 @@ const InternArticleForm: React.FC = () => {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Add a Keyword"
+            label="Select a Keyword"
             variant="outlined"
-            margin="normal"
+            sx={{marginTop:'18px'}}
+            InputLabelProps={{
+              style: {
+                fontFamily: 'IBM Plex Mono',
+              },
+            }}
           />
         )}
       />
-      <Button variant="contained" sx={{marginTop:'2rem'}}color='success'onClick={handleSubmit}>+ Article</Button>
+      <Button variant="contained" sx={{marginTop:'18px'}}color='success'onClick={handleSubmit}>+ Page</Button>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

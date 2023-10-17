@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material';
-import styles from './app.module.css'
+import styles from './app.module.css';
 
 function CreateKeywordForm() {
   const [keyword, setKeyword] = useState<string>('');
@@ -72,40 +72,52 @@ function CreateKeywordForm() {
     setIsCombined((prevIsCombined) => !prevIsCombined);
   };
   return (
-    <form onSubmit={handleSubmit} className={styles.formKeyword}>
-
+    <form onSubmit={handleSubmit} className={styles.formKeyword} style={{marginTop:'18px'}}>
+      <h2 style={{ margin: '0px' }}>Add keyword</h2>
       <TextField
-        label="Keyword"
+        label="Add keyword..."
         variant="outlined"
         value={keyword}
+        sx={{ marginTop: '18px' }}
         onChange={handleChangeKeyword}
         fullWidth
-        margin="normal"
+        InputLabelProps={{
+          style: {
+            fontFamily: 'IBM Plex Mono',
+          },
+        }}
       />
       <TextField
-        label="RSS Feed"
+        label="RSS Feed..."
         variant="outlined"
         value={rssFeed}
         onChange={handleChangeRssFeed}
+        sx={{ marginTop: '18px' }}
         fullWidth
-        margin="normal"
+        InputLabelProps={{
+          style: {
+            fontFamily: 'IBM Plex Mono',
+          },
+        }}
       />
       <div>
         <div>
           <FormControlLabel
             control={
-              <Switch checked={isFactiva} onChange={handleToggleFactiva} />
-            }
-            label="Factiva"
-          />
-          <FormControlLabel
-            control={
               <Switch checked={isCombined} onChange={handleToggleCombined} />
             }
+            sx={{
+              fontFamily: 'IBM Plex Mono',
+            }}
             label="Combined"
           />
         </div>
-        <Button type="submit" variant="contained" color="primary" sx={{marginTop:'2rem'}}>
+        <Button
+          type="submit"
+          variant="contained"
+          
+          sx={{ marginTop: '18px', backgroundColor:'blue' }}
+        >
           + Keyword
         </Button>
       </div>

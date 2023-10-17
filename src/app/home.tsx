@@ -95,9 +95,9 @@ export default function Home() {
           <h1>Dashboard</h1>
         </div>
         <div className={styles.formContainer}>
-          <CreateKeywordForm />
 
           <InternArticleForm />
+          <CreateKeywordForm />
         </div>
       </div>
     </>
