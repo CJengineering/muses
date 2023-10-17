@@ -139,6 +139,7 @@ export default function NavMenu() {
                     backgroundColor: 'lightblue',
                     '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                       color: 'blue',
+                      borderRadius:'10px',
                     },
                   },
                 }}
@@ -170,8 +171,8 @@ export default function NavMenu() {
                   component={RouterLink}
                   to={item.link}
                   sx={{
-                    //padding:'8px 54px 8px 18px',
-                   
+                    padding:'8px 36px 8px 18px',
+                    marginLeft:'6px',
                  
                     paddingLeft: '18px',
               
@@ -179,13 +180,14 @@ export default function NavMenu() {
 
                     '&.Mui-selected': {
                       color: 'blue',
+                      borderRadius:'6px',
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                         color: 'blue',
                       },
                     },
                     '&:hover': {
                       backgroundColor: 'lightblue',
-                      
+                      borderRadius:'3px',
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                         color: 'blue',
                         
@@ -232,18 +234,22 @@ export default function NavMenu() {
                   component={RouterLink}
                   to={item.link}
                   sx={{
-                    
-                    paddingLeft: '18px',
+                    padding:'8px 36px 8px 18px',
+                    marginLeft:'6px',
+                  
                     '&.Mui-selected': {
                       color: 'blue',
+              
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                         color: 'blue',
                       },
                     },
                     '&:hover': {
                       backgroundColor: 'lightblue',
+                      
                       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
                         color: 'blue',
+                        
                       },
                     },
                   }}

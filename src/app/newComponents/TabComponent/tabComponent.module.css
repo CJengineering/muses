@@ -5,7 +5,7 @@
     column-gap: 1rem;
 }
 .searchkeyword{
-    font-family: 'IBM Plex Mono';
+    font-family:  'IBM Plex Mono' important!;
 }
 .tab_nav_container{
     margin-bottom: 1rem;

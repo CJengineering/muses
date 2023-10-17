@@ -22,11 +22,17 @@ import {
   useUpdateArchive,
   useUpdateShortlist,
 } from 'src/app/hooks';
-import { createPresentationNewTab, createPresentationSelectedRows } from 'src/presentation/createPresentation';
+import {
+  createPresentationNewTab,
+  createPresentationSelectedRows,
+} from 'src/presentation/createPresentation';
 import { toggleSelectedRow } from 'src/features/rowSelection/rowSlice';
 import BingImage from '../Icons/BingNewIcon';
 import BingNewIcon from '../Icons/BingNewIcon';
 import SlackIcon from '../Icons/SlackIcon';
+import NewTab from '../Icons/NewTab';
+import Modal from '@mui/material/Modal';
+import ArticleInfo from '../ArticleInfoModal/ArticleInfo';
 
 export default function RowNew({
   id,
@@ -37,6 +43,11 @@ export default function RowNew({
   score,
   source,
 }: RowNewProps) {
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  
+
   const formatDate = (date: Date) => {
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because JavaScript months start from 0
@@ -53,6 +64,7 @@ export default function RowNew({
     google_alert: <BellIcon />,
     custom: <HeartIcon />,
   };
+
   const handleArchive = async (id: number) => {
     await updateArchive(id);
   };
@@ -90,15 +102,47 @@ export default function RowNew({
             height: '3rem',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-        
+
             alignItems: 'center',
           }}
         >
-          <a href={link} target='_blank' className={styles.text_link}>
-            {title}
-          </a>
+          {' '}
+          <div style={{ display: 'flex' }}>
+            <div style={{ cursor: 'pointer' }} onClick={handleOpen}>
+              {title}
+            
+            </div>
+            <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+              >
+                <Box
+                 
+                  sx={{
+                    position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                   bgcolor:'white',
+                
+                    p: 4
+                  }}
+                > <ArticleInfo id={id}/> </Box>
+              </Modal>
+            <a
+              href={link}
+              target="_blank"
+              style={{}}
+              className={styles.text_link}
+            >
+              <NewTab />
+            </a>
+          </div>
         </TableCell>
-        <TableCell align="left" sx={{}}>{typeIcon[source]}</TableCell>
+        <TableCell align="left" sx={{}}>
+          {typeIcon[source]}
+        </TableCell>
         <TableCell align="left" sx={{ fontFamily: 'IBM Plex Mono' }}>
           {formatDate(date)}
         </TableCell>
@@ -115,7 +159,7 @@ export default function RowNew({
             style={{
               maxHeight: '3rem',
               overflow: 'hidden',
-              whiteSpace:'nowrap',
+              whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
             }}
           >
@@ -127,12 +171,16 @@ export default function RowNew({
         </TableCell>
         <TableCell>
           <div className={styles.actions_container}>
-            {stateOfContent.status === 'shortlist' ? null :  <ThumbUpIcon id={id} />}
-            {stateOfContent.status === 'archived' ? null :  <ArchiveIcon id={id} />}
+            {stateOfContent.status === 'shortlist' ? null : (
+              <ThumbUpIcon id={id} />
+            )}
+            {stateOfContent.status === 'archived' ? null : (
+              <ArchiveIcon id={id} />
+            )}
             <WebflowIcon link={link} id={id} />
-            
+
             <ChatGptIcon id={id} />
-            <SlackIcon keyword={keyword}link={link} />
+            <SlackIcon keyword={keyword} link={link} />
           </div>
         </TableCell>
       </TableRow>

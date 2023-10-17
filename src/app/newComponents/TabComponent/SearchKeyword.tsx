@@ -36,8 +36,13 @@ export default function SearchKeyword() {
         value={search.status}
         size="small"
         onChange={handleAutocompleteChange}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Search..." />}
+        sx={{ width: 300,
+          '& input':{
+            fontFamily:'IBM Plex Sans'
+          }
+        }}
+        style={{fontFamily:'IBM Plex Sans'}}
+        renderInput={(params) => <TextField {...params} label="Search..."      style={{ fontFamily: 'IBM Plex Sans' }} />}
       />
     </div>
   );
