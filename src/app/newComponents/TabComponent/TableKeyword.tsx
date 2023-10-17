@@ -24,7 +24,7 @@ export default function TableKeyword() {
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [currentFilter, setCurrentFilter] = useState('');
-  
+
   const [page, setPage] = useState(0);
   const rowsPerPage = 100;
   const [open, setOpen] = useState(false);
@@ -38,7 +38,7 @@ export default function TableKeyword() {
       );
       const data = await response.json();
       setRows(data);
-      setFilteredRows([...data])
+      setFilteredRows([...data]);
       console.log('this is  data to see for combined attribute :', data);
       setLoading(false);
     } catch (error) {
@@ -78,139 +78,156 @@ export default function TableKeyword() {
           <div className={stylesApp.latestWrapper}>
             <div className={stylesApp.latestContainer}>
               <div className="table">
-                <Table  >
-              
+                <Table>
                   <TableBody>
-                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((keyword) => (
-                      <TableRow key={keyword.id} className={styles.tableRow}>
-                        <TableCell
-                        
-                          scope="row"
-                          sx={{
-                            fontFamily: 'IBM Plex Mono',
-                            height: '2rem',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            display: '-webkit-boxflex',
-                            paddingLeft: '0rem',
-                          }}
-                        >
-                      
+                    {rows
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((keyword) => (
+                        <TableRow key={keyword.id} className={styles.tableRow}>
+                          <TableCell
+                            scope="row"
+                            sx={{
+                              fontFamily: 'IBM Plex Mono',
+                              height: '2rem',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              display: '-webkit-boxflex',
+                              paddingLeft: '0rem',
+                            }}
+                          >
                             {keyword.key_word}
-                          
-                        </TableCell>
-                        <TableCell align="left"></TableCell>
-                      </TableRow>
-                    ))}
+                          </TableCell>
+                          <TableCell align="left"></TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </div>
               <Pagination
-        count={Math.ceil(rows.length / rowsPerPage)}
-        page={page}
-        onChange={handleChangePage}
-      />
-     
+                count={Math.ceil(rows.length / rowsPerPage)}
+                page={page}
+                onChange={handleChangePage}
+              />
             </div>
           </div>
         </div>
       </div>
+      {/* Big Screen */}
       <div className="main-page-wrapper ">
         <MainPageNav />
-        <TextField
-  label="Search"
-  variant="outlined"
-  value={searchInput}
-  onChange={(e) => setSearchInput(e.target.value)}
-/>
-        <div className="table">
-          <Table sx={{ minWidth: 850 }} aria-label="simple table">
-          <TableHead>
-              <TableRow>
-                <TableCell
-                  sx={{
-                    width: '100%',
-                    fontWeight: 'bold',
-                    fontFamily: 'IBM Plex Mono',
-                  }}
-                >
-                  PAGE
-                </TableCell>
-                <TableCell
-                  sx={{
-                    width: 100,
-                    fontWeight: 'bold',
-                    fontFamily: 'IBM Plex Mono',
-                    color: currentFilter === 'combined' ? 'blue' : 'black',
-                  }}
-                  align="left"
-                  onClick={() => setCurrentFilter('rss_false')}
-                >
-                  RSS
-                </TableCell>
-                <TableCell
-                  sx={{
-                    width: 100,
-                    fontWeight: 'bold',
-                    fontFamily: 'IBM Plex Mono',
-                    color: currentFilter === 'combined' ? 'blue' : 'black',
-                  }}
-                  align="left"
-                  onClick={() => setCurrentFilter('combined')}
-                >
-                  combined
-                </TableCell>
+        <div className="tab-wrapper">
+          <div className={styles.searchBarContainer}>
+            <TextField
+            size="small"
+              label="Search Keywords"
+              variant="outlined"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
 
-                <TableCell
-                  sx={{
-                    width: 400,
-                    fontWeight: 'bold',
-                    fontFamily: 'IBM Plex Mono',
-                  }}
-                  align="left"
-                >
-                  ACTIONS
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredRows.map((keyword) => (
-                <TableRow key={keyword.id} className={styles.tableRow}>
+            />
+          </div>
+          <div className="table">
+            <Table sx={{ minWidth: 850 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
                   <TableCell
-                    component="th"
-                    scope="row"
                     sx={{
+                      width: '100%',
+                      fontWeight: 'bold',
                       fontFamily: 'IBM Plex Mono',
-                      height: '3rem',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      display: '-webkit-boxflex',
-                      alignItems: 'center',
                     }}
                   >
-                    <a
-                      href={`/keywords-beta/${keyword.id}`}
-                      target="_blank"
-                      className={styles.text_link}
-                    >
-                      {keyword.key_word}
-                    </a>
+                    PAGE
                   </TableCell>
-                  <TableCell align="left">{keyword.rss_url ?<CheckIcon sx={{color:'green'}} /> : < CloseIcon sx={{color:'red'}} />}</TableCell>
-                  <TableCell align="left">{keyword.combined ?<JoinFullIcon sx={{color:'blue'}} /> : null}</TableCell>
-                  <TableCell sx={{display:'felx'}}>
-                  <UpdateKeywordForm
-                    factiva={keyword.factiva}
-                    rss={keyword.rss_url}
-                    keywordName={keyword.key_word}
-                    keywordId={keyword.id}
-                    combined = {keyword.combined}
-                  />
+                  <TableCell
+                    sx={{
+                      width: 100,
+                      fontWeight: 'bold',
+                      fontFamily: 'IBM Plex Mono',
+                      color: currentFilter === 'combined' ? 'blue' : 'black',
+                    }}
+                    align="left"
+                    onClick={() => setCurrentFilter('rss_false')}
+                  >
+                    RSS
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      width: 100,
+                      fontWeight: 'bold',
+                      fontFamily: 'IBM Plex Mono',
+                      color: currentFilter === 'combined' ? 'blue' : 'black',
+                    }}
+                    align="left"
+                    onClick={() => setCurrentFilter('combined')}
+                  >
+                    combined
+                  </TableCell>
+
+                  <TableCell
+                    sx={{
+                      width: 400,
+                      fontWeight: 'bold',
+                      fontFamily: 'IBM Plex Mono',
+                    }}
+                    align="left"
+                  >
+                    ACTIONS
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {filteredRows.map((keyword) => (
+                  <TableRow key={keyword.id} className={styles.tableRow}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{
+                        fontFamily: 'IBM Plex Mono',
+                        height: '3rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-boxflex',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <a
+                        href={`/keywords-beta/${keyword.id}`}
+                        target="_blank"
+                        className={styles.text_link}
+                      >
+                        {keyword.key_word}
+                      </a>
+                    </TableCell>
+                    <TableCell align="left">
+                      {keyword.rss_url ? (
+                        <CheckIcon sx={{ color: 'green' }} />
+                      ) : (
+                        <CloseIcon sx={{ color: 'red' }} />
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {keyword.combined ? (
+                        <JoinFullIcon sx={{ color: 'blue' }} />
+                      ) : null}
+                    </TableCell>
+                    <TableCell sx={{ display: 'felx' }}>
+                      <UpdateKeywordForm
+                        factiva={keyword.factiva}
+                        rss={keyword.rss_url}
+                        keywordName={keyword.key_word}
+                        keywordId={keyword.id}
+                        combined={keyword.combined}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
       </div>
     </>

@@ -110,7 +110,6 @@ export default function ArticleInfo({ id }: PropsId) {
       If the score is more than 0, and you see this message, send this article to Slack Channel Muses Bug and ping kindly Tim
       </div>
     )}
-     
     </div>
   );
 }
