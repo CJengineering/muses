@@ -51,11 +51,14 @@ export default function TableKeyword() {
     let filteredData;
 
     if (searchInput === '') {
-      // If search input is empty, show all rows
+ 
       filteredData = [...rows];
-    } else {
+    }  else {
+      const lowerCaseSearchInput = searchInput.toLowerCase(); 
+  
       filteredData = rows.filter((keyword) => {
-        const keyWordFilter = keyword.key_word.includes(searchInput);
+        const lowerCaseKeyword = keyword.key_word.toLowerCase(); 
+        const keyWordFilter = lowerCaseKeyword.includes(lowerCaseSearchInput);
         return keyWordFilter;
       });
     }
