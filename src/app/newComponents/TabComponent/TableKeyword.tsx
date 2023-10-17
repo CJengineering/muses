@@ -7,6 +7,7 @@ import {
   TableRow,
   TextField,
 } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import React, { useEffect, useState } from 'react';
 import styles from './tabComponent.module.css';
 import stylesApp from 'src/app/app.module.css';
@@ -24,7 +25,7 @@ export default function TableKeyword() {
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [currentFilter, setCurrentFilter] = useState('');
-
+  const [filterByCombined, setFilterByCombined] = useState(false);
   const [page, setPage] = useState(0);
   const rowsPerPage = 100;
   const [open, setOpen] = useState(false);
@@ -45,6 +46,7 @@ export default function TableKeyword() {
       console.error(error);
     }
   };
+
   const handleFilter = () => {
     let filteredData;
 
@@ -67,6 +69,17 @@ export default function TableKeyword() {
   useEffect(() => {
     handleFilter();
   }, [searchInput]);
+
+  const handleToggleCombined = () => {
+    setFilterByCombined((prevFilter) => !prevFilter);
+
+    if (filterByCombined) {
+
+      setFilteredRows([...rows]);
+    } else {
+      setFilteredRows(prevRows => prevRows.filter(row => row.combined));
+    }
+  };
 
   return (
     <>
@@ -121,12 +134,11 @@ export default function TableKeyword() {
         <div className="tab-wrapper">
           <div className={styles.searchBarContainer}>
             <TextField
-            size="small"
+              size="small"
               label="Search Keywords"
               variant="outlined"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-
             />
           </div>
           <div className="table">
@@ -157,14 +169,17 @@ export default function TableKeyword() {
                   <TableCell
                     sx={{
                       width: 100,
+                    cursor: 'pointer',
+                    display: 'flex',
                       fontWeight: 'bold',
                       fontFamily: 'IBM Plex Mono',
-                      color: currentFilter === 'combined' ? 'blue' : 'black',
+                    
+                      '&:hover': {  opacity: '60%'}
                     }}
                     align="left"
-                    onClick={() => setCurrentFilter('combined')}
+                    onClick={handleToggleCombined}
                   >
-                    combined
+                 COMBINED <CheckCircleIcon sx={{  color: filterByCombined ? 'green' : 'red',}}/>
                   </TableCell>
 
                   <TableCell
