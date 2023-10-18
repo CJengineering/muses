@@ -65,7 +65,7 @@ export function App() {
               />
               <Route path="/bing-news/:id" element={<BingArticle />} />
             </Routes>
-            <ToastContainer position="top-center" autoClose={2000}
+            <ToastContainer position="bottom-left" autoClose={2000}
 />
           </div>
         </>
