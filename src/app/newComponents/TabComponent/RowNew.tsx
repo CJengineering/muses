@@ -3,7 +3,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import styles from './tabComponent.module.css';
-
+import CloseIcon from '@mui/icons-material/Close';
 import GoogleIcon from '../Icons/GoogleIcon';
 import WebflowIcon from '../Icons/WebflowIcon';
 import ThumbUpIcon from '../Icons/ThumbUpIcon';
@@ -43,10 +43,8 @@ export default function RowNew({
   score,
   source,
 }: RowNewProps) {
-
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  
 
   const formatDate = (date: Date) => {
     const day = date.getDate().toString().padStart(2, '0');
@@ -110,26 +108,28 @@ export default function RowNew({
           <div style={{ display: 'flex' }}>
             <div style={{ cursor: 'pointer' }} onClick={handleOpen}>
               {title}
-            
             </div>
-            <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-              >
-                <Box
-                 
-                  sx={{
-                    position: 'absolute' as 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 400,
-                   bgcolor:'white',
-                
-                    p: 4
-                  }}
-                > <ArticleInfo id={id}/> </Box>
-              </Modal>
+            <Modal open={open} onClose={() => setOpen(false)}>
+              <Box
+                sx={{
+                  
+                  position: 'absolute' as 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: 400,
+                  bgcolor: 'white',
+
+                  p: 4,
+                }}
+              > 
+              <div style={{display:'flex', justifyContent:'flex-end'}}>
+
+                <CloseIcon  sx={{cursor:'pointer'}} onClick={()=>setOpen(false)}/>
+              </div>
+                <ArticleInfo id={id} />{' '}
+              </Box>
+            </Modal>
             <a
               href={link}
               target="_blank"

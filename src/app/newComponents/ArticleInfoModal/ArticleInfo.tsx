@@ -110,6 +110,10 @@ export default function ArticleInfo({ id }: PropsId) {
       If the score is more than 0, and you see this message, send this article to Slack Channel Muses Bug and ping kindly Tim
       </div>
     )}
+      {relatedKeywords &&
+      Object.values(relatedKeywords).reduce((acc, value) => acc + value, 0) === 0 && (
+        <div>No Keywords in this article</div>
+      )}
     </div>
   );
 }

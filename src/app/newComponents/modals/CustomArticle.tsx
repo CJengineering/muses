@@ -34,6 +34,7 @@ export default function CustomArticle() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          
           <InternArticleForm />
         </Box>
       </Modal>
