@@ -126,3 +126,43 @@ export const useUpdateArchive = () => {
     };
     return {sendSlackMessage}
   }
+  export const useTokenRevoker = () => {
+
+    const revokeToken = async (accessToken: string) => {
+      try {
+        const response = await fetch('https://new-alerts-e4f6j5kdsq-ew.a.run.app/users/tokens/revoke', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+  
+        if (response.ok) {
+          console.log('Token revoked successfully.');
+        } else {
+          console.error('Error revoking token:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error revoking token:', error);
+      }
+    };
+  
+    const clearLocalStorage = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('id');
+      console.log('Local storage cleared.');
+    };
+  
+    const reloadPage = () => {
+      window.location.reload();
+    };
+  
+    const handleTokenRevocation = async (accessToken: string) => {
+      await revokeToken(accessToken);
+      clearLocalStorage();
+      reloadPage();
+    };
+  
+    return { handleTokenRevocation };
+  };

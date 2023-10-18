@@ -1,14 +1,30 @@
 import Button from '@mui/material/Button/Button';
 import styles from './MainPageNav.module.css';
-import { useAppSelector } from 'src/app/hooks';
+import { useAppSelector, useTokenRevoker } from 'src/app/hooks';
 import { createPresentationSearchAttributes } from 'src/presentation/createPresentation';
 import KeywordModal from '../modals/KeywordModal';
 import CustomArticle from '../modals/CustomArticle';
 import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export function MainPageNav() {
   const presentationFilter = useAppSelector(createPresentationSearchAttributes);
   const location = useLocation();
+  const { handleTokenRevocation } = useTokenRevoker();
+  const accessToken = localStorage.getItem('token')as string
+  const id  = localStorage.getItem('id')         
+  const userInitial = {
+    "1": 'ND',
+    "2" : 'TS',
+    "3" : 'SG',
+    "4" : 'MH'
+  }
+  const [userName, setUserName] = useState('');
+  const userNameToShow = id ? userInitial[id as "1" | "2" | "3" | "4"] : '1'
+
+  const handleLogout = async () => {
+    await handleTokenRevocation(accessToken);
+  };
   return (
     <div className="main-page-nav-wrapper ">
       <div className={styles.main_page_nav_container}>
@@ -24,7 +40,7 @@ export function MainPageNav() {
             </Button> */}
             <CustomArticle />
             <KeywordModal />
-            <div className={styles.nav_icon_user}>ND</div>
+            <div className={styles.nav_icon_user} onClick={handleLogout}>{userNameToShow}</div>
           </div>
         </div>
       </div>

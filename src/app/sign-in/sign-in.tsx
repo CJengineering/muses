@@ -51,12 +51,14 @@ export default function SignIn() {
       if (response.ok) {
         // Sign-in successful
         const data = await response.json();
-        const { token, refresh_token } = data;
+        console.log(data.resource_owner.id);
+        const { token, refresh_token} = data;
         setLoading(true)
         console.log(token);
         // Store the access token and refresh token in localStorage or secure storage
         localStorage.setItem('token', token);
         localStorage.setItem('refresh_token', refresh_token);
+        localStorage.setItem('id', data.resource_owner.id);
         await setAuthenticated(true);
         setLoading(false)
         console.log(authenticated);
