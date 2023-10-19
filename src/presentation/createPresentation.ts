@@ -85,6 +85,7 @@ export const createPresentationPosts = (state: RootState): RowNewProps[] => {
       keyword: post.key_word.key_word,
       score: post.score,
       source: source,
+      comments: post.comments,
     });
   });
 

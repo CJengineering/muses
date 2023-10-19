@@ -49,6 +49,7 @@ const exampleObjects: RowNewProps[] = [
     keyword: 'example keyword 1',
     score: 85,
     source: 'bing',
+    comments: []
   },
   {
     id: 2,
@@ -58,6 +59,8 @@ const exampleObjects: RowNewProps[] = [
     keyword: 'example keyword 2',
     score: 92,
     source: 'google',
+
+    comments: []
   },
   {
     id: 3,
@@ -67,6 +70,8 @@ const exampleObjects: RowNewProps[] = [
     keyword: 'example keyword 3',
     score: 78,
     source: 'google_alert',
+
+    comments: []
   },
 ];
 
@@ -172,7 +177,7 @@ export default function TableNew() {
   };
   const startIdx = (page - 1) * rowsPerPage;
   const endIdx = page * rowsPerPage;
-
+  console.log('this is a presentation table', presentationTable)
   return (
     <div className="table" >
       <Table sx={{ minWidth: 850 }} aria-label=" table">
@@ -270,6 +275,7 @@ export default function TableNew() {
               score={object.score}
               link={object.link}
               id={object.id}
+              comments={object.comments}
             />
           ))}
         </TableBody>

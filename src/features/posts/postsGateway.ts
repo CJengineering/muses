@@ -37,6 +37,7 @@ export class InMemoryPostGateway implements PostGateway {
         score_second: 4,
         category_label: 'example keyword 1',
         source: 'bing',
+        comments: []
       },
     ];
   }

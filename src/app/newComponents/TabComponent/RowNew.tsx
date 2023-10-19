@@ -42,6 +42,7 @@ export default function RowNew({
   keyword,
   score,
   source,
+  comments
 }: RowNewProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,7 +74,7 @@ export default function RowNew({
   ) => {
     dispatch(toggleSelectedRow(id));
   };
-
+console.log('this is a comment',comments)
   return (
     <>
       <TableRow
@@ -106,7 +107,7 @@ export default function RowNew({
         >
           {' '}
           <div style={{ display: 'flex' }}>
-            <div style={{ cursor: 'pointer' }} onClick={handleOpen}>
+            <div style={{ cursor: 'pointer', color: comments.length > 0 ? 'green' : 'black' }} onClick={handleOpen}>
               {title}
             </div>
             <Modal open={open} onClose={() => setOpen(false)}>

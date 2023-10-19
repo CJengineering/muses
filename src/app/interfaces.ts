@@ -23,6 +23,7 @@ export type RowNewProps = {
   keyword: string;
   score: number;
   source: IconType;
+  comments: [];
 };
 export interface Post {
   id: number;
@@ -39,6 +40,7 @@ export interface Post {
   key_word: {
       key_word: string;
   };
+  comments: [];
 }
 
 export interface DashBoardGateway {
