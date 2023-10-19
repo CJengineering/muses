@@ -64,7 +64,7 @@ const InternArticleForm: React.FC = () => {
 
   return (
     <form className={styles.formKeyword}>
-      <h2 style={{margin:'0px'}}>Add page</h2>
+      <h2 style={{margin:'0px'}}>Add content</h2>
       <TextField
         label="Add URL..."
         value={link}
@@ -97,7 +97,7 @@ const InternArticleForm: React.FC = () => {
           />
         )}
       />
-      <Button variant="contained" sx={{marginTop:'18px'}}color='success'onClick={handleSubmit}>+ Page</Button>
+      <Button variant="contained" sx={{marginTop:'18px'}}color='success'onClick={handleSubmit}>+ content</Button>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={3000}

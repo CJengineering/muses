@@ -25,7 +25,7 @@ export default function CustomArticle() {
   return (
     <div>
       <Button variant="contained" onClick={handleOpen} color="success">
-        + page
+        + content
       </Button>
       <Modal
         open={open}
@@ -34,7 +34,7 @@ export default function CustomArticle() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          
+
           <InternArticleForm />
         </Box>
       </Modal>
