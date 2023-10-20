@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'react-toastify';
 
 interface UpdateKeywordFormProps {
   keywordId: number;
@@ -65,10 +66,13 @@ function UpdateKeywordForm({
         }
       );
 
-      if (response.status === 302) {
+      if (response.status === 200) {
         const data = await response.json();
-
+        toast.success('Your keyword has been updated successfully')
+        console.log(response.status, data)
         setSuccessMessage('Keyword updated successfully');
+        handleClose();
+      
       } else {
         throw new Error('Failed to update keyword');
       }
@@ -88,6 +92,7 @@ function UpdateKeywordForm({
       );
 
       if (response.status === 302) {
+      
         setSuccessMessage('Keyword deleted successfully');
         handleClose();
         window.location.reload();

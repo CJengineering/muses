@@ -53,7 +53,7 @@ export default function ActionSelector() {
     dispatch(actionSelected(event.target.value as ActionStatus));
   };
   const handleBulkArchive = async () => {
-    toast.success(`It's moving to ${actionStatus.status}`);
+    toast.success(`Your content item was successfully ${actionStatus.status}ed`);
     presentationBulk.selectedRows.forEach(async (item) => {
       if (actionStatus.status == 'archive') {
    

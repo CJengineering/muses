@@ -63,6 +63,8 @@ export default function ArticleInfo({ id }: PropsId) {
         return 'Sabrina';
       case 4:
         return 'Melissa';
+        case 5:
+            return 'Nader'
       default:
         return ''; // Handle the case when id is not 1, 2, 3, or 4
     }
@@ -90,6 +92,7 @@ export default function ArticleInfo({ id }: PropsId) {
 
     fetchArticle();
   }, [id]);
+
   const fetchComments = async () => {
     setLoadComments(true);
     try {
@@ -148,6 +151,7 @@ export default function ArticleInfo({ id }: PropsId) {
                 </div>
               ))}
             </div>
+
           )}
           <h2>Add Comment</h2>
         
@@ -157,6 +161,7 @@ export default function ArticleInfo({ id }: PropsId) {
             onCommentAdded={fetchComments}
           />
         </div>
+        
         {relatedKeywords ? (
           Object.entries(relatedKeywords).map(([keyword, value]) => {
             if (value > 0) {

@@ -17,7 +17,8 @@ export function MainPageNav() {
     "1": 'ND',
     "2" : 'TS',
     "3" : 'SG',
-    "4" : 'MH'
+    "4" : 'MH',
+    "5":"ND"
   }
   const [userName, setUserName] = useState('');
   const userNameToShow = id ? userInitial[id as "1" | "2" | "3" | "4"] : '1'
